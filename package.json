@@ -1,0 +1,53 @@
+{
+  "name": "create-react-app-with-styled-components-typescript",
+  "version": "5.0.0",
+  "private": true,
+  "dependencies": {
+    "@mui/icons-material": "^5.11.0",
+    "@mui/lab": "latest",
+    "@mui/material": "latest",
+    "@mui/styled-engine-sc": "latest",
+    "@testing-library/jest-dom": "latest",
+    "@testing-library/react": "latest",
+    "@testing-library/user-event": "latest",
+    "axios": "^1.2.1",
+    "express": "^4.18.2",
+    "formik": "^2.2.9",
+    "http-proxy-middleware": "^3.0.0-beta.0",
+    "react": "^18.2.0",
+    "react-auth-kit": "^2.7.1",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.6.1",
+    "react-scripts": "latest",
+    "styled-components": "latest"
+  },
+  "scripts": {
+    "tsc": "./node_modules/.bin/tsc",
+    "start": "craco start",
+    "build": "craco build",
+    "test": "craco test",
+    "eject": "react-scripts eject"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "@craco/craco": "latest",
+    "@types/node": "latest",
+    "@types/react": "latest",
+    "@types/react-dom": "latest",
+    "@types/styled-components": "latest",
+    "craco-alias": "^3.0.1",
+    "typescript": "latest"
+  },
+  "proxy":"https://nflplayoffbracket-test-rof7qukjwa-uc.a.run.app"
+}
