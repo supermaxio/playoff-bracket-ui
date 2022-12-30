@@ -1,13 +1,13 @@
 var apiDomain = ""
 switch(process.env.NODE_ENV) {
   case "development":
-    apiDomain = "";
+    apiDomain = "/api";
     break;
     case "test":
       apiDomain = "https://nflplayoffbracket-test-rof7qukjwa-uc.a.run.app";
       break;
       default:
-        apiDomain = "";
+        apiDomain = "/api";
       break;
   }
 

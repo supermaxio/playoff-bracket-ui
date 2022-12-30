@@ -49,6 +49,5 @@
     "@types/styled-components": "latest",
     "craco-alias": "^3.0.1",
     "typescript": "latest"
-  },
-  "proxy": "https://nflplayoffbracket-test-rof7qukjwa-uc.a.run.app"
+  }
 }
