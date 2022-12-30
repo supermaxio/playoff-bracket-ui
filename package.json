@@ -14,6 +14,7 @@
     "express": "^4.18.2",
     "formik": "^2.2.9",
     "http-proxy-middleware": "^3.0.0-beta.0",
+    "nginx": "^1.0.8",
     "react": "^18.2.0",
     "react-auth-kit": "^2.7.1",
     "react-dom": "^18.2.0",
@@ -49,5 +50,5 @@
     "craco-alias": "^3.0.1",
     "typescript": "latest"
   },
-  "proxy":"https://nflplayoffbracket-test-rof7qukjwa-uc.a.run.app"
+  "proxy": "https://nflplayoffbracket-test-rof7qukjwa-uc.a.run.app"
 }
