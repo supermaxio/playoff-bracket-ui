@@ -13,7 +13,6 @@ import { useEffect, useRef, useState } from 'react';
 import axios from '../../api/axios';
 import { useFormik } from 'formik';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
-import apiDomain from '../../config/apiConfig';
 import useAuth from '../../hooks/useAuth';
 
 const theme = createTheme();
