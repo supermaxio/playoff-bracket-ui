@@ -9,55 +9,83 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Copyright from '../miscellaneous/copyright';
-import { useState } from 'react';
-import { useSignIn } from 'react-auth-kit';
-import axios, { AxiosError } from 'axios';
+import { useEffect, useRef, useState } from 'react';
+import axios from '../../api/axios';
 import { useFormik } from 'formik';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import apiDomain from '../../config/apiConfig';
-
+import useAuth from '../../hooks/useAuth';
 
 const theme = createTheme();
 
 export default function SignIn(props: any) {
-    const [error, setError] = useState("")
-    const signIn = useSignIn();
-    const navigate = useNavigate();
+  const errRef = useRef();
+  const userRef = useRef();
 
-    const onSubmit = async (values: any) => {
-        console.log("Values: ", values);
-        setError("")
+  const [user, setUser] = useState('');
+  const [pwd, setPwd] = useState('');
+  const [errMsg, setErrMsg] = useState('');
+  const [success, setSuccess] = useState(false);
 
-        try {
-            const response = await axios.post(
-              apiDomain+"/v1/login",
-              values
-            );
+  const { setAuth }: any = useAuth();
+  const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/";
+  // const signIn = useSignIn();
 
-            signIn({
-                token: response.data.token,
-                expiresIn: 300,
-                tokenType: "Bearer",
-                authState: { username: values.username }
-            });
+  useEffect(() => {
+    setErrMsg('');
+  }, [user, pwd]);
 
-            navigate("/")
-        } catch (err) {
-            if (err && err instanceof AxiosError)
-              setError(err.response?.data.message);
-            else if (err && err instanceof Error) setError(err.message);
-      
-            console.log("Error: ", err);
+  const onSubmit = async (values: any) => {
+    console.log("Values: ", values);
+    setErrMsg("");
+
+    try {
+      const response = await axios.post(
+        "/login",
+        values,
+        {
+          headers: { 'Content-Type': 'application/json' },
+          withCredentials: true
         }
-    }
+      );
 
-    const formik = useFormik({
-        initialValues: {
-            username: "",
-            password: "",
-        },
-        onSubmit,
-    });
+      console.log(JSON.stringify(response?.data));
+      const accessToken = response?.data?.token;
+      // const roles = response?.data?.roles;
+
+      setAuth({ accessToken });
+
+      // signIn({
+      //   token: accessToken,
+      //   expiresIn: 300,
+      //   tokenType: "Bearer",
+      //   authState: { username: values.username }
+      // });
+
+      setUser('');
+      setPwd('');
+      navigate(from, { replace: true });
+    } catch (err: any) {
+      if (!err?.response) {
+        setErrMsg('No server response');
+      } else if (err && err instanceof Error) {
+        setErrMsg(err.message);
+        console.log("Error: ", err);
+      } else {
+        setErrMsg('Login failed');
+      }
+    }
+  };
+
+  const formik = useFormik({
+    initialValues: {
+      username: "",
+      password: "",
+    },
+    onSubmit,
+  });
 
   return (
     <ThemeProvider theme={theme}>
@@ -78,6 +106,9 @@ export default function SignIn(props: any) {
             Sign in
           </Typography>
           <Box component="form" onSubmit={formik.handleSubmit} noValidate sx={{ mt: 1 }}>
+            <Box>
+              <Typography>{errMsg}</Typography>
+            </Box>
             <TextField
               value={formik.values.username}
               onChange={formik.handleChange}
