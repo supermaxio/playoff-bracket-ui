@@ -123,7 +123,7 @@ export default function ToggleSelection() {
                                             <ToggleButton value="afc_seventh">
                                                 <img
                                                     src={icon(afcTeams[6].name)}
-                                                    height={50}
+                                                    height={35}
                                                     alt={emoji(afcTeams[6].name)}
                                                     loading="lazy"
                                                 />
@@ -131,7 +131,7 @@ export default function ToggleSelection() {
                                             <ToggleButton value="afc_second">
                                                 <img
                                                     src={icon(afcTeams[1].name)}
-                                                    height={50}
+                                                    height={35}
                                                     alt={emoji(afcTeams[1].name)}
                                                     loading="lazy"
                                                 />
@@ -159,7 +159,7 @@ export default function ToggleSelection() {
                                             <ToggleButton value="afc_sixth">
                                                 <img
                                                     src={icon(afcTeams[5].name)}
-                                                    height={50}
+                                                    height={35}
                                                     alt={emoji(afcTeams[5].name)}
                                                     loading="lazy"
                                                 />
@@ -167,7 +167,7 @@ export default function ToggleSelection() {
                                             <ToggleButton value="afc_third">
                                                 <img
                                                     src={icon(afcTeams[2].name)}
-                                                    height={50}
+                                                    height={35}
                                                     alt={emoji(afcTeams[2].name)}
                                                     loading="lazy"
                                                 />
@@ -195,7 +195,7 @@ export default function ToggleSelection() {
                                             <ToggleButton value="afc_fifth">
                                                 <img
                                                     src={icon(afcTeams[4].name)}
-                                                    height={50}
+                                                    height={35}
                                                     alt={emoji(afcTeams[4].name)}
                                                     loading="lazy"
                                                 />
@@ -203,7 +203,7 @@ export default function ToggleSelection() {
                                             <ToggleButton value="afc_fourth">
                                                 <img
                                                     src={icon(afcTeams[3].name)}
-                                                    height={50}
+                                                    height={35}
                                                     alt={emoji(afcTeams[3].name)}
                                                     loading="lazy"
                                                 />
@@ -234,7 +234,7 @@ export default function ToggleSelection() {
                                             <ToggleButton value="nfc_seventh">
                                                 <img
                                                     src={icon(nfcTeams[6].name)}
-                                                    height={50}
+                                                    height={35}
                                                     alt={emoji(nfcTeams[6].name)}
                                                     loading="lazy"
                                                 />
@@ -242,7 +242,7 @@ export default function ToggleSelection() {
                                             <ToggleButton value="nfc_second">
                                                 <img
                                                     src={icon(nfcTeams[1].name)}
-                                                    height={50}
+                                                    height={35}
                                                     alt={emoji(nfcTeams[1].name)}
                                                     loading="lazy"
                                                 />
@@ -270,7 +270,7 @@ export default function ToggleSelection() {
                                             <ToggleButton value="nfc_sixth">
                                                 <img
                                                     src={icon(nfcTeams[5].name)}
-                                                    height={50}
+                                                    height={35}
                                                     alt={emoji(nfcTeams[5].name)}
                                                     loading="lazy"
                                                 />
@@ -278,7 +278,7 @@ export default function ToggleSelection() {
                                             <ToggleButton value="nfc_third">
                                                 <img
                                                     src={icon(nfcTeams[2].name)}
-                                                    height={50}
+                                                    height={35}
                                                     alt={emoji(nfcTeams[2].name)}
                                                     loading="lazy"
                                                 />
@@ -306,7 +306,7 @@ export default function ToggleSelection() {
                                             <ToggleButton value="nfc_fifth">
                                                 <img
                                                     src={icon(nfcTeams[4].name)}
-                                                    height={50}
+                                                    height={35}
                                                     alt={emoji(nfcTeams[4].name)}
                                                     loading="lazy"
                                                 />
@@ -314,7 +314,7 @@ export default function ToggleSelection() {
                                             <ToggleButton value="nfc_fourth">
                                                 <img
                                                     src={icon(nfcTeams[3].name)}
-                                                    height={50}
+                                                    height={35}
                                                     alt={emoji(nfcTeams[3].name)}
                                                     loading="lazy"
                                                 />
