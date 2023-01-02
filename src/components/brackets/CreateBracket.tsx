@@ -16,10 +16,72 @@ import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import GetIcon, { GetEmoji } from '../icons/icons';
 import { Grid, Paper, styled } from '@mui/material';
+import { Team } from '../../objects/Team';
 
 const theme = createTheme();
 
 export default function CreateBracket() {
+
+    const [errMsg, setErrMsg] = useState('');
+    const [success, setSuccess] = useState(false);
+    const [afcTeams, setAfcTeams] = useState<Team[]>([]);
+    const [nfcTeams, setNfcTeams] = useState<Team[]>([]);
+
+    const axiosPrivate = useAxiosPrivate();
+    const { setAuth }: any = useAuth();
+    const navigate = useNavigate();
+    // const location = useLocation();
+    // const from = location.state?.from?.pathname || "/"
+
+    useEffect(() => {
+        setErrMsg('');
+    }, []);
+
+    const signout = () => {
+        // signOut();
+        setAuth({});
+        navigate("/login");
+    };
+
+    useEffect(() => {
+        let isMounted = true;
+        const controller = new AbortController();
+
+        const getTeams = async () => {
+            try {
+                const response = await axiosPrivate.get(
+                    "/brackets/playoff_standings",
+                    {
+                        signal: controller.signal,
+                        headers: { 'Content-Type': 'application/json' },
+                        withCredentials: true
+                    }
+                );
+
+                console.log(JSON.stringify(response?.data[0].teams));
+                console.log(JSON.stringify(response?.data[1].teams));
+                isMounted && setAfcTeams(response.data[0].teams);
+                isMounted && setNfcTeams(response.data[1].teams);
+            } catch (err: any) {
+                if (!err?.response) {
+                    setErrMsg('No server response');
+                } else if (err && err instanceof Error) {
+                    setErrMsg(err.message);
+                    console.error("Error: ", err);
+                } else {
+                    setErrMsg('Login failed');
+                }
+            }
+        };
+
+        getTeams();
+
+        return () => {
+            isMounted = false;
+            controller.abort();
+        };
+    }, []);
+
     const [alignment1, setAlignment1] = React.useState('Dolphins');
     const [alignment2, setAlignment2] = React.useState('Chargers');
     const [alignment3, setAlignment3] = React.useState('Ravens');
@@ -31,7 +93,6 @@ export default function CreateBracket() {
     ) => {
         setAlignment1(newAlignment1);
     };
-
     const handleChange2 = (
         event: React.MouseEvent<HTMLElement>,
         newAlignment2: string,
@@ -61,25 +122,6 @@ export default function CreateBracket() {
         exclusive: true,
     };
 
-    const [errMsg, setErrMsg] = useState('');
-    const [success, setSuccess] = useState(false);
-
-    const axiosPrivate = useAxiosPrivate();
-    const { setAuth }: any = useAuth();
-    const navigate = useNavigate();
-    // const location = useLocation();
-    // const from = location.state?.from?.pathname || "/"
-
-    useEffect(() => {
-        setErrMsg('');
-    }, []);
-
-
-    const signout = () => {
-        // signOut();
-        setAuth({});
-        navigate("/login");
-    };
 
     const onSubmit = async (values: any) => {
         console.log("Values: ", values);
@@ -145,150 +187,222 @@ export default function CreateBracket() {
                         <Grid container spacing={2}>
                             <Grid>
                                 <Item>
-                                    <ToggleButtonGroup {...control1}>
+                                    <Grid>
                                         <Grid>
-                                            <Grid>
 
-                                                <Box>
-                                                    <Typography>AFC Game 1</Typography>
-                                                </Box>
-                                            </Grid>
-                                            <Grid>
-
-                                                <ToggleButton value="afc_seventh">
-                                                    <img
-                                                        src={icon("Dolphins")}
-                                                        height={25}
-                                                        alt={emoji("Dolphins")}
-                                                        loading="lazy"
-                                                    />
-                                                </ToggleButton>
-                                            </Grid>
-                                            <Grid>
-
-                                                <ToggleButton value="afc_second">
-                                                    <img
-                                                        src={icon("Chiefs")}
-                                                        height={25}
-                                                        alt={emoji("Chiefs")}
-                                                        loading="lazy"
-                                                    />
-                                                </ToggleButton>
-                                            </Grid>
+                                            <Box>
+                                                <Typography>AFC Game 1</Typography>
+                                            </Box>
                                         </Grid>
-                                    </ToggleButtonGroup>
+                                        <Grid>
+                                            {afcTeams?.length
+                                                ? (
+                                                    <ToggleButtonGroup {...control1}>
 
+                                                        <ToggleButton value="afc_seventh">
+                                                            <img
+                                                                src={icon(afcTeams[6].name)}
+                                                                height={25}
+                                                                alt={emoji(afcTeams[6].name)}
+                                                                loading="lazy"
+                                                            />
+                                                        </ToggleButton>
+                                                        <ToggleButton value="afc_second">
+                                                            <img
+                                                                src={icon(afcTeams[1].name)}
+                                                                height={25}
+                                                                alt={emoji(afcTeams[1].name)}
+                                                                loading="lazy"
+                                                            />
+                                                        </ToggleButton>
+                                                    </ToggleButtonGroup>
+                                                ) : <p>No teams to display</p>
+                                            }
+                                        </Grid>
+                                    </Grid>
                                 </Item>
                             </Grid>
                             <Grid>
                                 <Item>
-                                    <ToggleButtonGroup {...control2}>
-                                        <ToggleButton value="afc_sixth"><img
-                                            src={icon("Chargers")}
-                                            height={25}
-                                            alt={emoji("Chargers")}
-                                            loading="lazy"
-                                        /></ToggleButton>
-                                        <ToggleButton value="afc_third"><img
-                                            src={icon("Bengals")}
-                                            height={25}
-                                            alt={emoji("Bengals")}
-                                            loading="lazy"
-                                        /></ToggleButton>
-                                    </ToggleButtonGroup>
+                                    <Grid>
+                                        <Grid>
+                                            <Box>
+                                                <Typography>AFC Game 2</Typography>
+                                            </Box>
+                                        </Grid>
+                                        <Grid>
+                                            {afcTeams?.length
+                                                ? (
+                                                    <ToggleButtonGroup {...control1}>
+
+                                                        <ToggleButton value="afc_sixth">
+                                                            <img
+                                                                src={icon(afcTeams[5].name)}
+                                                                height={25}
+                                                                alt={emoji(afcTeams[5].name)}
+                                                                loading="lazy"
+                                                            />
+                                                        </ToggleButton>
+                                                        <ToggleButton value="afc_third">
+                                                            <img
+                                                                src={icon(afcTeams[2].name)}
+                                                                height={25}
+                                                                alt={emoji(afcTeams[2].name)}
+                                                                loading="lazy"
+                                                            />
+                                                        </ToggleButton>
+                                                    </ToggleButtonGroup>
+                                                ) : <p>No teams to display</p>
+                                            }
+                                        </Grid>
+                                    </Grid>
                                 </Item>
                             </Grid>
                             <Grid>
                                 <Item>
-                                    <ToggleButtonGroup {...control3}>
-                                        <ToggleButton value="afc_fifth"><img
-                                            src={icon("Ravens")}
-                                            height={25}
-                                            alt={emoji("Ravens")}
-                                            loading="lazy"
-                                        /></ToggleButton>
-                                        <ToggleButton value="afc_fourth"><img
-                                            src={icon("Jaguars")}
-                                            height={25}
-                                            alt={emoji("Jaguars")}
-                                            loading="lazy"
-                                        /></ToggleButton>
-                                    </ToggleButtonGroup>
+                                    <Grid>
+                                        <Grid>
+                                            <Box>
+                                                <Typography>AFC Game 3</Typography>
+                                            </Box>
+                                        </Grid>
+                                        <Grid>
+                                            {afcTeams?.length
+                                                ? (
+                                                    <ToggleButtonGroup {...control1}>
+
+                                                        <ToggleButton value="afc_fifth">
+                                                            <img
+                                                                src={icon(afcTeams[4].name)}
+                                                                height={25}
+                                                                alt={emoji(afcTeams[4].name)}
+                                                                loading="lazy"
+                                                            />
+                                                        </ToggleButton>
+                                                        <ToggleButton value="afc_fourth">
+                                                            <img
+                                                                src={icon(afcTeams[3].name)}
+                                                                height={25}
+                                                                alt={emoji(afcTeams[3].name)}
+                                                                loading="lazy"
+                                                            />
+                                                        </ToggleButton>
+                                                    </ToggleButtonGroup>
+                                                ) : <p>No teams to display</p>
+                                            }
+                                        </Grid>
+                                    </Grid>
                                 </Item>
                             </Grid>
                         </Grid>
                         <Grid container spacing={2}>
                             <Grid>
                                 <Item>
-                                    <ToggleButtonGroup {...control1}>
+                                    <Grid>
                                         <Grid>
-                                            <Grid>
 
-                                                <Box>
-                                                    <Typography>NFC Game 1</Typography>
-                                                </Box>
-                                            </Grid>
-                                            <Grid>
-
-                                                <ToggleButton value="nfc_seventh">
-                                                    <img
-                                                        src={icon("Commanders")}
-                                                        height={25}
-                                                        alt={emoji("Commanders")}
-                                                        loading="lazy"
-                                                    />
-                                                </ToggleButton>
-                                            </Grid>
-                                            <Grid>
-
-                                                <ToggleButton value="nfc_second">
-                                                    <img
-                                                        src={icon("Vikings")}
-                                                        height={25}
-                                                        alt={emoji("Vikings")}
-                                                        loading="lazy"
-                                                    />
-                                                </ToggleButton>
-                                            </Grid>
+                                            <Box>
+                                                <Typography>NFC Game 1</Typography>
+                                            </Box>
                                         </Grid>
-                                    </ToggleButtonGroup>
+                                        <Grid>
+                                            {nfcTeams?.length
+                                                ? (
+                                                    <ToggleButtonGroup {...control1}>
 
+                                                        <ToggleButton value="nfc_seventh">
+                                                            <img
+                                                                src={icon(nfcTeams[6].name)}
+                                                                height={25}
+                                                                alt={emoji(nfcTeams[6].name)}
+                                                                loading="lazy"
+                                                            />
+                                                        </ToggleButton>
+                                                        <ToggleButton value="nfc_second">
+                                                            <img
+                                                                src={icon(nfcTeams[1].name)}
+                                                                height={25}
+                                                                alt={emoji(nfcTeams[1].name)}
+                                                                loading="lazy"
+                                                            />
+                                                        </ToggleButton>
+                                                    </ToggleButtonGroup>
+                                                ) : <p>No teams to display</p>
+                                            }
+                                        </Grid>
+                                    </Grid>
                                 </Item>
                             </Grid>
                             <Grid>
                                 <Item>
-                                    <ToggleButtonGroup {...control2}>
-                                        <ToggleButton value="nfc_sixth"><img
-                                            src={icon("Giants")}
-                                            height={25}
-                                            alt={emoji("Giants")}
-                                            loading="lazy"
-                                        /></ToggleButton>
-                                        <ToggleButton value="nfc_third"><img
-                                            src={icon("49ers")}
-                                            height={25}
-                                            alt={emoji("49ers")}
-                                            loading="lazy"
-                                        /></ToggleButton>
-                                    </ToggleButtonGroup>
+                                    <Grid>
+                                        <Grid>
+                                            <Box>
+                                                <Typography>NFC Game 2</Typography>
+                                            </Box>
+                                        </Grid>
+                                        <Grid>
+                                            {nfcTeams?.length
+                                                ? (
+                                                    <ToggleButtonGroup {...control1}>
+
+                                                        <ToggleButton value="nfc_sixth">
+                                                            <img
+                                                                src={icon(nfcTeams[5].name)}
+                                                                height={25}
+                                                                alt={emoji(nfcTeams[5].name)}
+                                                                loading="lazy"
+                                                            />
+                                                        </ToggleButton>
+                                                        <ToggleButton value="nfc_third">
+                                                            <img
+                                                                src={icon(nfcTeams[2].name)}
+                                                                height={25}
+                                                                alt={emoji(nfcTeams[2].name)}
+                                                                loading="lazy"
+                                                            />
+                                                        </ToggleButton>
+                                                    </ToggleButtonGroup>
+                                                ) : <p>No teams to display</p>
+                                            }
+                                        </Grid>
+                                    </Grid>
                                 </Item>
                             </Grid>
                             <Grid>
                                 <Item>
-                                    <ToggleButtonGroup {...control3}>
-                                        <ToggleButton value="nfc_fifth"><img
-                                            src={icon("Cowboys")}
-                                            height={25}
-                                            alt={emoji("Cowboys")}
-                                            loading="lazy"
-                                        /></ToggleButton>
-                                        <ToggleButton value="nfc_fourth"><img
-                                            src={icon("Falcons")}
-                                            height={25}
-                                            alt={emoji("Falcons")}
-                                            loading="lazy"
-                                        /></ToggleButton>
-                                    </ToggleButtonGroup>
+                                    <Grid>
+                                        <Grid>
+                                            <Box>
+                                                <Typography>AFC Game 2</Typography>
+                                            </Box>
+                                        </Grid>
+                                        <Grid>
+                                            {nfcTeams?.length
+                                                ? (
+                                                    <ToggleButtonGroup {...control1}>
+
+                                                        <ToggleButton value="nfc_fifth">
+                                                            <img
+                                                                src={icon(nfcTeams[4].name)}
+                                                                height={25}
+                                                                alt={emoji(nfcTeams[4].name)}
+                                                                loading="lazy"
+                                                            />
+                                                        </ToggleButton>
+                                                        <ToggleButton value="nfc_fourth">
+                                                            <img
+                                                                src={icon(nfcTeams[3].name)}
+                                                                height={25}
+                                                                alt={emoji(nfcTeams[3].name)}
+                                                                loading="lazy"
+                                                            />
+                                                        </ToggleButton>
+                                                    </ToggleButtonGroup>
+                                                ) : <p>No teams to display</p>
+                                            }
+                                        </Grid>
+                                    </Grid>
                                 </Item>
                             </Grid>
                         </Grid>
