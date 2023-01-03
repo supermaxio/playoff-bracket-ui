@@ -9,6 +9,7 @@ const useAxiosPrivate = () => {
 
     useEffect(() => {
 
+        console.log(`token used in call ${auth?.accessToken}`)
         const requestIntercept = axiosPrivate.interceptors.request.use(
             config => {
                 if (!config.headers['Authorization']) {

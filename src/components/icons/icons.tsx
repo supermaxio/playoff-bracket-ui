@@ -31,6 +31,9 @@ import FortyNinersIcon from '../../images/icons/SF.svg';
 import BuccaneersIcon from '../../images/icons/TB.svg';
 import TitansIcon from '../../images/icons/TEN.svg';
 import CommandersIcon from '../../images/icons/WAS.svg';
+import NflIcon from '../../images/icons/NFL.svg';
+import AfcIcon from '../../images/icons/APR.svg';
+import NfcIcon from '../../images/icons/NPR.svg';
 
 const CARDINALS = "Cardinals";
 const FALCONS = "Falcons";
@@ -64,6 +67,9 @@ const FORTYNINERS = "49ers";
 const BUCCANEERS = "Buccaneers";
 const TITANS = "Titans";
 const COMMANDERS = "Commanders";
+const NFL = "NFL";
+const AFC = "AFC";
+const NFC = "NFC";
 
 export const GetIcon = (teamName: string) => {
     switch (teamName) {
@@ -99,6 +105,9 @@ export const GetIcon = (teamName: string) => {
         case BUCCANEERS: return BuccaneersIcon;
         case TITANS: return TitansIcon;
         case COMMANDERS: return CommandersIcon;
+        case NFL: return NflIcon;
+        case AFC: return AfcIcon;
+        case NFC: return NfcIcon;
         default:
             return "";
     }
@@ -139,7 +148,7 @@ export const GetEmoji = (teamName: string) => {
         case TITANS: return "🗡";
         case COMMANDERS: return "🎖";
         default:
-            return "";
+            return teamName;
     }
 };
 export default GetIcon;

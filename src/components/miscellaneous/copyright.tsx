@@ -28,19 +28,18 @@ export default function Copyright(props: any) {
               {'.'}
             </Typography>
           </Grid>
-
-          <Typography variant="body2" color="text.secondary" align="center" {...props}>
-            {'Github: '}
-            <Link color="inherit" href="https://github.com/supermaxio/playoff-bracket-ui">
-              Frontend
-            </Link>{' '}
-            {'   '}
-
-            <Link color="inherit" href="https://github.com/supermaxio/playoff-bracket-api">
-              Backend
-            </Link>{' '}
-          </Typography>
           <Grid>
+
+            <Typography variant="body2" color="text.secondary" align="center" {...props}>
+              {'Source code: '}
+              <Link color="inherit" href="https://github.com/supermaxio/playoff-bracket-ui">
+                Frontend
+              </Link>{' '}
+              {'   '}
+              <Link color="inherit" href="https://github.com/supermaxio/playoff-bracket-api">
+                Backend
+              </Link>{' '}
+            </Typography>
 
           </Grid>
 
