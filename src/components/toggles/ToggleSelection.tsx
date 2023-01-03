@@ -1,23 +1,16 @@
-
 import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
-import Copyright from '../miscellaneous/copyright';
 import { useEffect, useRef, useState } from 'react';
-import { useFormik } from 'formik';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import useAuth from '../../hooks/useAuth';
 import useAxiosPrivate from '../../hooks/useAxiosPrivate';
-import * as React from 'react';
+import React from 'react';
 import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import GetIcon, { GetEmoji } from '../icons/icons';
 import { Grid, Paper, styled, TextField } from '@mui/material';
 import { Team } from '../../objects/Team';
-
 
 const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -31,9 +24,14 @@ const Item = styled(Paper)(({ theme }) => ({
 
 export default function ToggleSelection() {
     const [errMsg, setErrMsg] = useState('');
-    const [success, setSuccess] = useState(false);
     const [afcTeams, setAfcTeams] = useState<Team[]>([]);
     const [nfcTeams, setNfcTeams] = useState<Team[]>([]);
+    const [afcWCTeams, setAfcWCTeams] = useState<string[]>([]);
+    const [afcDRTeams, setAfcDRTeams] = useState<string[]>([]);
+    const [afcCCTeams, setAfcCCTeams] = useState<string[]>([]);
+    const [nfcWCTeams, setNfcWCTeams] = useState<string[]>([]);
+    const [nfcDRTeams, setNfcDRTeams] = useState<string[]>([]);
+    const [nfcCCTeams, setNfcCCTeams] = useState<string[]>([]);
     const [afcWC1Winner, setAfcWC1Winner] = useState<string>();
     const [afcWC2Winner, setAfcWC2Winner] = useState<string>();
     const [afcWC3Winner, setAfcWC3Winner] = useState<string>();
@@ -47,7 +45,16 @@ export default function ToggleSelection() {
     const [nfcDR2Winner, setNfcDR2Winner] = useState<string>();
     const [nfcCCWinner, setNfcCCWinner] = useState<string>();
     const [sbWinner, setSBWinner] = useState<string>();
+    const [fss, setFss] = useState<number>(0);
+    const [isUpdate, setIsUpdate] = useState<boolean>(false);
 
+    const [afcRank0, setAfcRank0] = useState<string>("AFC");
+    const [afcRank1, setAfcRank1] = useState<string>("AFC");
+    const [afcRank2, setAfcRank2] = useState<string>("AFC");
+    const [afcRank3, setAfcRank3] = useState<string>("AFC");
+    const [afcRank4, setAfcRank4] = useState<string>("AFC");
+    const [afcRank5, setAfcRank5] = useState<string>("AFC");
+    const [afcRank6, setAfcRank6] = useState<string>("AFC");
     const [afcDRLast, setAfcDRLast] = useState<string>("AFC");
     const [afcDRAway, setAfcDRAway] = useState<string>("AFC");
     const [afcDRHome, setAfcDRHome] = useState<string>("AFC");
@@ -57,6 +64,13 @@ export default function ToggleSelection() {
     const [afcSB, setAfcSB] = useState<string>("AFC");
     const [nfcSB, setNfcSB] = useState<string>("NFC");
 
+    const [nfcRank0, setNfcRank0] = useState<string>("NFC");
+    const [nfcRank1, setNfcRank1] = useState<string>("NFC");
+    const [nfcRank2, setNfcRank2] = useState<string>("NFC");
+    const [nfcRank3, setNfcRank3] = useState<string>("NFC");
+    const [nfcRank4, setNfcRank4] = useState<string>("NFC");
+    const [nfcRank5, setNfcRank5] = useState<string>("NFC");
+    const [nfcRank6, setNfcRank6] = useState<string>("NFC");
     const [nfcDRLast, setNfcDRLast] = useState<string>("NFC");
     const [nfcDRAway, setNfcDRAway] = useState<string>("NFC");
     const [nfcDRHome, setNfcDRHome] = useState<string>("NFC");
@@ -75,7 +89,6 @@ export default function ToggleSelection() {
     const icon = GetIcon;
     const emoji = GetEmoji;
 
-
     const handleAfcWC1Change = (event: React.MouseEvent<HTMLElement>, newAlignment: string,) => { console.log(`called handleAfcWC1Change and the value is: ${newAlignment}`); setAfcWC1Winner(newAlignment); };
     const handleAfcWC2Change = (event: React.MouseEvent<HTMLElement>, newAlignment: string,) => { console.log(`called handleAfcWC2Change and the value is: ${newAlignment}`); setAfcWC2Winner(newAlignment); };
     const handleAfcWC3Change = (event: React.MouseEvent<HTMLElement>, newAlignment: string,) => { console.log(`called handleAfcWC3Change and the value is: ${newAlignment}`); setAfcWC3Winner(newAlignment); };
@@ -89,6 +102,7 @@ export default function ToggleSelection() {
     const handleNfcDR2Change = (event: React.MouseEvent<HTMLElement>, newAlignment: string,) => { console.log(`called handleNfcDR2Change and the value is: ${newAlignment}`); setNfcDR2Winner(newAlignment); };
     const handleNfcCCChange = (event: React.MouseEvent<HTMLElement>, newAlignment: string,) => { console.log(`called handleNfcCCChange  and the value is: ${newAlignment}`); setNfcCCWinner(newAlignment); };
     const handleSBChange = (event: React.MouseEvent<HTMLElement>, newAlignment: string,) => { console.log(`called handleSBChange  and the value is: ${newAlignment}`); setSBWinner(newAlignment); };
+    const handleFss = (event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => { setFss(parseInt(event.target.value)); };
 
     const afcWC1Control = { value: afcWC1Winner, onChange: handleAfcWC1Change, exclusive: true, };
     const afcWC2Control = { value: afcWC2Winner, onChange: handleAfcWC2Change, exclusive: true, };
@@ -97,14 +111,14 @@ export default function ToggleSelection() {
     const nfcWC2Control = { value: nfcWC2Winner, onChange: handleNfcWC2Change, exclusive: true, };
     const nfcWC3Control = { value: nfcWC3Winner, onChange: handleNfcWC3Change, exclusive: true, };
 
-    const afcDR1Control = { value: afcDR1Winner, onChange: handleAfcDR1Change, exclusive: true, disabled: afcDRDisabled};
-    const afcDR2Control = { value: afcDR2Winner, onChange: handleAfcDR2Change, exclusive: true, disabled: afcDRDisabled};
-    const afcCCControl = { value: afcCCWinner, onChange: handleAfcCCChange, exclusive: true,    disabled: afcCCDisabled};
-    const nfcDR1Control = { value: nfcDR1Winner, onChange: handleNfcDR1Change, exclusive: true, disabled: nfcDRDisabled};
-    const nfcDR2Control = { value: nfcDR2Winner, onChange: handleNfcDR2Change, exclusive: true, disabled: nfcDRDisabled};
-    const nfcCCControl = { value: nfcCCWinner, onChange: handleNfcCCChange, exclusive: true,    disabled: nfcCCDisabled};
-    const sbControl = { value: sbWinner, onChange: handleSBChange, exclusive: true,             disabled: sbDisabled};
-    const fssControl = { disabled: sbDisabled }
+    const afcDR1Control = { value: afcDR1Winner, onChange: handleAfcDR1Change, exclusive: true, disabled: afcDRDisabled };
+    const afcDR2Control = { value: afcDR2Winner, onChange: handleAfcDR2Change, exclusive: true, disabled: afcDRDisabled };
+    const afcCCControl = { value: afcCCWinner, onChange: handleAfcCCChange, exclusive: true, disabled: afcCCDisabled };
+    const nfcDR1Control = { value: nfcDR1Winner, onChange: handleNfcDR1Change, exclusive: true, disabled: nfcDRDisabled };
+    const nfcDR2Control = { value: nfcDR2Winner, onChange: handleNfcDR2Change, exclusive: true, disabled: nfcDRDisabled };
+    const nfcCCControl = { value: nfcCCWinner, onChange: handleNfcCCChange, exclusive: true, disabled: nfcCCDisabled };
+    const sbControl = { value: sbWinner, onChange: handleSBChange, exclusive: true, disabled: sbDisabled };
+    const fssControl = { disabled: sbDisabled, onChange: handleFss };
 
     const afcDRLastControl = { src: icon(afcDRLast), alt: emoji(afcDRLast) };
     const afcDRAwayControl = { src: icon(afcDRAway), alt: emoji(afcDRAway) };
@@ -121,115 +135,108 @@ export default function ToggleSelection() {
     const afcSBControl = { src: icon(afcSB), alt: emoji(afcSB) };
     const nfcSBControl = { src: icon(nfcSB), alt: emoji(nfcSB) };
 
+    function SetupAFCDivisionalRound() {
+        switch (true) {
+            case (afcWC1Winner == afcRank6 && afcWC2Winner == afcRank5 && afcWC3Winner == afcRank4): setAfcDRLast(afcRank6); setAfcDRAway(afcRank5); setAfcDRHome(afcRank4); break;
+            case (afcWC1Winner == afcRank6 && afcWC2Winner == afcRank5 && afcWC3Winner == afcRank3): setAfcDRLast(afcRank6); setAfcDRAway(afcRank5); setAfcDRHome(afcRank3); break;
+            case (afcWC1Winner == afcRank6 && afcWC2Winner == afcRank2 && afcWC3Winner == afcRank4): setAfcDRLast(afcRank6); setAfcDRHome(afcRank2); setAfcDRAway(afcRank4); break;
+            case (afcWC1Winner == afcRank6 && afcWC2Winner == afcRank2 && afcWC3Winner == afcRank3): setAfcDRLast(afcRank6); setAfcDRHome(afcRank2); setAfcDRAway(afcRank3); break;
+            case (afcWC1Winner == afcRank1 && afcWC2Winner == afcRank5 && afcWC3Winner == afcRank4): setAfcDRHome(afcRank1); setAfcDRLast(afcRank5); setAfcDRAway(afcRank4); break;
+            case (afcWC1Winner == afcRank1 && afcWC2Winner == afcRank5 && afcWC3Winner == afcRank3): setAfcDRHome(afcRank1); setAfcDRLast(afcRank5); setAfcDRAway(afcRank3); break;
+            case (afcWC1Winner == afcRank1 && afcWC2Winner == afcRank2 && afcWC3Winner == afcRank4): setAfcDRHome(afcRank1); setAfcDRAway(afcRank2); setAfcDRLast(afcRank4); break;
+            case (afcWC1Winner == afcRank1 && afcWC2Winner == afcRank2 && afcWC3Winner == afcRank3): setAfcDRHome(afcRank1); setAfcDRAway(afcRank2); setAfcDRLast(afcRank3); break;
+            default: setAfcDRLast("AFC"); setAfcDRAway("AFC"); setAfcDRHome("AFC");
+        }
+
+        setAfcDRDisabled(false);
+    }
+
+    function SetupNFCDivisionalRound() {
+        switch (true) {
+            case (nfcWC1Winner == nfcRank6 && nfcWC2Winner == nfcRank5 && nfcWC3Winner == nfcRank4): setNfcDRLast(nfcRank6); setNfcDRAway(nfcRank5); setNfcDRHome(nfcRank4); break;
+            case (nfcWC1Winner == nfcRank6 && nfcWC2Winner == nfcRank5 && nfcWC3Winner == nfcRank3): setNfcDRLast(nfcRank6); setNfcDRAway(nfcRank5); setNfcDRHome(nfcRank3); break;
+            case (nfcWC1Winner == nfcRank6 && nfcWC2Winner == nfcRank2 && nfcWC3Winner == nfcRank4): setNfcDRLast(nfcRank6); setNfcDRHome(nfcRank2); setNfcDRAway(nfcRank4); break;
+            case (nfcWC1Winner == nfcRank6 && nfcWC2Winner == nfcRank2 && nfcWC3Winner == nfcRank3): setNfcDRLast(nfcRank6); setNfcDRHome(nfcRank2); setNfcDRAway(nfcRank3); break;
+            case (nfcWC1Winner == nfcRank1 && nfcWC2Winner == nfcRank5 && nfcWC3Winner == nfcRank4): setNfcDRHome(nfcRank1); setNfcDRLast(nfcRank5); setNfcDRAway(nfcRank4); break;
+            case (nfcWC1Winner == nfcRank1 && nfcWC2Winner == nfcRank5 && nfcWC3Winner == nfcRank3): setNfcDRHome(nfcRank1); setNfcDRLast(nfcRank5); setNfcDRAway(nfcRank3); break;
+            case (nfcWC1Winner == nfcRank1 && nfcWC2Winner == nfcRank2 && nfcWC3Winner == nfcRank4): setNfcDRHome(nfcRank1); setNfcDRAway(nfcRank2); setNfcDRLast(nfcRank4); break;
+            case (nfcWC1Winner == nfcRank1 && nfcWC2Winner == nfcRank2 && nfcWC3Winner == nfcRank3): setNfcDRHome(nfcRank1); setNfcDRAway(nfcRank2); setNfcDRLast(nfcRank3); break;
+            default: setNfcDRLast("NFC"); setNfcDRAway("NFC"); setNfcDRHome("NFC");
+        }
+
+        setNfcDRDisabled(false);
+    }
+
+    function SetupAFCChampionship() {
+        switch (true) {
+            case (afcDR1Winner == afcRank0 && afcDR2Winner == afcDRAway): setAfcCCHome(afcRank0); setAfcCCAway(afcDRAway); break;
+            case (afcDR1Winner == afcRank0 && afcDR2Winner == afcDRHome): setAfcCCHome(afcRank0); setAfcCCAway(afcDRHome); break;
+            case (afcDR1Winner == afcDRLast && afcDR2Winner == afcDRAway): setAfcCCAway(afcDRLast); setAfcCCHome(afcDRAway); break;
+            case (afcDR1Winner == afcDRLast && afcDR2Winner == afcDRHome): setAfcCCAway(afcDRLast); setAfcCCHome(afcDRHome); break;
+            default: setAfcCCAway("AFC"); setAfcCCHome("AFC");
+        }
+
+        setAfcCCDisabled(false);
+    }
+
+    function SetupNFCChampionship() {
+        switch (true) {
+            case (nfcDR1Winner == nfcRank0 && nfcDR2Winner == nfcDRAway): setNfcCCHome(nfcRank0); setNfcCCAway(nfcDRAway); break;
+            case (nfcDR1Winner == nfcRank0 && nfcDR2Winner == nfcDRHome): setNfcCCHome(nfcRank0); setNfcCCAway(nfcDRHome); break;
+            case (nfcDR1Winner == nfcDRLast && nfcDR2Winner == nfcDRAway): setNfcCCAway(nfcDRLast); setNfcCCHome(nfcDRAway); break;
+            case (nfcDR1Winner == nfcDRLast && nfcDR2Winner == nfcDRHome): setNfcCCAway(nfcDRLast); setNfcCCHome(nfcDRHome); break;
+            default: setNfcCCAway("NFC"); setNfcCCHome("NFC");
+        }
+
+        setNfcCCDisabled(false);
+    }
+
+    function SetupAFCSuperBowl() {
+        switch (afcCCWinner) {
+            case afcCCAway: setAfcSB(afcCCAway); break;
+            case afcCCHome: setAfcSB(afcCCHome); break;
+            default: setAfcSB("AFC");
+        }
+
+        if (nfcCCWinner) {
+            setSBDisabled(false);
+        }
+    }
+
+    function SetupNFCSuperBowl() {
+        switch (nfcCCWinner) {
+            case nfcCCAway: setNfcSB(nfcCCAway); break;
+            case nfcCCHome: setNfcSB(nfcCCHome); break;
+            default: setNfcSB("NFC");
+        }
+
+        if (afcCCWinner) {
+            setSBDisabled(false);
+        }
+    }
+
     useEffect(() => {
         setErrMsg('');
     }, []);
 
     useEffect(() => {
         if (afcWC1Winner && afcWC2Winner && afcWC3Winner) {
-            console.log(`AFC WC values selected GAME1: ${afcWC1Winner} GAME2: ${afcWC2Winner} GAME 3: ${afcWC3Winner}`);
-
-            switch (true) {
-                case (afcWC1Winner == "afc_rank_6" && afcWC2Winner == "afc_rank_5" && afcWC3Winner == "afc_rank_4"): setAfcDRLast(afcTeams[6].name); setAfcDRAway(afcTeams[5].name); setAfcDRHome(afcTeams[4].name); break;
-                case (afcWC1Winner == "afc_rank_6" && afcWC2Winner == "afc_rank_5" && afcWC3Winner == "afc_rank_3"): setAfcDRLast(afcTeams[6].name); setAfcDRAway(afcTeams[5].name); setAfcDRHome(afcTeams[3].name); break;
-                case (afcWC1Winner == "afc_rank_6" && afcWC2Winner == "afc_rank_2" && afcWC3Winner == "afc_rank_4"): setAfcDRLast(afcTeams[6].name); setAfcDRHome(afcTeams[2].name); setAfcDRAway(afcTeams[4].name); break;
-                case (afcWC1Winner == "afc_rank_6" && afcWC2Winner == "afc_rank_2" && afcWC3Winner == "afc_rank_3"): setAfcDRLast(afcTeams[6].name); setAfcDRHome(afcTeams[2].name); setAfcDRAway(afcTeams[3].name); break;
-                case (afcWC1Winner == "afc_rank_1" && afcWC2Winner == "afc_rank_5" && afcWC3Winner == "afc_rank_4"): setAfcDRHome(afcTeams[1].name); setAfcDRLast(afcTeams[5].name); setAfcDRAway(afcTeams[4].name); break;
-                case (afcWC1Winner == "afc_rank_1" && afcWC2Winner == "afc_rank_5" && afcWC3Winner == "afc_rank_3"): setAfcDRHome(afcTeams[1].name); setAfcDRLast(afcTeams[5].name); setAfcDRAway(afcTeams[3].name); break;
-                case (afcWC1Winner == "afc_rank_1" && afcWC2Winner == "afc_rank_2" && afcWC3Winner == "afc_rank_4"): setAfcDRHome(afcTeams[1].name); setAfcDRAway(afcTeams[2].name); setAfcDRLast(afcTeams[4].name); break;
-                case (afcWC1Winner == "afc_rank_1" && afcWC2Winner == "afc_rank_2" && afcWC3Winner == "afc_rank_3"): setAfcDRHome(afcTeams[1].name); setAfcDRAway(afcTeams[2].name); setAfcDRLast(afcTeams[3].name); break;
-                default: setAfcDRLast("AFC"); setAfcDRAway("AFC"); setAfcDRHome("AFC");
-            }
-
-            setAfcDRDisabled(false)
+            SetupAFCDivisionalRound();
         }
-    }, [afcWC1Winner, afcWC2Winner, afcWC3Winner, afcDR1Winner, afcDR2Winner, afcCCWinner, afcDRLast, afcDRAway, afcDRHome, afcCCAway, afcCCHome]);
-
-
-    useEffect(() => {
         if (afcDR1Winner && afcDR2Winner && afcWC1Winner && afcWC2Winner && afcWC3Winner) {
-            console.log(`AFC DR values selected GAME1: ${afcDR1Winner} GAME2: ${afcDR2Winner}`);
-
-            switch (true) {
-                case (afcDR1Winner == "afc_rank_0" && afcDR2Winner == "afc_dr_away"): setAfcCCHome(afcTeams[0].name); setAfcCCAway(afcDRAway); break;
-                case (afcDR1Winner == "afc_rank_0" && afcDR2Winner == "afc_dr_home"): setAfcCCHome(afcTeams[0].name); setAfcCCAway(afcDRHome); break;
-                case (afcDR1Winner == "afc_dr_last" && afcDR2Winner == "afc_dr_away"): setAfcCCAway(afcDRLast); setAfcCCHome(afcDRAway); break;
-                case (afcDR1Winner == "afc_dr_last" && afcDR2Winner == "afc_dr_home"): setAfcCCAway(afcDRLast); setAfcCCHome(afcDRHome); break;
-                default: setAfcCCAway("AFC"); setAfcCCHome("AFC");
-            }
-
-            setAfcCCDisabled(false)
+            SetupAFCChampionship();
         }
-    }, [afcWC1Winner, afcWC2Winner, afcWC3Winner, afcDR1Winner, afcDR2Winner, afcCCWinner, afcDRLast, afcDRAway, afcDRHome, afcCCAway, afcCCHome]);
-
-
-    useEffect(() => {
         if (afcCCWinner && afcDR1Winner && afcDR2Winner && afcWC1Winner && afcWC2Winner && afcWC3Winner) {
-            console.log(`AFC cc winner: ${afcCCWinner}`);
-
-            switch (afcCCWinner) {
-                case "afc_cc_away": setAfcSB(afcCCAway); break;
-                case "afc_cc_home": setAfcSB(afcCCHome); break;
-                default: setAfcSB("AFC");
-            }
-
-            if(nfcCCWinner) {
-                setSBDisabled(false)
-            }
+            SetupAFCSuperBowl();
         }
-    }, [afcWC1Winner, afcWC2Winner, afcWC3Winner, afcDR1Winner, afcDR2Winner, afcCCWinner, afcDRLast, afcDRAway, afcDRHome, afcCCAway, afcCCHome]);
-
-    useEffect(() => {
         if (nfcWC1Winner && nfcWC2Winner && nfcWC3Winner) {
-            console.log(`NFC WC values selected GAME1: ${nfcWC1Winner} GAME2: ${nfcWC2Winner} GAME 3: ${nfcWC3Winner}`);
-
-            switch (true) {
-                case (nfcWC1Winner == "nfc_rank_6" && nfcWC2Winner == "nfc_rank_5" && nfcWC3Winner == "nfc_rank_4"): setNfcDRLast(nfcTeams[6].name); setNfcDRAway(nfcTeams[5].name); setNfcDRHome(nfcTeams[4].name); break;
-                case (nfcWC1Winner == "nfc_rank_6" && nfcWC2Winner == "nfc_rank_5" && nfcWC3Winner == "nfc_rank_3"): setNfcDRLast(nfcTeams[6].name); setNfcDRAway(nfcTeams[5].name); setNfcDRHome(nfcTeams[3].name); break;
-                case (nfcWC1Winner == "nfc_rank_6" && nfcWC2Winner == "nfc_rank_2" && nfcWC3Winner == "nfc_rank_4"): setNfcDRLast(nfcTeams[6].name); setNfcDRHome(nfcTeams[2].name); setNfcDRAway(nfcTeams[4].name); break;
-                case (nfcWC1Winner == "nfc_rank_6" && nfcWC2Winner == "nfc_rank_2" && nfcWC3Winner == "nfc_rank_3"): setNfcDRLast(nfcTeams[6].name); setNfcDRHome(nfcTeams[2].name); setNfcDRAway(nfcTeams[3].name); break;
-                case (nfcWC1Winner == "nfc_rank_1" && nfcWC2Winner == "nfc_rank_5" && nfcWC3Winner == "nfc_rank_4"): setNfcDRHome(nfcTeams[1].name); setNfcDRLast(nfcTeams[5].name); setNfcDRAway(nfcTeams[4].name); break;
-                case (nfcWC1Winner == "nfc_rank_1" && nfcWC2Winner == "nfc_rank_5" && nfcWC3Winner == "nfc_rank_3"): setNfcDRHome(nfcTeams[1].name); setNfcDRLast(nfcTeams[5].name); setNfcDRAway(nfcTeams[3].name); break;
-                case (nfcWC1Winner == "nfc_rank_1" && nfcWC2Winner == "nfc_rank_2" && nfcWC3Winner == "nfc_rank_4"): setNfcDRHome(nfcTeams[1].name); setNfcDRAway(nfcTeams[2].name); setNfcDRLast(nfcTeams[4].name); break;
-                case (nfcWC1Winner == "nfc_rank_1" && nfcWC2Winner == "nfc_rank_2" && nfcWC3Winner == "nfc_rank_3"): setNfcDRHome(nfcTeams[1].name); setNfcDRAway(nfcTeams[2].name); setNfcDRLast(nfcTeams[3].name); break;
-                default: setNfcDRLast("NFC"); setNfcDRAway("NFC"); setNfcDRHome("NFC");
-            }
-
-            setNfcDRDisabled(false)
+            SetupNFCDivisionalRound();
         }
-    }, [nfcWC1Winner, nfcWC2Winner, nfcWC3Winner, nfcDR1Winner, nfcDR2Winner, nfcCCWinner, nfcDRLast, nfcDRAway, nfcDRHome, nfcCCAway, nfcCCHome]);
-
-
-    useEffect(() => {
         if (nfcDR1Winner && nfcDR2Winner && nfcWC1Winner && nfcWC2Winner && nfcWC3Winner) {
-            console.log(`NFC DR values selected GAME1: ${nfcDR1Winner} GAME2: ${nfcDR2Winner}`);
-
-            switch (true) {
-                case (nfcDR1Winner == "nfc_rank_0" && nfcDR2Winner == "nfc_dr_away"): setNfcCCHome(nfcTeams[0].name); setNfcCCAway(nfcDRAway); break;
-                case (nfcDR1Winner == "nfc_rank_0" && nfcDR2Winner == "nfc_dr_home"): setNfcCCHome(nfcTeams[0].name); setNfcCCAway(nfcDRHome); break;
-                case (nfcDR1Winner == "nfc_dr_last" && nfcDR2Winner == "nfc_dr_away"): setNfcCCAway(nfcDRLast); setNfcCCHome(nfcDRAway); break;
-                case (nfcDR1Winner == "nfc_dr_last" && nfcDR2Winner == "nfc_dr_home"): setNfcCCAway(nfcDRLast); setNfcCCHome(nfcDRHome); break;
-                default: setNfcCCAway("NFC"); setNfcCCHome("NFC");
-            }
-
-            setNfcCCDisabled(false)
+            SetupNFCChampionship();
         }
-    }, [nfcWC1Winner, nfcWC2Winner, nfcWC3Winner, nfcDR1Winner, nfcDR2Winner, nfcCCWinner, nfcDRLast, nfcDRAway, nfcDRHome, nfcCCAway, nfcCCHome]);
-
-
-    useEffect(() => {
         if (nfcCCWinner && nfcDR1Winner && nfcDR2Winner && nfcWC1Winner && nfcWC2Winner && nfcWC3Winner) {
-            console.log(`NFC cc winner: ${nfcCCWinner}`);
-
-            switch (nfcCCWinner) {
-                case "nfc_cc_away": setNfcSB(nfcCCAway); break;
-                case "nfc_cc_home": setNfcSB(nfcCCHome); break;
-                default: setNfcSB("NFC");
-            }
-
-            if (afcCCWinner) {
-                setSBDisabled(false)
-            }
+            SetupNFCSuperBowl();
         }
     }, [nfcWC1Winner, nfcWC2Winner, nfcWC3Winner, nfcDR1Winner, nfcDR2Winner, nfcCCWinner, nfcDRLast, nfcDRAway, nfcDRHome, nfcCCAway, nfcCCHome]);
 
@@ -248,10 +255,22 @@ export default function ToggleSelection() {
                     }
                 );
 
-                console.log(JSON.stringify(response?.data[0].teams));
-                console.log(JSON.stringify(response?.data[1].teams));
                 isMounted && setAfcTeams(response.data[0].teams);
                 isMounted && setNfcTeams(response.data[1].teams);
+                isMounted && setAfcRank0(response.data[0].teams[0].name);
+                isMounted && setAfcRank1(response.data[0].teams[1].name);
+                isMounted && setAfcRank2(response.data[0].teams[2].name);
+                isMounted && setAfcRank3(response.data[0].teams[3].name);
+                isMounted && setAfcRank4(response.data[0].teams[4].name);
+                isMounted && setAfcRank5(response.data[0].teams[5].name);
+                isMounted && setAfcRank6(response.data[0].teams[6].name);
+                isMounted && setNfcRank0(response.data[1].teams[0].name);
+                isMounted && setNfcRank1(response.data[1].teams[1].name);
+                isMounted && setNfcRank2(response.data[1].teams[2].name);
+                isMounted && setNfcRank3(response.data[1].teams[3].name);
+                isMounted && setNfcRank4(response.data[1].teams[4].name);
+                isMounted && setNfcRank5(response.data[1].teams[5].name);
+                isMounted && setNfcRank6(response.data[1].teams[6].name);
             } catch (err: any) {
                 if (!err?.response) {
                     setErrMsg('No server response');
@@ -272,22 +291,212 @@ export default function ToggleSelection() {
         };
     }, []);
 
+    useEffect(() => {
+        console.log([afcRank1, afcRank6, afcRank2, afcRank5, afcRank3, afcRank4].indexOf("AFC") == -1)
+        if ([afcRank1, afcRank6, afcRank2, afcRank5, afcRank3, afcRank4].indexOf("AFC") == -1) {
+            for (let i = 0; i < afcWCTeams.length; i++) {
+                switch (afcWCTeams[i]) {
+                    case afcRank1: case afcRank6: setAfcWC1Winner(afcWCTeams[i]); break;
+                    case afcRank2: case afcRank5: setAfcWC2Winner(afcWCTeams[i]); break;
+                    case afcRank3: case afcRank4: setAfcWC3Winner(afcWCTeams[i]); break;
+                    default: break;
+                }
+            }
+        }
+    }, [afcRank1, afcRank6, afcRank2, afcRank5, afcRank3, afcRank4]);
+
+    useEffect(() => {
+        if ([nfcRank1, nfcRank6, nfcRank2, nfcRank5, nfcRank3, nfcRank4].indexOf("NFC") == -1) {
+            for (let i = 0; i < nfcWCTeams.length; i++) {
+                switch (nfcWCTeams[i]) {
+                    case nfcRank1: case nfcRank6: setNfcWC1Winner(nfcWCTeams[i]); break;
+                    case nfcRank2: case nfcRank5: setNfcWC2Winner(nfcWCTeams[i]); break;
+                    case nfcRank3: case nfcRank4: setNfcWC3Winner(nfcWCTeams[i]); break;
+                    default: break;
+                }
+            }
+        }
+    }, [nfcRank1, nfcRank6, nfcRank2, nfcRank5, nfcRank3, nfcRank4]);
+    
+    useEffect(() => {
+        if ([afcRank0, afcDRLast, afcDRAway, afcDRHome].indexOf("AFC") == -1) {
+
+            for (let i = 0; i < afcDRTeams.length; i++) {
+                switch (afcDRTeams[i]) {
+                    case afcRank0: case afcDRLast: setAfcDR1Winner(afcDRTeams[i]); break;
+                    case afcDRAway: case afcDRHome: setAfcDR2Winner(afcDRTeams[i]); break;
+                    default: break;
+                }
+            }
+        }
+    }, [afcRank0, afcDRLast, afcDRAway, afcDRHome]);
+
+    useEffect(() => {
+        if ([nfcRank0, nfcDRLast, nfcDRAway, nfcDRHome].indexOf("NFC") == -1) {
+            for (let i = 0; i < nfcDRTeams.length; i++) {
+                switch (nfcDRTeams[i]) {
+                    case nfcRank0: case nfcDRLast: setNfcDR1Winner(nfcDRTeams[i]); break;
+                    case nfcDRAway: case nfcDRHome: setNfcDR2Winner(nfcDRTeams[i]); break;
+                    default: break;
+                }
+            }
+        }
+    }, [nfcRank0, nfcDRLast, nfcDRAway, nfcDRHome]);
+    
+    useEffect(() => {
+        if ([afcCCAway, afcCCHome].indexOf("AFC") == -1) {
+            for (let i = 0; i < afcCCTeams.length; i++) {
+                switch (afcCCTeams[i]) {
+                    case afcCCAway: case afcCCHome: setAfcCCWinner(afcCCTeams[i]); break;
+                    default: break;
+                }
+            }
+        }
+    }, [afcCCAway, afcCCHome]);
+
+    useEffect(() => {
+        if ([nfcCCAway, nfcCCHome].indexOf("NFC") == -1) {
+            for (let i = 0; i < nfcCCTeams.length; i++) {
+                switch (nfcCCTeams[i]) {
+                    case nfcCCAway: case nfcCCHome: setNfcCCWinner(nfcCCTeams[i]); break;
+                    default: break;
+                }
+            }
+        }
+    }, [nfcCCAway, nfcCCHome]);
+    
+    useEffect(() => {
+        let isMounted = true;
+        const controller = new AbortController();
+
+        const getBracket = async () => {
+            try {
+                const response = await axiosPrivate.get(
+                    "/brackets/",
+                    {
+                        signal: controller.signal,
+                        headers: { 'Content-Type': 'application/json' },
+                        withCredentials: true
+                    }
+                );
+            
+                // for (let i = 0; i < response?.data.wild_card_winners.length; i++) {
+                //     switch (response?.data.wild_card_winners[i]) {
+                //         case afcTeams[1].name: case afcTeams[6].name: isMounted && setAfcWC1Winner(response?.data.wild_card_winners[i]); break;
+                //         case afcTeams[2].name: case afcTeams[5].name: isMounted && setAfcWC2Winner(response?.data.wild_card_winners[i]); break;
+                //         case afcTeams[3].name: case afcTeams[4].name: isMounted && setAfcWC3Winner(response?.data.wild_card_winners[i]); break;
+                //         case nfcTeams[1].name: case nfcTeams[6]: isMounted && setNfcWC1Winner(response?.data.wild_card_winners[i]); break;
+                //         case nfcTeams[2].name: case nfcTeams[5]: isMounted && setNfcWC2Winner(response?.data.wild_card_winners[i]); break;
+                //         case nfcTeams[3].name: case nfcTeams[4]: isMounted && setNfcWC3Winner(response?.data.wild_card_winners[i]); break;
+                //         default: break;
+                //     }
+                // }
+
+                // SetupAFCDivisionalRound();
+                // SetupNFCDivisionalRound();
+
+                // for (let i = 0; i < response?.data.divisional_round_winners.length; i++) {
+                //     switch (response?.data.divisional_round_winners[i]) {
+                //         case afcRank0: case afcDRLast: isMounted && setAfcDR1Winner(response?.data.divisional_round_winners[i]); break;
+                //         case afcDRAway: case afcDRHome: isMounted && setAfcDR2Winner(response?.data.divisional_round_winners[i]); break;
+                //         case nfcRank0: case nfcDRLast: isMounted && setNfcDR1Winner(response?.data.divisional_round_winners[i]); break;
+                //         case nfcDRAway: case nfcDRHome: isMounted && setNfcDR2Winner(response?.data.divisional_round_winners[i]); break;
+                //         default: break;
+                //     }
+                // }
+
+                // SetupAFCChampionship();
+                // SetupNFCChampionship();
+
+                // for (let i = 0; i < response?.data.conference_champions.length; i++) {
+                //     switch (response?.data.conference_champions[i]) {
+                //         case afcCCAway: case afcCCHome: isMounted && setAfcCCWinner(response?.data.conference_champions[i]); break;
+                //         case nfcCCAway: case nfcCCHome: isMounted && setNfcCCWinner(response?.data.conference_champions[i]); break;
+                //         default: break;
+                //     }
+                // }
+
+                // SetupAFCSuperBowl();
+                // SetupNFCSuperBowl();
+
+                isMounted && setAfcWCTeams(response?.data.wild_card_winners);
+                isMounted && setAfcDRTeams(response?.data.divisional_round_winners);
+                isMounted && setAfcCCTeams(response?.data.conference_champions);
+                isMounted && setNfcWCTeams(response?.data.wild_card_winners);
+                isMounted && setNfcDRTeams(response?.data.divisional_round_winners);
+                isMounted && setNfcCCTeams(response?.data.conference_champions);
+                isMounted && setSBWinner(response?.data.super_bowl_champion);
+                isMounted && setFss(response?.data.final_score_sum);
+                isMounted && setIsUpdate(true);
+            } catch (err: any) {
+                if (!err?.response) {
+                    setErrMsg('No server response');
+                } else if (err && err instanceof Error) {
+                    setErrMsg(err.message);
+                    console.error("Error: ", err);
+                } else {
+                    setErrMsg('Login failed');
+                }
+            }
+        };
+
+        getBracket();
+
+        return () => {
+            isMounted = false;
+            controller.abort();
+        };
+    }, [afcTeams, nfcTeams]);
+
+    useEffect(() => {
+        setErrMsg('');
+    }, [nfcWC1Winner, nfcWC2Winner, nfcWC3Winner, nfcDR1Winner, nfcDR2Winner, nfcCCWinner, nfcDRLast, nfcDRAway, nfcDRHome, nfcCCAway, nfcCCHome, afcWC1Winner, afcWC2Winner, afcWC3Winner, afcDR1Winner, afcDR2Winner, afcCCWinner, afcDRLast, afcDRAway, afcDRHome, afcCCAway, afcCCHome, sbWinner, fss]);
 
     const onSubmit = async (values: any) => {
+        values.preventDefault();
         console.log("Values: ", values);
         setErrMsg("");
 
-        try {
-            const response = await axiosPrivate.post(
-                "/brackets/",
-                values,
-                {
-                    headers: { 'Content-Type': 'application/json' },
-                    withCredentials: true
-                }
-            );
+        console.log(nfcWC1Winner, nfcWC2Winner, nfcWC3Winner, nfcDR1Winner, nfcDR2Winner, nfcCCWinner, afcWC1Winner, afcWC2Winner, afcWC3Winner, afcDR1Winner, afcDR2Winner, afcCCWinner, sbWinner, fss);
+        if (!nfcWC1Winner || !nfcWC2Winner || !nfcWC3Winner || !nfcDR1Winner || !nfcDR2Winner || !nfcCCWinner || !afcWC1Winner || !afcWC2Winner || !afcWC3Winner || !afcDR1Winner || !afcDR2Winner || !afcCCWinner || !sbWinner || !fss) {
+            setErrMsg("Missing selections");
+            return;
+        }
 
-            console.log(JSON.stringify(response?.data));
+        const toSubmit = {
+            "wild_card_winners": [nfcWC1Winner, nfcWC2Winner, nfcWC3Winner, afcWC1Winner, afcWC2Winner, afcWC3Winner],
+            "divisional_round_winners": [nfcDR1Winner, nfcDR2Winner, afcDR1Winner, afcDR2Winner],
+            "conference_champions": [nfcCCWinner, afcCCWinner],
+            "super_bowl_champion": sbWinner,
+            "final_score_sum": fss
+        };
+        console.log("tosubmit: ", toSubmit);
+
+        try {
+            if (isUpdate) {
+                const response = await axiosPrivate.put(
+                    "/brackets/",
+                    toSubmit,
+                    {
+                        headers: { 'Content-Type': 'application/json' },
+                        withCredentials: true
+                    }
+                );
+                console.log(JSON.stringify(response?.data));
+            } else {
+                const response = await axiosPrivate.post(
+                    "/brackets/",
+                    toSubmit,
+                    {
+                        headers: { 'Content-Type': 'application/json' },
+                        withCredentials: true
+                    }
+                );
+                console.log(JSON.stringify(response?.data));
+                setIsUpdate(true);
+            }
+
+            setErrMsg("Saved!");
         } catch (err: any) {
             if (!err?.response) {
                 setErrMsg('No server response');
@@ -300,103 +509,77 @@ export default function ToggleSelection() {
         }
     };
 
-    const formik = useFormik({
-        initialValues: {
-            username: "",
-            password: "",
-        },
-        onSubmit,
-    });
-
     return (
 
-        <Box component="form" onSubmit={formik.handleSubmit} noValidate justifyContent="center">
+        <Box component="form" noValidate justifyContent="center">
             <Grid container justifyContent="center">
-                <Grid sx={{ marginTop: 0 }}>
-                    <Typography variant="caption">{errMsg}</Typography>
-                </Grid>
 
                 {/* AFC Wild Card */}
                 <Grid container justifyContent="center" wrap='nowrap' sx={{ marginTop: 0 }}>
                     <Grid>
                         <Item>
-                            {afcTeams?.length
-                                ? (
-                                    <ToggleButtonGroup {...afcWC1Control}>
-
-                                        <ToggleButton sx={{ padding: 0 }} value="afc_rank_6">
-                                            <img
-                                                src={icon(afcTeams[6].name)}
-                                                height={50}
-                                                alt={emoji(afcTeams[6].name)}
-                                                loading="lazy"
-                                            />
-                                        </ToggleButton>
-                                        <ToggleButton sx={{ padding: 0 }} value="afc_rank_1">
-                                            <img
-                                                src={icon(afcTeams[1].name)}
-                                                height={50}
-                                                alt={emoji(afcTeams[1].name)}
-                                                loading="lazy"
-                                            />
-                                        </ToggleButton>
-                                    </ToggleButtonGroup>
-                                ) : <p>No teams to display</p>
-                            }
+                            <ToggleButtonGroup {...afcWC1Control}>
+                                <ToggleButton sx={{ padding: 0 }} value={afcRank6}>
+                                    <img
+                                        src={icon(afcRank6)}
+                                        height={50}
+                                        alt={emoji(afcRank6)}
+                                        loading="lazy"
+                                    />
+                                </ToggleButton>
+                                <ToggleButton sx={{ padding: 0 }} value={afcRank1}>
+                                    <img
+                                        src={icon(afcRank1)}
+                                        height={50}
+                                        alt={emoji(afcRank1)}
+                                        loading="lazy"
+                                    />
+                                </ToggleButton>
+                            </ToggleButtonGroup>
                         </Item>
                     </Grid>
                     <Grid>
                         <Item>
-                            {afcTeams?.length
-                                ? (
-                                    <ToggleButtonGroup {...afcWC2Control}>
-
-                                        <ToggleButton sx={{ padding: 0 }} value="afc_rank_5">
-                                            <img
-                                                src={icon(afcTeams[5].name)}
-                                                height={50}
-                                                alt={emoji(afcTeams[5].name)}
-                                                loading="lazy"
-                                            />
-                                        </ToggleButton>
-                                        <ToggleButton sx={{ padding: 0 }} value="afc_rank_2">
-                                            <img
-                                                src={icon(afcTeams[2].name)}
-                                                height={50}
-                                                alt={emoji(afcTeams[2].name)}
-                                                loading="lazy"
-                                            />
-                                        </ToggleButton>
-                                    </ToggleButtonGroup>
-                                ) : <p>No teams to display</p>
-                            }
+                            <ToggleButtonGroup {...afcWC2Control}>
+                                <ToggleButton sx={{ padding: 0 }} value={afcRank5}>
+                                    <img
+                                        src={icon(afcRank5)}
+                                        height={50}
+                                        alt={emoji(afcRank5)}
+                                        loading="lazy"
+                                    />
+                                </ToggleButton>
+                                <ToggleButton sx={{ padding: 0 }} value={afcRank2}>
+                                    <img
+                                        src={icon(afcRank2)}
+                                        height={50}
+                                        alt={emoji(afcRank2)}
+                                        loading="lazy"
+                                    />
+                                </ToggleButton>
+                            </ToggleButtonGroup>
                         </Item>
                     </Grid>
                     <Grid>
                         <Item>
-                            {afcTeams?.length
-                                ? (
-                                    <ToggleButtonGroup {...afcWC3Control}>
-
-                                        <ToggleButton sx={{ padding: 0 }} value="afc_rank_4">
-                                            <img
-                                                src={icon(afcTeams[4].name)}
-                                                height={50}
-                                                alt={emoji(afcTeams[4].name)}
-                                                loading="lazy"
-                                            />
-                                        </ToggleButton>
-                                        <ToggleButton sx={{ padding: 0 }} value="afc_rank_3">
-                                            <img
-                                                src={icon(afcTeams[3].name)}
-                                                height={50}
-                                                alt={emoji(afcTeams[3].name)}
-                                                loading="lazy"
-                                            />
-                                        </ToggleButton>
-                                    </ToggleButtonGroup>
-                                ) : <p>No teams to display</p>
-                            }
+                            <ToggleButtonGroup {...afcWC3Control}>
+                                <ToggleButton sx={{ padding: 0 }} value={afcRank4}>
+                                    <img
+                                        src={icon(afcRank4)}
+                                        height={50}
+                                        alt={emoji(afcRank4)}
+                                        loading="lazy"
+                                    />
+                                </ToggleButton>
+                                <ToggleButton sx={{ padding: 0 }} value={afcRank3}>
+                                    <img
+                                        src={icon(afcRank3)}
+                                        height={50}
+                                        alt={emoji(afcRank3)}
+                                        loading="lazy"
+                                    />
+                                </ToggleButton>
+                            </ToggleButtonGroup>
                         </Item>
                     </Grid>
                 </Grid>
@@ -408,53 +591,43 @@ export default function ToggleSelection() {
                 <Grid container justifyContent="center" wrap='nowrap' sx={{ marginTop: 0 }}>
                     <Grid>
                         <Item>
-                            {afcTeams?.length
-                                ? (
-                                    <ToggleButtonGroup {...afcDR1Control}>
-
-                                        <ToggleButton sx={{ padding: 0 }} value="afc_dr_last">
-                                            <img
-                                                {...afcDRLastControl}
-                                                height={50}
-                                                loading="lazy"
-                                            />
-                                        </ToggleButton>
-                                        <ToggleButton sx={{ padding: 0 }} value="afc_rank_0">
-                                            <img
-                                                src={icon(afcTeams[0].name)}
-                                                height={50}
-                                                alt={emoji(afcTeams[0].name)}
-                                                loading="lazy"
-                                            />
-                                        </ToggleButton>
-                                    </ToggleButtonGroup>
-                                ) : <p>No teams to display</p>
-                            }
+                            <ToggleButtonGroup {...afcDR1Control}>
+                                <ToggleButton sx={{ padding: 0 }} value={afcDRLast}>
+                                    <img
+                                        {...afcDRLastControl}
+                                        height={50}
+                                        loading="lazy"
+                                    />
+                                </ToggleButton>
+                                <ToggleButton sx={{ padding: 0 }} value={afcRank0}>
+                                    <img
+                                        src={icon(afcRank0)}
+                                        height={50}
+                                        alt={emoji(afcRank0)}
+                                        loading="lazy"
+                                    />
+                                </ToggleButton>
+                            </ToggleButtonGroup>
                         </Item>
                     </Grid>
                     <Grid>
                         <Item>
-                            {afcTeams?.length
-                                ? (
-                                    <ToggleButtonGroup {...afcDR2Control}>
-
-                                        <ToggleButton sx={{ padding: 0 }} value="afc_dr_away">
-                                            <img
-                                                {...afcDRAwayControl}
-                                                height={50}
-                                                loading="lazy"
-                                            />
-                                        </ToggleButton>
-                                        <ToggleButton sx={{ padding: 0 }} value="afc_dr_home">
-                                            <img
-                                                {...afcDRHomeControl}
-                                                height={50}
-                                                loading="lazy"
-                                            />
-                                        </ToggleButton>
-                                    </ToggleButtonGroup>
-                                ) : <p>No teams to display</p>
-                            }
+                            <ToggleButtonGroup {...afcDR2Control}>
+                                <ToggleButton sx={{ padding: 0 }} value={afcDRAway}>
+                                    <img
+                                        {...afcDRAwayControl}
+                                        height={50}
+                                        loading="lazy"
+                                    />
+                                </ToggleButton>
+                                <ToggleButton sx={{ padding: 0 }} value={afcDRHome}>
+                                    <img
+                                        {...afcDRHomeControl}
+                                        height={50}
+                                        loading="lazy"
+                                    />
+                                </ToggleButton>
+                            </ToggleButtonGroup>
                         </Item>
                     </Grid>
                 </Grid>
@@ -465,27 +638,22 @@ export default function ToggleSelection() {
                 {/* AFC Championship */}
                 <Grid container justifyContent="center" wrap='nowrap' sx={{ marginTop: 0 }}>
                     <Item>
-                        {afcTeams?.length
-                            ? (
-                                <ToggleButtonGroup {...afcCCControl}>
-
-                                    <ToggleButton sx={{ padding: 0 }} value="afc_cc_away">
-                                        <img
-                                            {...afcCCAwayControl}
-                                            height={50}
-                                            loading="lazy"
-                                        />
-                                    </ToggleButton>
-                                    <ToggleButton sx={{ padding: 0 }} value="afc_cc_home">
-                                        <img
-                                            {...afcCCHomeControl}
-                                            height={50}
-                                            loading="lazy"
-                                        />
-                                    </ToggleButton>
-                                </ToggleButtonGroup>
-                            ) : <p>No teams to display</p>
-                        }
+                        <ToggleButtonGroup {...afcCCControl}>
+                            <ToggleButton sx={{ padding: 0 }} value={afcCCAway}>
+                                <img
+                                    {...afcCCAwayControl}
+                                    height={50}
+                                    loading="lazy"
+                                />
+                            </ToggleButton>
+                            <ToggleButton sx={{ padding: 0 }} value={afcCCHome}>
+                                <img
+                                    {...afcCCHomeControl}
+                                    height={50}
+                                    loading="lazy"
+                                />
+                            </ToggleButton>
+                        </ToggleButtonGroup>
                     </Item>
                 </Grid>
                 <Grid sx={{ marginTop: 0 }}>
@@ -495,27 +663,22 @@ export default function ToggleSelection() {
                 {/* SuperBowl */}
                 <Grid container justifyContent="center" wrap='nowrap' sx={{ marginTop: 0 }}>
                     <Item>
-                        {afcTeams?.length
-                            ? (
-                                <ToggleButtonGroup {...sbControl}>
-
-                                    <ToggleButton sx={{ padding: 0 }} value="afc_sb">
-                                        <img
-                                            {...afcSBControl}
-                                            height={50}
-                                            loading="lazy"
-                                        />
-                                    </ToggleButton>
-                                    <ToggleButton sx={{ padding: 0 }} value="nfc_sb">
-                                        <img
-                                            {...nfcSBControl}
-                                            height={50}
-                                            loading="lazy"
-                                        />
-                                    </ToggleButton>
-                                </ToggleButtonGroup>
-                            ) : <p>No teams to display</p>
-                        }
+                        <ToggleButtonGroup {...sbControl}>
+                            <ToggleButton sx={{ padding: 0 }} value={afcSB}>
+                                <img
+                                    {...afcSBControl}
+                                    height={50}
+                                    loading="lazy"
+                                />
+                            </ToggleButton>
+                            <ToggleButton sx={{ padding: 0 }} value={nfcSB}>
+                                <img
+                                    {...nfcSBControl}
+                                    height={50}
+                                    loading="lazy"
+                                />
+                            </ToggleButton>
+                        </ToggleButtonGroup>
                     </Item>
 
                     <TextField
@@ -530,7 +693,7 @@ export default function ToggleSelection() {
                         name="finalscore"
                         type="number"
                         size="small"
-                        defaultValue={0}
+                        value={fss}
                         InputProps={{ inputProps: { min: 0, max: 999 } }}
                     />
                 </Grid>
@@ -541,29 +704,24 @@ export default function ToggleSelection() {
                 {/* NFC Championship */}
                 <Grid container justifyContent="center" wrap='nowrap' sx={{ marginTop: 0 }}>
                     <Item>
-                        {afcTeams?.length
-                            ? (
-                                <ToggleButtonGroup {...nfcCCControl}>
-
-                                    <ToggleButton sx={{ padding: 0 }} value="nfc_cc_away">
-                                        <img
-                                            {...nfcCCAwayControl}
-                                            height={50}
-                                            alt={"NFC"}
-                                            loading="lazy"
-                                        />
-                                    </ToggleButton>
-                                    <ToggleButton sx={{ padding: 0 }} value="nfc_cc_home">
-                                        <img
-                                            {...nfcCCHomeControl}
-                                            height={50}
-                                            alt={"NFC"}
-                                            loading="lazy"
-                                        />
-                                    </ToggleButton>
-                                </ToggleButtonGroup>
-                            ) : <p>No teams to display</p>
-                        }
+                        <ToggleButtonGroup {...nfcCCControl}>
+                            <ToggleButton sx={{ padding: 0 }} value={nfcCCAway}>
+                                <img
+                                    {...nfcCCAwayControl}
+                                    height={50}
+                                    alt={"NFC"}
+                                    loading="lazy"
+                                />
+                            </ToggleButton>
+                            <ToggleButton sx={{ padding: 0 }} value={nfcCCHome}>
+                                <img
+                                    {...nfcCCHomeControl}
+                                    height={50}
+                                    alt={"NFC"}
+                                    loading="lazy"
+                                />
+                            </ToggleButton>
+                        </ToggleButtonGroup>
                     </Item>
                 </Grid>
                 <Grid>
@@ -574,53 +732,43 @@ export default function ToggleSelection() {
                 <Grid container justifyContent="center" wrap='nowrap' sx={{ marginTop: 0 }}>
                     <Grid>
                         <Item>
-                            {afcTeams?.length
-                                ? (
-                                    <ToggleButtonGroup {...nfcDR1Control}>
-
-                                        <ToggleButton sx={{ padding: 0 }} value="nfc_dr_last">
-                                            <img
-                                                {...nfcDRLastControl}
-                                                height={50}
-                                                loading="lazy"
-                                            />
-                                        </ToggleButton>
-                                        <ToggleButton sx={{ padding: 0 }} value="nfc_rank_0">
-                                            <img
-                                                src={icon(nfcTeams[0].name)}
-                                                height={50}
-                                                alt={emoji(nfcTeams[0].name)}
-                                                loading="lazy"
-                                            />
-                                        </ToggleButton>
-                                    </ToggleButtonGroup>
-                                ) : <p>No teams to display</p>
-                            }
+                            <ToggleButtonGroup {...nfcDR1Control}>
+                                <ToggleButton sx={{ padding: 0 }} value={nfcDRLast}>
+                                    <img
+                                        {...nfcDRLastControl}
+                                        height={50}
+                                        loading="lazy"
+                                    />
+                                </ToggleButton>
+                                <ToggleButton sx={{ padding: 0 }} value={nfcRank0}>
+                                    <img
+                                        src={icon(nfcRank0)}
+                                        height={50}
+                                        alt={emoji(nfcRank0)}
+                                        loading="lazy"
+                                    />
+                                </ToggleButton>
+                            </ToggleButtonGroup>
                         </Item>
                     </Grid>
                     <Grid>
                         <Item>
-                            {afcTeams?.length
-                                ? (
-                                    <ToggleButtonGroup {...nfcDR2Control}>
-
-                                        <ToggleButton sx={{ padding: 0 }} value="nfc_dr_away">
-                                            <img
-                                                {...nfcDRAwayControl}
-                                                height={50}
-                                                loading="lazy"
-                                            />
-                                        </ToggleButton>
-                                        <ToggleButton sx={{ padding: 0 }} value="nfc_dr_home">
-                                            <img
-                                                {...nfcDRHomeControl}
-                                                height={50}
-                                                loading="lazy"
-                                            />
-                                        </ToggleButton>
-                                    </ToggleButtonGroup>
-                                ) : <p>No teams to display</p>
-                            }
+                            <ToggleButtonGroup {...nfcDR2Control}>
+                                <ToggleButton sx={{ padding: 0 }} value={nfcDRAway}>
+                                    <img
+                                        {...nfcDRAwayControl}
+                                        height={50}
+                                        loading="lazy"
+                                    />
+                                </ToggleButton>
+                                <ToggleButton sx={{ padding: 0 }} value={nfcDRHome}>
+                                    <img
+                                        {...nfcDRHomeControl}
+                                        height={50}
+                                        loading="lazy"
+                                    />
+                                </ToggleButton>
+                            </ToggleButtonGroup>
                         </Item>
                     </Grid>
                 </Grid>
@@ -632,83 +780,68 @@ export default function ToggleSelection() {
                 <Grid container justifyContent="center" wrap='nowrap' sx={{ marginTop: 0 }}>
                     <Grid>
                         <Item>
-                            {nfcTeams?.length
-                                ? (
-                                    <ToggleButtonGroup {...nfcWC1Control}>
-
-                                        <ToggleButton sx={{ padding: 0 }} value="nfc_rank_6">
-                                            <img
-                                                src={icon(nfcTeams[6].name)}
-                                                height={50}
-                                                alt={emoji(nfcTeams[6].name)}
-                                                loading="lazy"
-                                            />
-                                        </ToggleButton>
-                                        <ToggleButton sx={{ padding: 0 }} value="nfc_rank_1">
-                                            <img
-                                                src={icon(nfcTeams[1].name)}
-                                                height={50}
-                                                alt={emoji(nfcTeams[1].name)}
-                                                loading="lazy"
-                                            />
-                                        </ToggleButton>
-                                    </ToggleButtonGroup>
-                                ) : <p>No teams to display</p>
-                            }
+                            <ToggleButtonGroup {...nfcWC1Control}>
+                                <ToggleButton sx={{ padding: 0 }} value={nfcRank6}>
+                                    <img
+                                        src={icon(nfcRank6)}
+                                        height={50}
+                                        alt={emoji(nfcRank6)}
+                                        loading="lazy"
+                                    />
+                                </ToggleButton>
+                                <ToggleButton sx={{ padding: 0 }} value={nfcRank1}>
+                                    <img
+                                        src={icon(nfcRank1)}
+                                        height={50}
+                                        alt={emoji(nfcRank1)}
+                                        loading="lazy"
+                                    />
+                                </ToggleButton>
+                            </ToggleButtonGroup>
                         </Item>
                     </Grid>
                     <Grid>
                         <Item>
-                            {nfcTeams?.length
-                                ? (
-                                    <ToggleButtonGroup {...nfcWC2Control}>
-
-                                        <ToggleButton sx={{ padding: 0 }} value="nfc_rank_5">
-                                            <img
-                                                src={icon(nfcTeams[5].name)}
-                                                height={50}
-                                                alt={emoji(nfcTeams[5].name)}
-                                                loading="lazy"
-                                            />
-                                        </ToggleButton>
-                                        <ToggleButton sx={{ padding: 0 }} value="nfc_rank_2">
-                                            <img
-                                                src={icon(nfcTeams[2].name)}
-                                                height={50}
-                                                alt={emoji(nfcTeams[2].name)}
-                                                loading="lazy"
-                                            />
-                                        </ToggleButton>
-                                    </ToggleButtonGroup>
-                                ) : <p>No teams to display</p>
-                            }
+                            <ToggleButtonGroup {...nfcWC2Control}>
+                                <ToggleButton sx={{ padding: 0 }} value={nfcRank5}>
+                                    <img
+                                        src={icon(nfcRank5)}
+                                        height={50}
+                                        alt={emoji(nfcRank5)}
+                                        loading="lazy"
+                                    />
+                                </ToggleButton>
+                                <ToggleButton sx={{ padding: 0 }} value={nfcRank2}>
+                                    <img
+                                        src={icon(nfcRank2)}
+                                        height={50}
+                                        alt={emoji(nfcRank2)}
+                                        loading="lazy"
+                                    />
+                                </ToggleButton>
+                            </ToggleButtonGroup>
                         </Item>
                     </Grid>
                     <Grid>
                         <Item>
-                            {nfcTeams?.length
-                                ? (
-                                    <ToggleButtonGroup {...nfcWC3Control}>
-
-                                        <ToggleButton sx={{ padding: 0 }} value="nfc_rank_4">
-                                            <img
-                                                src={icon(nfcTeams[4].name)}
-                                                height={50}
-                                                alt={emoji(nfcTeams[4].name)}
-                                                loading="lazy"
-                                            />
-                                        </ToggleButton>
-                                        <ToggleButton sx={{ padding: 0 }} value="nfc_rank_3">
-                                            <img
-                                                src={icon(nfcTeams[3].name)}
-                                                height={50}
-                                                alt={emoji(nfcTeams[3].name)}
-                                                loading="lazy"
-                                            />
-                                        </ToggleButton>
-                                    </ToggleButtonGroup>
-                                ) : <p>No teams to display</p>
-                            }
+                            <ToggleButtonGroup {...nfcWC3Control}>
+                                <ToggleButton sx={{ padding: 0 }} value={nfcRank4}>
+                                    <img
+                                        src={icon(nfcRank4)}
+                                        height={50}
+                                        alt={emoji(nfcRank4)}
+                                        loading="lazy"
+                                    />
+                                </ToggleButton>
+                                <ToggleButton sx={{ padding: 0 }} value={nfcRank3}>
+                                    <img
+                                        src={icon(nfcRank3)}
+                                        height={50}
+                                        alt={emoji(nfcRank3)}
+                                        loading="lazy"
+                                    />
+                                </ToggleButton>
+                            </ToggleButtonGroup>
                         </Item>
                     </Grid>
                 </Grid>
@@ -722,9 +855,14 @@ export default function ToggleSelection() {
                     type="submit"
                     variant="contained"
                     sx={{ mt: 3, mb: 2 }}
+                    onClick={onSubmit}
                 >
                     Save
                 </Button>
+            </Grid>
+
+            <Grid display="flex" justifyContent="center">
+                <Typography variant="caption">{errMsg}</Typography>
             </Grid>
         </Box>
 
