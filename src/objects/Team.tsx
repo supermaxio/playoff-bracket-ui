@@ -8,4 +8,8 @@ export interface Team {
     abbreviation: string;
     displayName: string;
     conference: string;
+    wildCardWinner: boolean;
+    divisionalRoundWinner: boolean;
+    conferenceChampion: boolean;
+    superBowlChampion: boolean;
 }

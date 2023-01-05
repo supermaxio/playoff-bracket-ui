@@ -23,6 +23,7 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 export default function ToggleSelection() {
+    const fssRef = useRef();
     const [errMsg, setErrMsg] = useState('');
     const [afcTeams, setAfcTeams] = useState<Team[]>([]);
     const [nfcTeams, setNfcTeams] = useState<Team[]>([]);
@@ -47,6 +48,12 @@ export default function ToggleSelection() {
     const [sbWinner, setSBWinner] = useState<string>();
     const [fss, setFss] = useState<number>(0);
     const [isUpdate, setIsUpdate] = useState<boolean>(false);
+    const [initAfcWc, setInitAfcWc] = useState<boolean>(false);
+    const [initAfcDr, setInitAfcDr] = useState<boolean>(false);
+    const [initAfcCc, setInitAfcCc] = useState<boolean>(false);
+    const [initNfcWc, setInitNfcWc] = useState<boolean>(false);
+    const [initNfcDr, setInitNfcDr] = useState<boolean>(false);
+    const [initNfcCc, setInitNfcCc] = useState<boolean>(false);
 
     const [afcRank0, setAfcRank0] = useState<string>("AFC");
     const [afcRank1, setAfcRank1] = useState<string>("AFC");
@@ -135,16 +142,23 @@ export default function ToggleSelection() {
     const afcSBControl = { src: icon(afcSB), alt: emoji(afcSB) };
     const nfcSBControl = { src: icon(nfcSB), alt: emoji(nfcSB) };
 
-    function SetupAFCDivisionalRound() {
+    function SetupAFCDivisionalRound(rankArray: string[], winnerArray: string[]) {
+        console.log("updated afc dr");
+        const compareArray = [];
+
+        for (let i = 0; i < 3; i++) {
+            compareArray.push(rankArray.indexOf(winnerArray[i]));
+        }
+        console.log(JSON.stringify(compareArray.sort()))
         switch (true) {
-            case (afcWC1Winner == afcRank6 && afcWC2Winner == afcRank5 && afcWC3Winner == afcRank4): setAfcDRLast(afcRank6); setAfcDRAway(afcRank5); setAfcDRHome(afcRank4); break;
-            case (afcWC1Winner == afcRank6 && afcWC2Winner == afcRank5 && afcWC3Winner == afcRank3): setAfcDRLast(afcRank6); setAfcDRAway(afcRank5); setAfcDRHome(afcRank3); break;
-            case (afcWC1Winner == afcRank6 && afcWC2Winner == afcRank2 && afcWC3Winner == afcRank4): setAfcDRLast(afcRank6); setAfcDRHome(afcRank2); setAfcDRAway(afcRank4); break;
-            case (afcWC1Winner == afcRank6 && afcWC2Winner == afcRank2 && afcWC3Winner == afcRank3): setAfcDRLast(afcRank6); setAfcDRHome(afcRank2); setAfcDRAway(afcRank3); break;
-            case (afcWC1Winner == afcRank1 && afcWC2Winner == afcRank5 && afcWC3Winner == afcRank4): setAfcDRHome(afcRank1); setAfcDRLast(afcRank5); setAfcDRAway(afcRank4); break;
-            case (afcWC1Winner == afcRank1 && afcWC2Winner == afcRank5 && afcWC3Winner == afcRank3): setAfcDRHome(afcRank1); setAfcDRLast(afcRank5); setAfcDRAway(afcRank3); break;
-            case (afcWC1Winner == afcRank1 && afcWC2Winner == afcRank2 && afcWC3Winner == afcRank4): setAfcDRHome(afcRank1); setAfcDRAway(afcRank2); setAfcDRLast(afcRank4); break;
-            case (afcWC1Winner == afcRank1 && afcWC2Winner == afcRank2 && afcWC3Winner == afcRank3): setAfcDRHome(afcRank1); setAfcDRAway(afcRank2); setAfcDRLast(afcRank3); break;
+            case (JSON.stringify(compareArray.sort()) == "[4,5,6]"): setAfcDRLast(rankArray[6]); setAfcDRAway(rankArray[5]); setAfcDRHome(rankArray[4]); break;
+            case (JSON.stringify(compareArray.sort()) == "[3,5,6]"): setAfcDRLast(rankArray[6]); setAfcDRAway(rankArray[5]); setAfcDRHome(rankArray[3]); break;
+            case (JSON.stringify(compareArray.sort()) == "[2,4,6]"): setAfcDRLast(rankArray[6]); setAfcDRHome(rankArray[2]); setAfcDRAway(rankArray[4]); break;
+            case (JSON.stringify(compareArray.sort()) == "[2,3,6]"): setAfcDRLast(rankArray[6]); setAfcDRHome(rankArray[2]); setAfcDRAway(rankArray[3]); break;
+            case (JSON.stringify(compareArray.sort()) == "[1,4,5]"): setAfcDRHome(rankArray[1]); setAfcDRLast(rankArray[5]); setAfcDRAway(rankArray[4]); break;
+            case (JSON.stringify(compareArray.sort()) == "[1,3,5]"): setAfcDRHome(rankArray[1]); setAfcDRLast(rankArray[5]); setAfcDRAway(rankArray[3]); break;
+            case (JSON.stringify(compareArray.sort()) == "[1,2,4]"): setAfcDRHome(rankArray[1]); setAfcDRAway(rankArray[2]); setAfcDRLast(rankArray[4]); break;
+            case (JSON.stringify(compareArray.sort()) == "[1,2,3]"): setAfcDRHome(rankArray[1]); setAfcDRAway(rankArray[2]); setAfcDRLast(rankArray[3]); break;
             default: setAfcDRLast("AFC"); setAfcDRAway("AFC"); setAfcDRHome("AFC");
         }
 
@@ -221,7 +235,7 @@ export default function ToggleSelection() {
 
     useEffect(() => {
         if (afcWC1Winner && afcWC2Winner && afcWC3Winner) {
-            SetupAFCDivisionalRound();
+            SetupAFCDivisionalRound([afcRank0,afcRank1,afcRank2,afcRank3,afcRank4,afcRank5,afcRank6],[afcWC1Winner, afcWC2Winner, afcWC3Winner]);
         }
         if (afcDR1Winner && afcDR2Winner && afcWC1Winner && afcWC2Winner && afcWC3Winner) {
             SetupAFCChampionship();
@@ -229,6 +243,9 @@ export default function ToggleSelection() {
         if (afcCCWinner && afcDR1Winner && afcDR2Winner && afcWC1Winner && afcWC2Winner && afcWC3Winner) {
             SetupAFCSuperBowl();
         }
+    }, [afcWC1Winner, afcWC2Winner, afcWC3Winner, afcDR1Winner, afcDR2Winner, afcCCWinner, afcDRLast, afcDRAway, afcDRHome, afcCCAway, afcCCHome]);
+
+    useEffect(() => {
         if (nfcWC1Winner && nfcWC2Winner && nfcWC3Winner) {
             SetupNFCDivisionalRound();
         }
@@ -243,6 +260,7 @@ export default function ToggleSelection() {
     useEffect(() => {
         let isMounted = true;
         const controller = new AbortController();
+        console.log("******* calls on init list")
 
         const getTeams = async () => {
             try {
@@ -292,83 +310,108 @@ export default function ToggleSelection() {
     }, []);
 
     useEffect(() => {
-        console.log([afcRank1, afcRank6, afcRank2, afcRank5, afcRank3, afcRank4].indexOf("AFC") == -1)
-        if ([afcRank1, afcRank6, afcRank2, afcRank5, afcRank3, afcRank4].indexOf("AFC") == -1) {
-            for (let i = 0; i < afcWCTeams.length; i++) {
-                switch (afcWCTeams[i]) {
-                    case afcRank1: case afcRank6: setAfcWC1Winner(afcWCTeams[i]); break;
-                    case afcRank2: case afcRank5: setAfcWC2Winner(afcWCTeams[i]); break;
-                    case afcRank3: case afcRank4: setAfcWC3Winner(afcWCTeams[i]); break;
-                    default: break;
+        if (!initAfcWc && afcWCTeams.length != 0) {
+            console.log([afcRank1, afcRank6, afcRank2, afcRank5, afcRank3, afcRank4].indexOf("AFC") == -1);
+            if ([afcRank1, afcRank6, afcRank2, afcRank5, afcRank3, afcRank4].indexOf("AFC") == -1) {
+                for (let i = 0; i < afcWCTeams.length; i++) {
+                    switch (afcWCTeams[i]) {
+                        case afcRank1: case afcRank6: setAfcWC1Winner(afcWCTeams[i]); break;
+                        case afcRank2: case afcRank5: setAfcWC2Winner(afcWCTeams[i]); break;
+                        case afcRank3: case afcRank4: setAfcWC3Winner(afcWCTeams[i]); break;
+                        default: break;
+                    }
                 }
+
+                setInitAfcWc(true);
             }
         }
     }, [afcRank1, afcRank6, afcRank2, afcRank5, afcRank3, afcRank4]);
 
     useEffect(() => {
-        if ([nfcRank1, nfcRank6, nfcRank2, nfcRank5, nfcRank3, nfcRank4].indexOf("NFC") == -1) {
-            for (let i = 0; i < nfcWCTeams.length; i++) {
-                switch (nfcWCTeams[i]) {
-                    case nfcRank1: case nfcRank6: setNfcWC1Winner(nfcWCTeams[i]); break;
-                    case nfcRank2: case nfcRank5: setNfcWC2Winner(nfcWCTeams[i]); break;
-                    case nfcRank3: case nfcRank4: setNfcWC3Winner(nfcWCTeams[i]); break;
-                    default: break;
+        if (!initNfcWc && nfcWCTeams.length != 0) {
+            if ([nfcRank1, nfcRank6, nfcRank2, nfcRank5, nfcRank3, nfcRank4].indexOf("NFC") == -1) {
+                for (let i = 0; i < nfcWCTeams.length; i++) {
+                    switch (nfcWCTeams[i]) {
+                        case nfcRank1: case nfcRank6: setNfcWC1Winner(nfcWCTeams[i]); break;
+                        case nfcRank2: case nfcRank5: setNfcWC2Winner(nfcWCTeams[i]); break;
+                        case nfcRank3: case nfcRank4: setNfcWC3Winner(nfcWCTeams[i]); break;
+                        default: break;
+                    }
                 }
+
+                setInitNfcWc(true);
             }
         }
     }, [nfcRank1, nfcRank6, nfcRank2, nfcRank5, nfcRank3, nfcRank4]);
-    
-    useEffect(() => {
-        if ([afcRank0, afcDRLast, afcDRAway, afcDRHome].indexOf("AFC") == -1) {
 
-            for (let i = 0; i < afcDRTeams.length; i++) {
-                switch (afcDRTeams[i]) {
-                    case afcRank0: case afcDRLast: setAfcDR1Winner(afcDRTeams[i]); break;
-                    case afcDRAway: case afcDRHome: setAfcDR2Winner(afcDRTeams[i]); break;
-                    default: break;
+    useEffect(() => {
+        if (!initAfcDr && afcDRTeams.length != 0) {
+            if ([afcRank0, afcDRLast, afcDRAway, afcDRHome].indexOf("AFC") == -1) {
+
+                for (let i = 0; i < afcDRTeams.length; i++) {
+                    switch (afcDRTeams[i]) {
+                        case afcRank0: case afcDRLast: setAfcDR1Winner(afcDRTeams[i]); break;
+                        case afcDRAway: case afcDRHome: setAfcDR2Winner(afcDRTeams[i]); break;
+                        default: break;
+                    }
                 }
+
+                setInitAfcDr(true);
             }
         }
     }, [afcRank0, afcDRLast, afcDRAway, afcDRHome]);
 
     useEffect(() => {
-        if ([nfcRank0, nfcDRLast, nfcDRAway, nfcDRHome].indexOf("NFC") == -1) {
-            for (let i = 0; i < nfcDRTeams.length; i++) {
-                switch (nfcDRTeams[i]) {
-                    case nfcRank0: case nfcDRLast: setNfcDR1Winner(nfcDRTeams[i]); break;
-                    case nfcDRAway: case nfcDRHome: setNfcDR2Winner(nfcDRTeams[i]); break;
-                    default: break;
+        if (!initNfcDr && nfcDRTeams.length != 0) {
+            if ([nfcRank0, nfcDRLast, nfcDRAway, nfcDRHome].indexOf("NFC") == -1) {
+                for (let i = 0; i < nfcDRTeams.length; i++) {
+                    switch (nfcDRTeams[i]) {
+                        case nfcRank0: case nfcDRLast: setNfcDR1Winner(nfcDRTeams[i]); break;
+                        case nfcDRAway: case nfcDRHome: setNfcDR2Winner(nfcDRTeams[i]); break;
+                        default: break;
+                    }
                 }
+
+                setInitNfcDr(true);
             }
         }
     }, [nfcRank0, nfcDRLast, nfcDRAway, nfcDRHome]);
-    
+
     useEffect(() => {
-        if ([afcCCAway, afcCCHome].indexOf("AFC") == -1) {
-            for (let i = 0; i < afcCCTeams.length; i++) {
-                switch (afcCCTeams[i]) {
-                    case afcCCAway: case afcCCHome: setAfcCCWinner(afcCCTeams[i]); break;
-                    default: break;
+        if (!initAfcCc && afcCCTeams.length != 0) {
+
+            if ([afcCCAway, afcCCHome].indexOf("AFC") == -1) {
+                for (let i = 0; i < afcCCTeams.length; i++) {
+                    switch (afcCCTeams[i]) {
+                        case afcCCAway: case afcCCHome: setAfcCCWinner(afcCCTeams[i]); break;
+                        default: break;
+                    }
                 }
+
+                setInitAfcCc(true);
             }
         }
     }, [afcCCAway, afcCCHome]);
 
     useEffect(() => {
-        if ([nfcCCAway, nfcCCHome].indexOf("NFC") == -1) {
-            for (let i = 0; i < nfcCCTeams.length; i++) {
-                switch (nfcCCTeams[i]) {
-                    case nfcCCAway: case nfcCCHome: setNfcCCWinner(nfcCCTeams[i]); break;
-                    default: break;
+        if (!initNfcCc && nfcCCTeams.length != 0) {
+            if ([nfcCCAway, nfcCCHome].indexOf("NFC") == -1) {
+                for (let i = 0; i < nfcCCTeams.length; i++) {
+                    switch (nfcCCTeams[i]) {
+                        case nfcCCAway: case nfcCCHome: setNfcCCWinner(nfcCCTeams[i]); break;
+                        default: break;
+                    }
                 }
+
+                setInitNfcCc(true);
             }
         }
     }, [nfcCCAway, nfcCCHome]);
-    
+
     useEffect(() => {
         let isMounted = true;
         const controller = new AbortController();
-
+        console.log("******* calls on teams list")
         const getBracket = async () => {
             try {
                 const response = await axiosPrivate.get(
@@ -379,45 +422,47 @@ export default function ToggleSelection() {
                         withCredentials: true
                     }
                 );
-            
-                // for (let i = 0; i < response?.data.wild_card_winners.length; i++) {
-                //     switch (response?.data.wild_card_winners[i]) {
-                //         case afcTeams[1].name: case afcTeams[6].name: isMounted && setAfcWC1Winner(response?.data.wild_card_winners[i]); break;
-                //         case afcTeams[2].name: case afcTeams[5].name: isMounted && setAfcWC2Winner(response?.data.wild_card_winners[i]); break;
-                //         case afcTeams[3].name: case afcTeams[4].name: isMounted && setAfcWC3Winner(response?.data.wild_card_winners[i]); break;
-                //         case nfcTeams[1].name: case nfcTeams[6]: isMounted && setNfcWC1Winner(response?.data.wild_card_winners[i]); break;
-                //         case nfcTeams[2].name: case nfcTeams[5]: isMounted && setNfcWC2Winner(response?.data.wild_card_winners[i]); break;
-                //         case nfcTeams[3].name: case nfcTeams[4]: isMounted && setNfcWC3Winner(response?.data.wild_card_winners[i]); break;
-                //         default: break;
-                //     }
-                // }
 
-                // SetupAFCDivisionalRound();
-                // SetupNFCDivisionalRound();
+                const wildCardWinners = response?.data.wild_card_winners;
+                const divisionalRoundWinners = response?.data.divisional_round_winners;
+                const conferenceChampions = response?.data.conference_champions;
+                const superBowlChampion = response?.data.super_bowl_champion;
 
-                // for (let i = 0; i < response?.data.divisional_round_winners.length; i++) {
-                //     switch (response?.data.divisional_round_winners[i]) {
-                //         case afcRank0: case afcDRLast: isMounted && setAfcDR1Winner(response?.data.divisional_round_winners[i]); break;
-                //         case afcDRAway: case afcDRHome: isMounted && setAfcDR2Winner(response?.data.divisional_round_winners[i]); break;
-                //         case nfcRank0: case nfcDRLast: isMounted && setNfcDR1Winner(response?.data.divisional_round_winners[i]); break;
-                //         case nfcDRAway: case nfcDRHome: isMounted && setNfcDR2Winner(response?.data.divisional_round_winners[i]); break;
-                //         default: break;
-                //     }
-                // }
+                for (let i = 0; i < wildCardWinners.length; i++) {
+                    if (afcTeams.indexOf(wildCardWinners[i]) != -1) {
+                        afcTeams[afcTeams.indexOf(wildCardWinners[i])].wildCardWinner = true;
+                    }
+                    if (nfcTeams.indexOf(wildCardWinners[i]) != -1) {
+                        nfcTeams[nfcTeams.indexOf(wildCardWinners[i])].wildCardWinner = true;
+                    }
+                }
 
-                // SetupAFCChampionship();
-                // SetupNFCChampionship();
+                for (let i = 0; i < divisionalRoundWinners.length; i++) {
+                    if (afcTeams.indexOf(divisionalRoundWinners[i]) != -1) {
+                        afcTeams[afcTeams.indexOf(divisionalRoundWinners[i])].divisionalRoundWinner = true;
+                    }
+                    if (nfcTeams.indexOf(divisionalRoundWinners[i]) != -1) {
+                        nfcTeams[nfcTeams.indexOf(divisionalRoundWinners[i])].divisionalRoundWinner = true;
+                    }
+                }
 
-                // for (let i = 0; i < response?.data.conference_champions.length; i++) {
-                //     switch (response?.data.conference_champions[i]) {
-                //         case afcCCAway: case afcCCHome: isMounted && setAfcCCWinner(response?.data.conference_champions[i]); break;
-                //         case nfcCCAway: case nfcCCHome: isMounted && setNfcCCWinner(response?.data.conference_champions[i]); break;
-                //         default: break;
-                //     }
-                // }
+                for (let i = 0; i < conferenceChampions.length; i++) {
+                    if (afcTeams.indexOf(conferenceChampions[i]) != -1) {
+                        afcTeams[afcTeams.indexOf(conferenceChampions[i])].conferenceChampion = true;
+                    }
+                    if (nfcTeams.indexOf(conferenceChampions[i]) != -1) {
+                        nfcTeams[nfcTeams.indexOf(conferenceChampions[i])].conferenceChampion = true;
+                    }
+                }
 
-                // SetupAFCSuperBowl();
-                // SetupNFCSuperBowl();
+                if (afcTeams.indexOf(superBowlChampion) != -1) {
+                    afcTeams[afcTeams.indexOf(superBowlChampion)].superBowlChampion = true;
+                }
+                if (nfcTeams.indexOf(superBowlChampion) != -1) {
+                    nfcTeams[nfcTeams.indexOf(superBowlChampion)].superBowlChampion = true;
+                }
+
+
 
                 isMounted && setAfcWCTeams(response?.data.wild_card_winners);
                 isMounted && setAfcDRTeams(response?.data.divisional_round_winners);
@@ -429,14 +474,7 @@ export default function ToggleSelection() {
                 isMounted && setFss(response?.data.final_score_sum);
                 isMounted && setIsUpdate(true);
             } catch (err: any) {
-                if (!err?.response) {
-                    setErrMsg('No server response');
-                } else if (err && err instanceof Error) {
-                    setErrMsg(err.message);
-                    console.error("Error: ", err);
-                } else {
-                    setErrMsg('Login failed');
-                }
+                setIsUpdate(false);
             }
         };
 
