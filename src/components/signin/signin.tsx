@@ -1,13 +1,11 @@
 
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Copyright from '../miscellaneous/copyright';
 import { useEffect, useRef, useState } from 'react';
 import axios from '../../api/axios';
@@ -15,22 +13,15 @@ import { useFormik } from 'formik';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import useAuth from '../../hooks/useAuth';
 
-const theme = createTheme();
-
 export default function SignIn(props: any) {
-  const errRef = useRef();
-  const userRef = useRef();
-
   const [user, setUser] = useState('');
   const [pwd, setPwd] = useState('');
   const [errMsg, setErrMsg] = useState('');
-  const [success, setSuccess] = useState(false);
 
   const { setAuth }: any = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
   const from = location.state?.from?.pathname || "/";
-  // const signIn = useSignIn();
 
   useEffect(() => {
     setErrMsg('');
@@ -56,13 +47,6 @@ export default function SignIn(props: any) {
 
       setAuth({ accessToken });
 
-      // signIn({
-      //   token: accessToken,
-      //   expiresIn: 300,
-      //   tokenType: "Bearer",
-      //   authState: { username: values.username }
-      // });
-
       setUser('');
       setPwd('');
       navigate(from, { replace: true });
@@ -70,10 +54,11 @@ export default function SignIn(props: any) {
       if (!err?.response) {
         setErrMsg('No server response');
       } else if (err && err instanceof Error) {
-        setErrMsg(err.message);
+        setErrMsg("Incorrect username and password");
         console.log("Error: ", err);
       } else {
         setErrMsg('Login failed');
+        console.log("Error: ", err);
       }
     }
   };
@@ -87,9 +72,7 @@ export default function SignIn(props: any) {
   });
 
   return (
-    <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
-        <CssBaseline />
         <Box
           sx={{
             marginTop: 6,
@@ -144,6 +127,5 @@ export default function SignIn(props: any) {
         </Box>
         <Copyright sx={{ mt: 8, mb: 4 }} />
       </Container>
-    </ThemeProvider>
   );
 }

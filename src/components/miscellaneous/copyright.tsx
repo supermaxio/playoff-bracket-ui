@@ -1,14 +1,10 @@
 import Typography from '@mui/material/Typography';
 import Link from '@mui/material/Link';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { Box, Container, CssBaseline, Grid } from '@mui/material';
-const theme = createTheme();
+import { Box, Container, Grid } from '@mui/material';
 
 export default function Copyright(props: any) {
   return (
-    <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
-        <CssBaseline />
         <Box
           sx={{
             marginTop: 8,
@@ -45,6 +41,5 @@ export default function Copyright(props: any) {
 
         </Box>
       </Container>
-    </ThemeProvider>
   );
 }
