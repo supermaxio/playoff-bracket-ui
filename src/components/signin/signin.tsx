@@ -1,21 +1,17 @@
 
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Copyright from '../miscellaneous/copyright';
 import { useEffect, useRef, useState } from 'react';
 import axios from '../../api/axios';
 import { useFormik } from 'formik';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import useAuth from '../../hooks/useAuth';
-
-const theme = createTheme();
 
 export default function SignIn(props: any) {
   const errRef = useRef();
@@ -87,9 +83,7 @@ export default function SignIn(props: any) {
   });
 
   return (
-    <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
-        <CssBaseline />
         <Box
           sx={{
             marginTop: 6,
@@ -144,6 +138,5 @@ export default function SignIn(props: any) {
         </Box>
         <Copyright sx={{ mt: 8, mb: 4 }} />
       </Container>
-    </ThemeProvider>
   );
 }
