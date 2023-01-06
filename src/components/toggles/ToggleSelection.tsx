@@ -23,38 +23,24 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 export default function ToggleSelection() {
-    const fssRef = useRef();
     const [errMsg, setErrMsg] = useState('');
     const [afcTeams, setAfcTeams] = useState<Team[]>([]);
     const [nfcTeams, setNfcTeams] = useState<Team[]>([]);
-    const [afcWCTeams, setAfcWCTeams] = useState<string[]>([]);
-    const [afcDRTeams, setAfcDRTeams] = useState<string[]>([]);
-    const [afcCCTeams, setAfcCCTeams] = useState<string[]>([]);
-    const [nfcWCTeams, setNfcWCTeams] = useState<string[]>([]);
-    const [nfcDRTeams, setNfcDRTeams] = useState<string[]>([]);
-    const [nfcCCTeams, setNfcCCTeams] = useState<string[]>([]);
-    const [afcWC1Winner, setAfcWC1Winner] = useState<string>();
-    const [afcWC2Winner, setAfcWC2Winner] = useState<string>();
-    const [afcWC3Winner, setAfcWC3Winner] = useState<string>();
-    const [afcDR1Winner, setAfcDR1Winner] = useState<string>();
-    const [afcDR2Winner, setAfcDR2Winner] = useState<string>();
-    const [afcCCWinner, setAfcCCWinner] = useState<string>();
-    const [nfcWC1Winner, setNfcWC1Winner] = useState<string>();
-    const [nfcWC2Winner, setNfcWC2Winner] = useState<string>();
-    const [nfcWC3Winner, setNfcWC3Winner] = useState<string>();
-    const [nfcDR1Winner, setNfcDR1Winner] = useState<string>();
-    const [nfcDR2Winner, setNfcDR2Winner] = useState<string>();
-    const [nfcCCWinner, setNfcCCWinner] = useState<string>();
-    const [sbWinner, setSBWinner] = useState<string>();
+    const [afcWC1Winner, setAfcWC1Winner] = useState<string>("");
+    const [afcWC2Winner, setAfcWC2Winner] = useState<string>("");
+    const [afcWC3Winner, setAfcWC3Winner] = useState<string>("");
+    const [afcDR1Winner, setAfcDR1Winner] = useState<string>("");
+    const [afcDR2Winner, setAfcDR2Winner] = useState<string>("");
+    const [afcCCWinner, setAfcCCWinner] = useState<string>("");
+    const [nfcWC1Winner, setNfcWC1Winner] = useState<string>("");
+    const [nfcWC2Winner, setNfcWC2Winner] = useState<string>("");
+    const [nfcWC3Winner, setNfcWC3Winner] = useState<string>("");
+    const [nfcDR1Winner, setNfcDR1Winner] = useState<string>("");
+    const [nfcDR2Winner, setNfcDR2Winner] = useState<string>("");
+    const [nfcCCWinner, setNfcCCWinner] = useState<string>("");
+    const [sbWinner, setSBWinner] = useState<string>("");
     const [fss, setFss] = useState<number>(0);
-    const [isUpdate, setIsUpdate] = useState<boolean>(false);
-    const [initAfcWc, setInitAfcWc] = useState<boolean>(false);
-    const [initAfcDr, setInitAfcDr] = useState<boolean>(false);
-    const [initAfcCc, setInitAfcCc] = useState<boolean>(false);
-    const [initNfcWc, setInitNfcWc] = useState<boolean>(false);
-    const [initNfcDr, setInitNfcDr] = useState<boolean>(false);
-    const [initNfcCc, setInitNfcCc] = useState<boolean>(false);
-
+ 
     const [afcRank0, setAfcRank0] = useState<string>("AFC");
     const [afcRank1, setAfcRank1] = useState<string>("AFC");
     const [afcRank2, setAfcRank2] = useState<string>("AFC");
@@ -91,7 +77,6 @@ export default function ToggleSelection() {
     const [sbDisabled, setSBDisabled] = useState(true);
 
     const axiosPrivate = useAxiosPrivate();
-    const { setAuth }: any = useAuth();
     const navigate = useNavigate();
     const icon = GetIcon;
     const emoji = GetEmoji;
@@ -142,90 +127,93 @@ export default function ToggleSelection() {
     const afcSBControl = { src: icon(afcSB), alt: emoji(afcSB) };
     const nfcSBControl = { src: icon(nfcSB), alt: emoji(nfcSB) };
 
-    function SetupAFCDivisionalRound(rankArray: string[], winnerArray: string[]) {
-        console.log("updated afc dr");
+    function SetupRank(rankArray: string[], winnerArray: string[]): number[] {
         const compareArray = [];
 
-        for (let i = 0; i < 3; i++) {
+        for (let i = 0; i < winnerArray.length; i++) {
             compareArray.push(rankArray.indexOf(winnerArray[i]));
         }
-        console.log(JSON.stringify(compareArray.sort()))
-        switch (true) {
-            case (JSON.stringify(compareArray.sort()) == "[4,5,6]"): setAfcDRLast(rankArray[6]); setAfcDRAway(rankArray[5]); setAfcDRHome(rankArray[4]); break;
-            case (JSON.stringify(compareArray.sort()) == "[3,5,6]"): setAfcDRLast(rankArray[6]); setAfcDRAway(rankArray[5]); setAfcDRHome(rankArray[3]); break;
-            case (JSON.stringify(compareArray.sort()) == "[2,4,6]"): setAfcDRLast(rankArray[6]); setAfcDRHome(rankArray[2]); setAfcDRAway(rankArray[4]); break;
-            case (JSON.stringify(compareArray.sort()) == "[2,3,6]"): setAfcDRLast(rankArray[6]); setAfcDRHome(rankArray[2]); setAfcDRAway(rankArray[3]); break;
-            case (JSON.stringify(compareArray.sort()) == "[1,4,5]"): setAfcDRHome(rankArray[1]); setAfcDRLast(rankArray[5]); setAfcDRAway(rankArray[4]); break;
-            case (JSON.stringify(compareArray.sort()) == "[1,3,5]"): setAfcDRHome(rankArray[1]); setAfcDRLast(rankArray[5]); setAfcDRAway(rankArray[3]); break;
-            case (JSON.stringify(compareArray.sort()) == "[1,2,4]"): setAfcDRHome(rankArray[1]); setAfcDRAway(rankArray[2]); setAfcDRLast(rankArray[4]); break;
-            case (JSON.stringify(compareArray.sort()) == "[1,2,3]"): setAfcDRHome(rankArray[1]); setAfcDRAway(rankArray[2]); setAfcDRLast(rankArray[3]); break;
-            default: setAfcDRLast("AFC"); setAfcDRAway("AFC"); setAfcDRHome("AFC");
-        }
 
-        setAfcDRDisabled(false);
+        compareArray.sort();
+        console.log(JSON.stringify(compareArray));
+        return compareArray;
+    }
+
+    function SetupAFCDivisionalRound() {
+        console.log("updated afc dr");
+        const rankArray = [afcRank0, afcRank1, afcRank2, afcRank3, afcRank4, afcRank5, afcRank6];
+        const winningOrder = SetupRank(rankArray, [afcWC1Winner, afcWC2Winner, afcWC3Winner]);
+        const legalValues = ["[4,5,6]", "[3,5,6]", "[2,4,6]", "[2,3,6]", "[1,4,5]", "[1,3,5]", "[1,2,4]", "[1,2,3]"];
+
+        if (legalValues.indexOf(JSON.stringify(winningOrder)) == -1) {
+            setAfcDRLast("AFC"); setAfcDRAway("AFC"); setAfcDRHome("AFC");
+        } else {
+            setAfcDRHome(rankArray[winningOrder[0]]);
+            setAfcDRAway(rankArray[winningOrder[1]]);
+            setAfcDRLast(rankArray[winningOrder[2]]);
+            setAfcDRDisabled(false);
+        }
     }
 
     function SetupNFCDivisionalRound() {
-        switch (true) {
-            case (nfcWC1Winner == nfcRank6 && nfcWC2Winner == nfcRank5 && nfcWC3Winner == nfcRank4): setNfcDRLast(nfcRank6); setNfcDRAway(nfcRank5); setNfcDRHome(nfcRank4); break;
-            case (nfcWC1Winner == nfcRank6 && nfcWC2Winner == nfcRank5 && nfcWC3Winner == nfcRank3): setNfcDRLast(nfcRank6); setNfcDRAway(nfcRank5); setNfcDRHome(nfcRank3); break;
-            case (nfcWC1Winner == nfcRank6 && nfcWC2Winner == nfcRank2 && nfcWC3Winner == nfcRank4): setNfcDRLast(nfcRank6); setNfcDRHome(nfcRank2); setNfcDRAway(nfcRank4); break;
-            case (nfcWC1Winner == nfcRank6 && nfcWC2Winner == nfcRank2 && nfcWC3Winner == nfcRank3): setNfcDRLast(nfcRank6); setNfcDRHome(nfcRank2); setNfcDRAway(nfcRank3); break;
-            case (nfcWC1Winner == nfcRank1 && nfcWC2Winner == nfcRank5 && nfcWC3Winner == nfcRank4): setNfcDRHome(nfcRank1); setNfcDRLast(nfcRank5); setNfcDRAway(nfcRank4); break;
-            case (nfcWC1Winner == nfcRank1 && nfcWC2Winner == nfcRank5 && nfcWC3Winner == nfcRank3): setNfcDRHome(nfcRank1); setNfcDRLast(nfcRank5); setNfcDRAway(nfcRank3); break;
-            case (nfcWC1Winner == nfcRank1 && nfcWC2Winner == nfcRank2 && nfcWC3Winner == nfcRank4): setNfcDRHome(nfcRank1); setNfcDRAway(nfcRank2); setNfcDRLast(nfcRank4); break;
-            case (nfcWC1Winner == nfcRank1 && nfcWC2Winner == nfcRank2 && nfcWC3Winner == nfcRank3): setNfcDRHome(nfcRank1); setNfcDRAway(nfcRank2); setNfcDRLast(nfcRank3); break;
-            default: setNfcDRLast("NFC"); setNfcDRAway("NFC"); setNfcDRHome("NFC");
-        }
+        console.log("updated nfc dr");
+        const rankArray = [nfcRank0, nfcRank1, nfcRank2, nfcRank3, nfcRank4, nfcRank5, nfcRank6];
+        const winningOrder = SetupRank(rankArray, [nfcWC1Winner, nfcWC2Winner, nfcWC3Winner]);
+        const legalValues = ["[4,5,6]", "[3,5,6]", "[2,4,6]", "[2,3,6]", "[1,4,5]", "[1,3,5]", "[1,2,4]", "[1,2,3]"];
 
-        setNfcDRDisabled(false);
+        if (legalValues.indexOf(JSON.stringify(winningOrder)) == -1) {
+            setNfcDRLast("AFC"); setNfcDRAway("AFC"); setNfcDRHome("AFC");
+        } else {
+            setNfcDRHome(rankArray[winningOrder[0]]);
+            setNfcDRAway(rankArray[winningOrder[1]]);
+            setNfcDRLast(rankArray[winningOrder[2]]);
+            setNfcDRDisabled(false);
+        }
     }
 
     function SetupAFCChampionship() {
-        switch (true) {
-            case (afcDR1Winner == afcRank0 && afcDR2Winner == afcDRAway): setAfcCCHome(afcRank0); setAfcCCAway(afcDRAway); break;
-            case (afcDR1Winner == afcRank0 && afcDR2Winner == afcDRHome): setAfcCCHome(afcRank0); setAfcCCAway(afcDRHome); break;
-            case (afcDR1Winner == afcDRLast && afcDR2Winner == afcDRAway): setAfcCCAway(afcDRLast); setAfcCCHome(afcDRAway); break;
-            case (afcDR1Winner == afcDRLast && afcDR2Winner == afcDRHome): setAfcCCAway(afcDRLast); setAfcCCHome(afcDRHome); break;
-            default: setAfcCCAway("AFC"); setAfcCCHome("AFC");
-        }
+        console.log("updated afc cc");
+        const rankArray = [afcRank0, afcDRHome, afcDRAway, afcDRLast];
+        const winningOrder = SetupRank(rankArray, [afcDR1Winner, afcDR2Winner]);
+        const legalValues = ["[0,1]", "[0,2]", "[1,3]", "[2,3]"];
 
-        setAfcCCDisabled(false);
+        if (legalValues.indexOf(JSON.stringify(winningOrder)) == -1) {
+            setAfcCCAway("AFC"); setAfcCCHome("AFC"); setAfcSB("AFC"); setAfcCCDisabled(true); setSBDisabled(true); setAfcCCWinner(""); setSBWinner("");
+        } else {
+            setAfcCCHome(rankArray[winningOrder[0]]);
+            setAfcCCAway(rankArray[winningOrder[1]]);
+            setAfcCCDisabled(false);
+        }
     }
 
     function SetupNFCChampionship() {
-        switch (true) {
-            case (nfcDR1Winner == nfcRank0 && nfcDR2Winner == nfcDRAway): setNfcCCHome(nfcRank0); setNfcCCAway(nfcDRAway); break;
-            case (nfcDR1Winner == nfcRank0 && nfcDR2Winner == nfcDRHome): setNfcCCHome(nfcRank0); setNfcCCAway(nfcDRHome); break;
-            case (nfcDR1Winner == nfcDRLast && nfcDR2Winner == nfcDRAway): setNfcCCAway(nfcDRLast); setNfcCCHome(nfcDRAway); break;
-            case (nfcDR1Winner == nfcDRLast && nfcDR2Winner == nfcDRHome): setNfcCCAway(nfcDRLast); setNfcCCHome(nfcDRHome); break;
-            default: setNfcCCAway("NFC"); setNfcCCHome("NFC");
-        }
+        console.log("updated nfc cc");
+        const rankArray = [nfcRank0, nfcDRHome, nfcDRAway, nfcDRLast];
+        const winningOrder = SetupRank(rankArray, [nfcDR1Winner, nfcDR2Winner]);
+        const legalValues = ["[0,1]", "[0,2]", "[1,3]", "[2,3]"];
 
-        setNfcCCDisabled(false);
+        if (legalValues.indexOf(JSON.stringify(winningOrder)) == -1) {
+            setNfcCCAway("AFC"); setNfcCCHome("AFC"); setNfcSB("AFC"); setNfcCCDisabled(true); setSBDisabled(true); setNfcCCWinner(""); setSBWinner("");
+        } else {
+            setNfcCCHome(rankArray[winningOrder[0]]);
+            setNfcCCAway(rankArray[winningOrder[1]]);
+            setNfcCCDisabled(false);
+        }
     }
 
     function SetupAFCSuperBowl() {
         switch (afcCCWinner) {
-            case afcCCAway: setAfcSB(afcCCAway); break;
-            case afcCCHome: setAfcSB(afcCCHome); break;
-            default: setAfcSB("AFC");
-        }
-
-        if (nfcCCWinner) {
-            setSBDisabled(false);
+            case afcCCAway: setAfcSB(afcCCAway); if (nfcCCWinner) { setSBDisabled(false); } break;
+            case afcCCHome: setAfcSB(afcCCHome); if (nfcCCWinner) { setSBDisabled(false); } break;
+            default: setAfcSB("AFC"); setSBDisabled(true); setSBWinner(""); break;
         }
     }
 
     function SetupNFCSuperBowl() {
         switch (nfcCCWinner) {
-            case nfcCCAway: setNfcSB(nfcCCAway); break;
-            case nfcCCHome: setNfcSB(nfcCCHome); break;
-            default: setNfcSB("NFC");
-        }
-
-        if (afcCCWinner) {
-            setSBDisabled(false);
+            case nfcCCAway: setNfcSB(nfcCCAway); if (afcCCWinner) { setSBDisabled(false); } break;
+            case nfcCCHome: setNfcSB(nfcCCHome); if (afcCCWinner) { setSBDisabled(false); } break;
+            default: setNfcSB("NFC"); setSBDisabled(true); setSBWinner(""); break;
         }
     }
 
@@ -235,7 +223,7 @@ export default function ToggleSelection() {
 
     useEffect(() => {
         if (afcWC1Winner && afcWC2Winner && afcWC3Winner) {
-            SetupAFCDivisionalRound([afcRank0,afcRank1,afcRank2,afcRank3,afcRank4,afcRank5,afcRank6],[afcWC1Winner, afcWC2Winner, afcWC3Winner]);
+            SetupAFCDivisionalRound();
         }
         if (afcDR1Winner && afcDR2Winner && afcWC1Winner && afcWC2Winner && afcWC3Winner) {
             SetupAFCChampionship();
@@ -260,7 +248,6 @@ export default function ToggleSelection() {
     useEffect(() => {
         let isMounted = true;
         const controller = new AbortController();
-        console.log("******* calls on init list")
 
         const getTeams = async () => {
             try {
@@ -290,14 +277,9 @@ export default function ToggleSelection() {
                 isMounted && setNfcRank5(response.data[1].teams[5].name);
                 isMounted && setNfcRank6(response.data[1].teams[6].name);
             } catch (err: any) {
-                if (!err?.response) {
-                    setErrMsg('No server response');
-                } else if (err && err instanceof Error) {
-                    setErrMsg(err.message);
-                    console.error("Error: ", err);
-                } else {
-                    setErrMsg('Login failed');
-                }
+                console.log("error in get rankings");
+                console.log(err);
+                navigate("/login");
             }
         };
 
@@ -310,108 +292,9 @@ export default function ToggleSelection() {
     }, []);
 
     useEffect(() => {
-        if (!initAfcWc && afcWCTeams.length != 0) {
-            console.log([afcRank1, afcRank6, afcRank2, afcRank5, afcRank3, afcRank4].indexOf("AFC") == -1);
-            if ([afcRank1, afcRank6, afcRank2, afcRank5, afcRank3, afcRank4].indexOf("AFC") == -1) {
-                for (let i = 0; i < afcWCTeams.length; i++) {
-                    switch (afcWCTeams[i]) {
-                        case afcRank1: case afcRank6: setAfcWC1Winner(afcWCTeams[i]); break;
-                        case afcRank2: case afcRank5: setAfcWC2Winner(afcWCTeams[i]); break;
-                        case afcRank3: case afcRank4: setAfcWC3Winner(afcWCTeams[i]); break;
-                        default: break;
-                    }
-                }
-
-                setInitAfcWc(true);
-            }
-        }
-    }, [afcRank1, afcRank6, afcRank2, afcRank5, afcRank3, afcRank4]);
-
-    useEffect(() => {
-        if (!initNfcWc && nfcWCTeams.length != 0) {
-            if ([nfcRank1, nfcRank6, nfcRank2, nfcRank5, nfcRank3, nfcRank4].indexOf("NFC") == -1) {
-                for (let i = 0; i < nfcWCTeams.length; i++) {
-                    switch (nfcWCTeams[i]) {
-                        case nfcRank1: case nfcRank6: setNfcWC1Winner(nfcWCTeams[i]); break;
-                        case nfcRank2: case nfcRank5: setNfcWC2Winner(nfcWCTeams[i]); break;
-                        case nfcRank3: case nfcRank4: setNfcWC3Winner(nfcWCTeams[i]); break;
-                        default: break;
-                    }
-                }
-
-                setInitNfcWc(true);
-            }
-        }
-    }, [nfcRank1, nfcRank6, nfcRank2, nfcRank5, nfcRank3, nfcRank4]);
-
-    useEffect(() => {
-        if (!initAfcDr && afcDRTeams.length != 0) {
-            if ([afcRank0, afcDRLast, afcDRAway, afcDRHome].indexOf("AFC") == -1) {
-
-                for (let i = 0; i < afcDRTeams.length; i++) {
-                    switch (afcDRTeams[i]) {
-                        case afcRank0: case afcDRLast: setAfcDR1Winner(afcDRTeams[i]); break;
-                        case afcDRAway: case afcDRHome: setAfcDR2Winner(afcDRTeams[i]); break;
-                        default: break;
-                    }
-                }
-
-                setInitAfcDr(true);
-            }
-        }
-    }, [afcRank0, afcDRLast, afcDRAway, afcDRHome]);
-
-    useEffect(() => {
-        if (!initNfcDr && nfcDRTeams.length != 0) {
-            if ([nfcRank0, nfcDRLast, nfcDRAway, nfcDRHome].indexOf("NFC") == -1) {
-                for (let i = 0; i < nfcDRTeams.length; i++) {
-                    switch (nfcDRTeams[i]) {
-                        case nfcRank0: case nfcDRLast: setNfcDR1Winner(nfcDRTeams[i]); break;
-                        case nfcDRAway: case nfcDRHome: setNfcDR2Winner(nfcDRTeams[i]); break;
-                        default: break;
-                    }
-                }
-
-                setInitNfcDr(true);
-            }
-        }
-    }, [nfcRank0, nfcDRLast, nfcDRAway, nfcDRHome]);
-
-    useEffect(() => {
-        if (!initAfcCc && afcCCTeams.length != 0) {
-
-            if ([afcCCAway, afcCCHome].indexOf("AFC") == -1) {
-                for (let i = 0; i < afcCCTeams.length; i++) {
-                    switch (afcCCTeams[i]) {
-                        case afcCCAway: case afcCCHome: setAfcCCWinner(afcCCTeams[i]); break;
-                        default: break;
-                    }
-                }
-
-                setInitAfcCc(true);
-            }
-        }
-    }, [afcCCAway, afcCCHome]);
-
-    useEffect(() => {
-        if (!initNfcCc && nfcCCTeams.length != 0) {
-            if ([nfcCCAway, nfcCCHome].indexOf("NFC") == -1) {
-                for (let i = 0; i < nfcCCTeams.length; i++) {
-                    switch (nfcCCTeams[i]) {
-                        case nfcCCAway: case nfcCCHome: setNfcCCWinner(nfcCCTeams[i]); break;
-                        default: break;
-                    }
-                }
-
-                setInitNfcCc(true);
-            }
-        }
-    }, [nfcCCAway, nfcCCHome]);
-
-    useEffect(() => {
         let isMounted = true;
         const controller = new AbortController();
-        console.log("******* calls on teams list")
+
         const getBracket = async () => {
             try {
                 const response = await axiosPrivate.get(
@@ -423,58 +306,72 @@ export default function ToggleSelection() {
                     }
                 );
 
-                const wildCardWinners = response?.data.wild_card_winners;
-                const divisionalRoundWinners = response?.data.divisional_round_winners;
-                const conferenceChampions = response?.data.conference_champions;
-                const superBowlChampion = response?.data.super_bowl_champion;
+                isMounted && setAfcWC1Winner(response?.data.afc_wild_card_1_winner);
+                isMounted && setAfcWC2Winner(response?.data.afc_wild_card_2_winner);
+                isMounted && setAfcWC3Winner(response?.data.afc_wild_card_3_winner);
+                isMounted && setNfcWC1Winner(response?.data.nfc_wild_card_1_winner);
+                isMounted && setNfcWC2Winner(response?.data.nfc_wild_card_2_winner);
+                isMounted && setNfcWC3Winner(response?.data.nfc_wild_card_3_winner);
 
-                for (let i = 0; i < wildCardWinners.length; i++) {
-                    if (afcTeams.indexOf(wildCardWinners[i]) != -1) {
-                        afcTeams[afcTeams.indexOf(wildCardWinners[i])].wildCardWinner = true;
-                    }
-                    if (nfcTeams.indexOf(wildCardWinners[i]) != -1) {
-                        nfcTeams[nfcTeams.indexOf(wildCardWinners[i])].wildCardWinner = true;
-                    }
-                }
+                //set dr
+                const afcWinningOrder = SetupRank(
+                    [afcTeams[0].name, afcTeams[1].name, afcTeams[2].name, afcTeams[3].name, afcTeams[4].name, afcTeams[5].name, afcTeams[6].name],
+                    [response.data.afc_wild_card_1_winner, response.data.afc_wild_card_2_winner, response.data.afc_wild_card_3_winner]
+                );
+                const namedAfcWCWinningOrder = [afcTeams[afcWinningOrder[0]].name, afcTeams[afcWinningOrder[1]].name, afcTeams[afcWinningOrder[2]].name];
 
-                for (let i = 0; i < divisionalRoundWinners.length; i++) {
-                    if (afcTeams.indexOf(divisionalRoundWinners[i]) != -1) {
-                        afcTeams[afcTeams.indexOf(divisionalRoundWinners[i])].divisionalRoundWinner = true;
-                    }
-                    if (nfcTeams.indexOf(divisionalRoundWinners[i]) != -1) {
-                        nfcTeams[nfcTeams.indexOf(divisionalRoundWinners[i])].divisionalRoundWinner = true;
-                    }
-                }
+                isMounted && setAfcDRHome(namedAfcWCWinningOrder[0]);
+                isMounted && setAfcDRAway(namedAfcWCWinningOrder[1]);
+                isMounted && setAfcDRLast(namedAfcWCWinningOrder[2]);
+                isMounted && setAfcDRDisabled(false);
 
-                for (let i = 0; i < conferenceChampions.length; i++) {
-                    if (afcTeams.indexOf(conferenceChampions[i]) != -1) {
-                        afcTeams[afcTeams.indexOf(conferenceChampions[i])].conferenceChampion = true;
-                    }
-                    if (nfcTeams.indexOf(conferenceChampions[i]) != -1) {
-                        nfcTeams[nfcTeams.indexOf(conferenceChampions[i])].conferenceChampion = true;
-                    }
-                }
+                const nfcWinningOrder = SetupRank(
+                    [nfcTeams[0].name, nfcTeams[1].name, nfcTeams[2].name, nfcTeams[3].name, nfcTeams[4].name, nfcTeams[5].name, nfcTeams[6].name],
+                    [response.data.nfc_wild_card_1_winner, response.data.nfc_wild_card_2_winner, response.data.nfc_wild_card_3_winner]
+                );
 
-                if (afcTeams.indexOf(superBowlChampion) != -1) {
-                    afcTeams[afcTeams.indexOf(superBowlChampion)].superBowlChampion = true;
-                }
-                if (nfcTeams.indexOf(superBowlChampion) != -1) {
-                    nfcTeams[nfcTeams.indexOf(superBowlChampion)].superBowlChampion = true;
-                }
+                const namedNfcWCWinningOrder = [nfcTeams[nfcWinningOrder[0]].name, nfcTeams[nfcWinningOrder[1]].name, nfcTeams[nfcWinningOrder[2]].name];
+                isMounted && setNfcDRHome(namedNfcWCWinningOrder[0]);
+                isMounted && setNfcDRAway(namedNfcWCWinningOrder[1]);
+                isMounted && setNfcDRLast(namedNfcWCWinningOrder[2]);
+                isMounted && setNfcDRDisabled(false);
 
+                isMounted && setAfcDR1Winner(response?.data.afc_divisional_round_1_winner);
+                isMounted && setAfcDR2Winner(response?.data.afc_divisional_round_2_winner);
+                isMounted && setNfcDR1Winner(response?.data.nfc_divisional_round_1_winner);
+                isMounted && setNfcDR2Winner(response?.data.nfc_divisional_round_2_winner);
 
+                //set cc
+                const nfcDRTeams = [nfcTeams[0].name, namedNfcWCWinningOrder[0], namedNfcWCWinningOrder[1], namedNfcWCWinningOrder[2]]
+                const nfcDRWinningOrder = SetupRank(nfcDRTeams, [response.data.nfc_divisional_1_winner, response.data.nfc_divisional_2_winner]);
 
-                isMounted && setAfcWCTeams(response?.data.wild_card_winners);
-                isMounted && setAfcDRTeams(response?.data.divisional_round_winners);
-                isMounted && setAfcCCTeams(response?.data.conference_champions);
-                isMounted && setNfcWCTeams(response?.data.wild_card_winners);
-                isMounted && setNfcDRTeams(response?.data.divisional_round_winners);
-                isMounted && setNfcCCTeams(response?.data.conference_champions);
-                isMounted && setSBWinner(response?.data.super_bowl_champion);
+                isMounted && setNfcCCHome(nfcDRTeams[nfcDRWinningOrder[0]]);
+                isMounted && setNfcCCAway(nfcDRTeams[nfcDRWinningOrder[1]]);
+                isMounted && setNfcCCDisabled(false);
+
+                const afcDRTeams = [afcTeams[0].name, namedAfcWCWinningOrder[0], namedAfcWCWinningOrder[1], namedAfcWCWinningOrder[2]]
+                const afcDRWinningOrder = SetupRank(afcDRTeams, [response.data.afc_divisional_1_winner, response.data.afc_divisional_2_winner]);
+
+                isMounted && setAfcCCHome(afcDRTeams[afcDRWinningOrder[0]]);
+                isMounted && setAfcCCAway(afcDRTeams[afcDRWinningOrder[1]]);
+                isMounted && setAfcCCDisabled(false);
+
+                isMounted && setAfcCCWinner(response?.data.afc_conference_champion);
+                isMounted && setNfcCCWinner(response?.data.nfc_conference_champion);
+
+                // set sb
+                isMounted && setAfcSB(response?.data.afc_conference_champion);
+                isMounted && setNfcSB(response?.data.nfc_conference_champion);
+                isMounted && setSBDisabled(false)
+
                 isMounted && setFss(response?.data.final_score_sum);
-                isMounted && setIsUpdate(true);
+
+                await new Promise(f => setTimeout(f, 100));
+                isMounted && setSBWinner(response?.data.super_bowl_champion);
             } catch (err: any) {
-                setIsUpdate(false);
+                console.log("error in get brackets")
+                console.log(err)
+                navigate("/login");
             }
         };
 
@@ -502,39 +399,34 @@ export default function ToggleSelection() {
         }
 
         const toSubmit = {
-            "wild_card_winners": [nfcWC1Winner, nfcWC2Winner, nfcWC3Winner, afcWC1Winner, afcWC2Winner, afcWC3Winner],
-            "divisional_round_winners": [nfcDR1Winner, nfcDR2Winner, afcDR1Winner, afcDR2Winner],
-            "conference_champions": [nfcCCWinner, afcCCWinner],
+            "afc_wild_card_1_winner": afcWC1Winner,
+            "afc_wild_card_2_winner": afcWC2Winner,
+            "afc_wild_card_3_winner": afcWC3Winner,
+            "nfc_wild_card_1_winner": nfcWC1Winner,
+            "nfc_wild_card_2_winner": nfcWC2Winner,
+            "nfc_wild_card_3_winner": nfcWC3Winner,
+            "afc_divisional_round_1_winner": afcDR1Winner,
+            "afc_divisional_round_2_winner": afcDR2Winner,
+            "nfc_divisional_round_1_winner": nfcDR1Winner,
+            "nfc_divisional_round_2_winner": nfcDR2Winner,
+            "afc_conference_champion": afcCCWinner,
+            "nfc_conference_champion": nfcCCWinner,
             "super_bowl_champion": sbWinner,
             "final_score_sum": fss
         };
+
         console.log("tosubmit: ", toSubmit);
 
         try {
-            if (isUpdate) {
-                const response = await axiosPrivate.put(
-                    "/brackets/",
-                    toSubmit,
-                    {
-                        headers: { 'Content-Type': 'application/json' },
-                        withCredentials: true
-                    }
-                );
-                console.log(JSON.stringify(response?.data));
-            } else {
-                const response = await axiosPrivate.post(
-                    "/brackets/",
-                    toSubmit,
-                    {
-                        headers: { 'Content-Type': 'application/json' },
-                        withCredentials: true
-                    }
-                );
-                console.log(JSON.stringify(response?.data));
-                setIsUpdate(true);
-            }
-
-            setErrMsg("Saved!");
+            const response = await axiosPrivate.put(
+                "/brackets/",
+                toSubmit,
+                {
+                    headers: { 'Content-Type': 'application/json' },
+                    withCredentials: true
+                }
+            );
+            console.log(JSON.stringify(response?.data));
         } catch (err: any) {
             if (!err?.response) {
                 setErrMsg('No server response');
@@ -552,6 +444,9 @@ export default function ToggleSelection() {
         <Box component="form" noValidate justifyContent="center">
             <Grid container justifyContent="center">
 
+                <Grid display="flex" justifyContent="center">
+                    <Typography variant="caption">{errMsg}</Typography>
+                </Grid>
                 {/* AFC Wild Card */}
                 <Grid container justifyContent="center" wrap='nowrap' sx={{ marginTop: 0 }}>
                     <Grid>
