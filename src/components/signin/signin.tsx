@@ -14,19 +14,14 @@ import { Link, useNavigate, useLocation } from 'react-router-dom';
 import useAuth from '../../hooks/useAuth';
 
 export default function SignIn(props: any) {
-  const errRef = useRef();
-  const userRef = useRef();
-
   const [user, setUser] = useState('');
   const [pwd, setPwd] = useState('');
   const [errMsg, setErrMsg] = useState('');
-  const [success, setSuccess] = useState(false);
 
   const { setAuth }: any = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
   const from = location.state?.from?.pathname || "/";
-  // const signIn = useSignIn();
 
   useEffect(() => {
     setErrMsg('');
@@ -52,13 +47,6 @@ export default function SignIn(props: any) {
 
       setAuth({ accessToken });
 
-      // signIn({
-      //   token: accessToken,
-      //   expiresIn: 300,
-      //   tokenType: "Bearer",
-      //   authState: { username: values.username }
-      // });
-
       setUser('');
       setPwd('');
       navigate(from, { replace: true });
@@ -66,10 +54,11 @@ export default function SignIn(props: any) {
       if (!err?.response) {
         setErrMsg('No server response');
       } else if (err && err instanceof Error) {
-        setErrMsg(err.message);
+        setErrMsg("Incorrect username and password");
         console.log("Error: ", err);
       } else {
         setErrMsg('Login failed');
+        console.log("Error: ", err);
       }
     }
   };

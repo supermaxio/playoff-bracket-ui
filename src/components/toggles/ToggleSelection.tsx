@@ -3,14 +3,12 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import { useEffect, useRef, useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
-import useAuth from '../../hooks/useAuth';
 import useAxiosPrivate from '../../hooks/useAxiosPrivate';
 import React from 'react';
 import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import GetIcon, { GetEmoji } from '../icons/icons';
 import { Grid, Paper, styled, TextField } from '@mui/material';
-import { Team } from '../../objects/Team';
 
 const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -286,7 +284,7 @@ export default function ToggleSelection() {
                     );
                     // verify new or saved bracket
                     if (response?.data.super_bowl_champion == "") {
-                        return
+                        return;
                     }
 
                     isMounted && setAfcWC1Winner(response?.data.afc_wild_card_1_winner);
@@ -417,7 +415,7 @@ export default function ToggleSelection() {
             );
             console.log(JSON.stringify(response?.data));
 
-            setErrMsg("Saved successfully!")
+            setErrMsg("Saved successfully!");
         } catch (err: any) {
             if (!err?.response) {
                 console.log("Error: ", err);
@@ -510,7 +508,7 @@ export default function ToggleSelection() {
                     </Grid>
                 </Grid>
                 <Grid>
-                    <Typography variant="caption">AFC Wild Card Round</Typography>
+                    <Typography variant="caption">AFC Wild Card Round - 3 points</Typography>
                 </Grid>
 
                 {/* AFC Divisional Round */}
@@ -558,7 +556,7 @@ export default function ToggleSelection() {
                     </Grid>
                 </Grid>
                 <Grid>
-                    <Typography variant="caption">AFC Divisional Round</Typography>
+                    <Typography variant="caption">AFC Divisional Round - 6 points</Typography>
                 </Grid>
 
                 {/* AFC Championship */}
@@ -583,48 +581,55 @@ export default function ToggleSelection() {
                     </Item>
                 </Grid>
                 <Grid sx={{ marginTop: 0 }}>
-                    <Typography variant="caption">AFC Championship</Typography>
+                    <Typography variant="caption">AFC Championship - 12 points</Typography>
                 </Grid>
 
                 {/* SuperBowl */}
-                <Grid container justifyContent="center" wrap='nowrap' sx={{ marginTop: 0 }}>
-                    <Item>
-                        <ToggleButtonGroup {...sbControl}>
-                            <ToggleButton sx={{ padding: 0 }} value={afcSB}>
-                                <img
-                                    {...afcSBControl}
-                                    height={50}
-                                    loading="lazy"
-                                />
-                            </ToggleButton>
-                            <ToggleButton sx={{ padding: 0 }} value={nfcSB}>
-                                <img
-                                    {...nfcSBControl}
-                                    height={50}
-                                    loading="lazy"
-                                />
-                            </ToggleButton>
-                        </ToggleButtonGroup>
-                    </Item>
+                <Grid container justifyContent="center" wrap='nowrap' sx={{ margin: 0 }}>
+                    <Grid>
 
-                    <TextField
-                        {...fssControl}
-                        sx={{
-                            width: 120
-                        }}
-                        margin="normal"
-                        required
-                        id="finalscore"
-                        label="Final score sum"
-                        name="finalscore"
-                        type="number"
-                        size="small"
-                        value={fss}
-                        InputProps={{ inputProps: { min: 0, max: 999 } }}
-                    />
+
+                        <Item>
+                            <ToggleButtonGroup {...sbControl}>
+                                <ToggleButton sx={{ padding: 0 }} value={afcSB}>
+                                    <img
+                                        {...afcSBControl}
+                                        height={50}
+                                        loading="lazy"
+                                    />
+                                </ToggleButton>
+                                <ToggleButton sx={{ padding: 0 }} value={nfcSB}>
+                                    <img
+                                        {...nfcSBControl}
+                                        height={50}
+                                        loading="lazy"
+                                    />
+                                </ToggleButton>
+                            </ToggleButtonGroup>
+                        </Item>
+
+                    </Grid>
+                    <Grid>
+                        <TextField
+                            {...fssControl}
+                            sx={{
+                                width: 120
+                            }}
+                            margin="normal"
+                            required
+                            id="finalscore"
+                            label="Final score sum"
+                            name="finalscore"
+                            type="number"
+                            size="small"
+                            value={fss}
+                            InputProps={{ inputProps: { min: 0, max: 999 } }}
+                        />
+                    </Grid>
+
                 </Grid>
                 <Grid>
-                    <Typography variant="caption">Super Bowl</Typography>
+                    <Typography variant="caption">Super Bowl - 24 points</Typography>
                 </Grid>
 
                 {/* NFC Championship */}
@@ -651,7 +656,7 @@ export default function ToggleSelection() {
                     </Item>
                 </Grid>
                 <Grid>
-                    <Typography variant="caption">NFC Championship</Typography>
+                    <Typography variant="caption">NFC Championship 12 points</Typography>
                 </Grid>
 
                 {/* NFC Divisional Round */}
@@ -699,7 +704,7 @@ export default function ToggleSelection() {
                     </Grid>
                 </Grid>
                 <Grid>
-                    <Typography variant="caption">NFC Divisional Round</Typography>
+                    <Typography variant="caption">NFC Divisional Round - 6 points</Typography>
                 </Grid>
 
                 {/* NFC Wild Card */}
@@ -772,7 +777,7 @@ export default function ToggleSelection() {
                     </Grid>
                 </Grid>
                 <Grid>
-                    <Typography variant="caption">NFC Wild Card Round</Typography>
+                    <Typography variant="caption">NFC Wild Card Round - 3 points</Typography>
                 </Grid>
             </Grid>
             <Grid display="flex" justifyContent="center">
