@@ -160,7 +160,7 @@ export default function ToggleSelection() {
         const legalValues = ["[4,5,6]", "[3,5,6]", "[2,4,6]", "[2,3,6]", "[1,4,5]", "[1,3,5]", "[1,2,4]", "[1,2,3]"];
 
         if (legalValues.indexOf(JSON.stringify(winningOrder)) == -1) {
-            setNfcDRLast("AFC"); setNfcDRAway("AFC"); setNfcDRHome("AFC");
+            setNfcDRLast("NFC"); setNfcDRAway("NFC"); setNfcDRHome("NFC");
         } else {
             setNfcDRHome(rankArray[winningOrder[0]]);
             setNfcDRAway(rankArray[winningOrder[1]]);
@@ -191,7 +191,7 @@ export default function ToggleSelection() {
         const legalValues = ["[0,1]", "[0,2]", "[1,3]", "[2,3]"];
 
         if (legalValues.indexOf(JSON.stringify(winningOrder)) == -1) {
-            setNfcCCAway("AFC"); setNfcCCHome("AFC"); setNfcSB("AFC"); setNfcCCDisabled(true); setSBDisabled(true); setNfcCCWinner(""); setSBWinner("");
+            setNfcCCAway("NFC"); setNfcCCHome("NFC"); setNfcSB("NFC"); setNfcCCDisabled(true); setSBDisabled(true); setNfcCCWinner(""); setSBWinner("");
         } else {
             setNfcCCHome(rankArray[winningOrder[0]]);
             setNfcCCAway(rankArray[winningOrder[1]]);
@@ -416,6 +416,8 @@ export default function ToggleSelection() {
                 }
             );
             console.log(JSON.stringify(response?.data));
+
+            setErrMsg("Saved successfully!")
         } catch (err: any) {
             if (!err?.response) {
                 console.log("Error: ", err);
