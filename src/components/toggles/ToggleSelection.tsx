@@ -284,6 +284,10 @@ export default function ToggleSelection() {
                             withCredentials: true
                         }
                     );
+                    // verify new or saved bracket
+                    if (response?.data.super_bowl_champion == "") {
+                        return
+                    }
 
                     isMounted && setAfcWC1Winner(response?.data.afc_wild_card_1_winner);
                     isMounted && setAfcWC2Winner(response?.data.afc_wild_card_2_winner);
@@ -379,7 +383,7 @@ export default function ToggleSelection() {
 
         console.log(nfcWC1Winner, nfcWC2Winner, nfcWC3Winner, nfcDR1Winner, nfcDR2Winner, nfcCCWinner, afcWC1Winner, afcWC2Winner, afcWC3Winner, afcDR1Winner, afcDR2Winner, afcCCWinner, sbWinner, fss);
         if (!nfcWC1Winner || !nfcWC2Winner || !nfcWC3Winner || !nfcDR1Winner || !nfcDR2Winner || !nfcCCWinner || !afcWC1Winner || !afcWC2Winner || !afcWC3Winner || !afcDR1Winner || !afcDR2Winner || !afcCCWinner || !sbWinner || !fss) {
-            setErrMsg("Missing selections");
+            setErrMsg("ERROR: Missing selections");
             return;
         }
 
@@ -414,12 +418,14 @@ export default function ToggleSelection() {
             console.log(JSON.stringify(response?.data));
         } catch (err: any) {
             if (!err?.response) {
-                setErrMsg('No server response');
+                console.log("Error: ", err);
+                setErrMsg('ERROR: No server response');
             } else if (err && err instanceof Error) {
                 setErrMsg(err.message);
                 console.log("Error: ", err);
             } else {
-                setErrMsg('Login failed');
+                console.log("Error: ", err);
+                setErrMsg('ERROR: Submit failed');
             }
         }
     };
