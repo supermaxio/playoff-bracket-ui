@@ -43,9 +43,10 @@ export default function SignIn(props: any) {
 
       console.log(JSON.stringify(response?.data));
       const accessToken = response?.data?.token;
+      const username = values.username
       // const roles = response?.data?.roles;
 
-      setAuth({ accessToken });
+      setAuth({ username, accessToken });
 
       setUser('');
       setPwd('');
@@ -75,7 +76,7 @@ export default function SignIn(props: any) {
       <Container component="main" maxWidth="xs">
         <Box
           sx={{
-            marginTop: 6,
+            marginTop: 10,
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',

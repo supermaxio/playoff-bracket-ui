@@ -36,7 +36,7 @@ export default function CreateBracket() {
         <Container component="main" maxWidth="lg">
             <Box
                 sx={{
-                    marginTop: 8,
+                    marginTop: 10,
                     display: 'flex',
                     flexDirection: 'column',
                     alignItems: 'center',
@@ -45,18 +45,6 @@ export default function CreateBracket() {
             >
                 <Box>
                     <ToggleSelection />
-                </Box>
-                <Box>
-
-                    <Button
-                        onClick={signout}
-                        type="submit"
-
-                        variant="contained"
-                        sx={{ mt: 3, mb: 2 }}
-                    >
-                        Sign Out
-                    </Button>
                 </Box>
             </Box>
             <Copyright sx={{ mt: 8, mb: 4 }} />
