@@ -27,12 +27,12 @@ export default function ToggleSelection() {
     const [afcWC3Winner, setAfcWC3Winner] = useState<string>("");
     const [afcDR1Winner, setAfcDR1Winner] = useState<string>("");
     const [afcDR2Winner, setAfcDR2Winner] = useState<string>("");
-    const [afcCCWinner, setAfcCCWinner] = useState<string>("");
     const [nfcWC1Winner, setNfcWC1Winner] = useState<string>("");
     const [nfcWC2Winner, setNfcWC2Winner] = useState<string>("");
     const [nfcWC3Winner, setNfcWC3Winner] = useState<string>("");
     const [nfcDR1Winner, setNfcDR1Winner] = useState<string>("");
     const [nfcDR2Winner, setNfcDR2Winner] = useState<string>("");
+    const [afcCCWinner, setAfcCCWinner] = useState<string>("");
     const [nfcCCWinner, setNfcCCWinner] = useState<string>("");
     const [sbWinner, setSBWinner] = useState<string>("");
     const [fss, setFss] = useState<number>(0);
@@ -82,12 +82,12 @@ export default function ToggleSelection() {
     const handleAfcWC3Change = (event: React.MouseEvent<HTMLElement>, newAlignment: string,) => { console.log(`called handleAfcWC3Change and the value is: ${newAlignment}`); setAfcWC3Winner(newAlignment); };
     const handleAfcDR1Change = (event: React.MouseEvent<HTMLElement>, newAlignment: string,) => { console.log(`called handleAfcDR1Change and the value is: ${newAlignment}`); setAfcDR1Winner(newAlignment); };
     const handleAfcDR2Change = (event: React.MouseEvent<HTMLElement>, newAlignment: string,) => { console.log(`called handleAfcDR2Change and the value is: ${newAlignment}`); setAfcDR2Winner(newAlignment); };
-    const handleAfcCCChange = (event: React.MouseEvent<HTMLElement>, newAlignment: string,) => { console.log(`called handleAfcCCChange  and the value is: ${newAlignment}`); setAfcCCWinner(newAlignment); };
     const handleNfcWC1Change = (event: React.MouseEvent<HTMLElement>, newAlignment: string,) => { console.log(`called handleNfcWC1Change and the value is: ${newAlignment}`); setNfcWC1Winner(newAlignment); };
     const handleNfcWC2Change = (event: React.MouseEvent<HTMLElement>, newAlignment: string,) => { console.log(`called handleNfcWC2Change and the value is: ${newAlignment}`); setNfcWC2Winner(newAlignment); };
     const handleNfcWC3Change = (event: React.MouseEvent<HTMLElement>, newAlignment: string,) => { console.log(`called handleNfcWC3Change and the value is: ${newAlignment}`); setNfcWC3Winner(newAlignment); };
     const handleNfcDR1Change = (event: React.MouseEvent<HTMLElement>, newAlignment: string,) => { console.log(`called handleNfcDR1Change and the value is: ${newAlignment}`); setNfcDR1Winner(newAlignment); };
     const handleNfcDR2Change = (event: React.MouseEvent<HTMLElement>, newAlignment: string,) => { console.log(`called handleNfcDR2Change and the value is: ${newAlignment}`); setNfcDR2Winner(newAlignment); };
+    const handleAfcCCChange = (event: React.MouseEvent<HTMLElement>, newAlignment: string,) => { console.log(`called handleAfcCCChange  and the value is: ${newAlignment}`); setAfcCCWinner(newAlignment); };
     const handleNfcCCChange = (event: React.MouseEvent<HTMLElement>, newAlignment: string,) => { console.log(`called handleNfcCCChange  and the value is: ${newAlignment}`); setNfcCCWinner(newAlignment); };
     const handleSBChange = (event: React.MouseEvent<HTMLElement>, newAlignment: string,) => { console.log(`called handleSBChange  and the value is: ${newAlignment}`); setSBWinner(newAlignment); };
     const handleFss = (event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => { setFss(parseInt(event.target.value)); };
@@ -101,9 +101,9 @@ export default function ToggleSelection() {
 
     const afcDR1Control = { value: afcDR1Winner, onChange: handleAfcDR1Change, exclusive: true, disabled: afcDRDisabled };
     const afcDR2Control = { value: afcDR2Winner, onChange: handleAfcDR2Change, exclusive: true, disabled: afcDRDisabled };
-    const afcCCControl = { value: afcCCWinner, onChange: handleAfcCCChange, exclusive: true, disabled: afcCCDisabled };
     const nfcDR1Control = { value: nfcDR1Winner, onChange: handleNfcDR1Change, exclusive: true, disabled: nfcDRDisabled };
     const nfcDR2Control = { value: nfcDR2Winner, onChange: handleNfcDR2Change, exclusive: true, disabled: nfcDRDisabled };
+    const afcCCControl = { value: afcCCWinner, onChange: handleAfcCCChange, exclusive: true, disabled: afcCCDisabled };
     const nfcCCControl = { value: nfcCCWinner, onChange: handleNfcCCChange, exclusive: true, disabled: nfcCCDisabled };
     const sbControl = { value: sbWinner, onChange: handleSBChange, exclusive: true, disabled: sbDisabled };
     const fssControl = { disabled: sbDisabled, onChange: handleFss };
@@ -127,6 +127,11 @@ export default function ToggleSelection() {
         const compareArray = [];
 
         for (let i = 0; i < winnerArray.length; i++) {
+            // compareArray.push(rankArray.indexOf(winnerArray[i]));
+            const index = rankArray.indexOf(winnerArray[i]);
+            if (index == -1) {
+                console.log()
+            }
             compareArray.push(rankArray.indexOf(winnerArray[i]));
         }
 

@@ -7,6 +7,9 @@ import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import useAuth from '../../hooks/useAuth';
 import ProfileMenu from '../menu/ProfileMenu';
+import { useNavigate } from 'react-router-dom';
+import GetIcon from '../icons/icons';
+
 
 interface AppBarProps extends MuiAppBarProps {
     open?: boolean;
@@ -28,34 +31,33 @@ const AppBar = styled(MuiAppBar, {
     }),
 }));
 
+const icon = GetIcon;
+
 export default function MainHeader() {
     const { auth }: any = useAuth();
+    const navigate = useNavigate();
 
-    const [open, setOpen] = React.useState(true);
-    const toggleDrawer = () => {
-        setOpen(!open);
+    const handleHomeIcon = () => {
+        navigate("/")
     };
 
     return (
         <Box sx={{ display: 'flex' }}>
-            <AppBar position="absolute" open={open}>
+            <AppBar position="absolute">
                 <Toolbar
                     sx={{
                         pr: '24px', // keep right padding when drawer closed
                     }}
                 >
                     <IconButton
+                        
                         edge="start"
                         color="inherit"
-                        aria-label="open drawer"
-                        onClick={toggleDrawer}
-                        sx={{
-                            marginRight: '36px',
-                            ...(open && { display: 'none' }),
-                        }}
+                        onClick={handleHomeIcon}
                     >
-                        <MenuIcon />
+                        <img src={icon("NFL")} alt="logo" style={{ maxWidth: 40}}/>
                     </IconButton>
+                    
                     <Typography
                         component="h1"
                         variant="h6"
