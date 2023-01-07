@@ -34,6 +34,7 @@ import CommandersIcon from '../../images/icons/WAS.svg';
 import NflIcon from '../../images/icons/NFL.svg';
 import AfcIcon from '../../images/icons/APR.svg';
 import NfcIcon from '../../images/icons/NPR.svg';
+import SBIcon from '../../images/files/Super_Bowl_LVII_logo.png';
 
 const CARDINALS = "Cardinals";
 const FALCONS = "Falcons";
@@ -70,6 +71,7 @@ const COMMANDERS = "Commanders";
 const NFL = "NFL";
 const AFC = "AFC";
 const NFC = "NFC";
+const SB = "SB";
 
 export const GetIcon = (teamName: string) => {
     switch (teamName) {
@@ -108,6 +110,7 @@ export const GetIcon = (teamName: string) => {
         case NFL: return NflIcon;
         case AFC: return AfcIcon;
         case NFC: return NfcIcon;
+        case SB: return SBIcon;
         default:
             return "";
     }

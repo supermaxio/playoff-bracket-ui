@@ -127,11 +127,6 @@ export default function ToggleSelection() {
         const compareArray = [];
 
         for (let i = 0; i < winnerArray.length; i++) {
-            // compareArray.push(rankArray.indexOf(winnerArray[i]));
-            const index = rankArray.indexOf(winnerArray[i]);
-            if (index == -1) {
-                console.log()
-            }
             compareArray.push(rankArray.indexOf(winnerArray[i]));
         }
 
@@ -439,10 +434,6 @@ export default function ToggleSelection() {
 
         <Box component="form" noValidate justifyContent="center">
             <Grid container justifyContent="center">
-
-                <Grid display="flex" justifyContent="center">
-                    <Typography variant="caption">{errMsg}</Typography>
-                </Grid>
                 {/* AFC Wild Card */}
                 <Grid container justifyContent="center" wrap='nowrap' sx={{ marginTop: 0 }}>
                     <Grid>
@@ -592,7 +583,12 @@ export default function ToggleSelection() {
                 {/* SuperBowl */}
                 <Grid container justifyContent="center" wrap='nowrap' sx={{ margin: 0 }}>
                     <Grid>
+                        <Box>
+                            <img src={icon("SB")} alt="logo" style={{ maxWidth: 100 }} />
+                        </Box>
 
+                    </Grid>
+                    <Grid>
 
                         <Item>
                             <ToggleButtonGroup {...sbControl}>
@@ -618,12 +614,12 @@ export default function ToggleSelection() {
                         <TextField
                             {...fssControl}
                             sx={{
-                                width: 120
+                                width: 100
                             }}
                             margin="normal"
                             required
                             id="finalscore"
-                            label="Final score sum"
+                            label="Final score"
                             name="finalscore"
                             type="number"
                             size="small"
