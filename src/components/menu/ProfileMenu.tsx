@@ -30,10 +30,11 @@ export default function ProfileMenu() {
     setAnchorEl(null);
     navigate("/login");
   };
-  
+
   return (
     <div>
       <Button
+        color="inherit"
         id="basic-button"
         aria-controls={open ? 'basic-menu' : undefined}
         aria-haspopup="true"
@@ -51,8 +52,8 @@ export default function ProfileMenu() {
           'aria-labelledby': 'basic-button',
         }}
       >
-        <MenuItem onClick={handleClose}>Profile</MenuItem>
-        <MenuItem onClick={handleMyBracket}>My bracket</MenuItem>
+        {/* <MenuItem onClick={handleClose}>Profile</MenuItem> */}
+        {/* <MenuItem onClick={handleMyBracket}>My bracket</MenuItem> */}
         <MenuItem onClick={handleSignout}>Logout</MenuItem>
       </Menu>
     </div>
