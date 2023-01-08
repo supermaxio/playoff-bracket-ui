@@ -9,6 +9,7 @@ import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import GetIcon, { GetEmoji } from '../icons/icons';
 import { Grid, Paper, styled, TextField } from '@mui/material';
+import useAuth from '../../hooks/useAuth';
 
 const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -72,6 +73,7 @@ export default function ToggleSelection() {
     const [nfcCCDisabled, setNfcCCDisabled] = useState(true);
     const [sbDisabled, setSBDisabled] = useState(true);
 
+    const { setAuth }: any = useAuth();
     const axiosPrivate = useAxiosPrivate();
     const navigate = useNavigate();
     const icon = GetIcon;
@@ -352,12 +354,14 @@ export default function ToggleSelection() {
                 } catch (err: any) {
                     console.log("error in get brackets");
                     console.log(err);
+                    setAuth({});
                     navigate("/login");
                 }
 
             } catch (err: any) {
                 console.log("error in get rankings");
                 console.log(err);
+                setAuth({});
                 navigate("/login");
             }
         };
