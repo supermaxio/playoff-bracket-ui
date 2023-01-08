@@ -1,21 +1,23 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Playoff Brackets",
+  "name": "Playoff Brackets",
   "icons": [
     {
-      "src": "favicon.ico",
-      "sizes": "64x64 32x32 24x24 16x16",
-      "type": "image/x-icon"
+      "src": "icon/NFL.svg",
+      "sizes": "48x48",
+      "type": "image/webp"
     },
     {
-      "src": "../src/images/min.png",
-      "type": "image/png",
-      "sizes": "192x192"
+      "src": "icon/NFL.svg",
+      "sizes": "48x48"
     },
     {
-      "src": "../src/images/gb.png",
-      "type": "image/png",
-      "sizes": "512x512"
+      "src": "icon/NFL.svg",
+      "sizes": "72x72 96x96 128x128 256x256"
+    },
+    {
+      "src": "icon/NFL.svg",
+      "sizes": "any"
     }
   ],
   "start_url": ".",
