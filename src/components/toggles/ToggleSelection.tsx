@@ -261,25 +261,16 @@ export default function ToggleSelection() {
                     }
                 );
 
+                if (!response) {
+                    setErrMsg("Request failed")
+                    return
+                }
+
                 const afcTeams = response.data[0].teams;
                 const nfcTeams = response.data[1].teams;
 
                 isMounted && setAfcTeams(response.data[0].teams);
                 isMounted && setNfcTeams(response.data[1].teams);
-                isMounted && setAfcRank0(response.data[0].teams[0].name);
-                isMounted && setAfcRank1(response.data[0].teams[1].name);
-                isMounted && setAfcRank2(response.data[0].teams[2].name);
-                isMounted && setAfcRank3(response.data[0].teams[3].name);
-                isMounted && setAfcRank4(response.data[0].teams[4].name);
-                isMounted && setAfcRank5(response.data[0].teams[5].name);
-                isMounted && setAfcRank6(response.data[0].teams[6].name);
-                isMounted && setNfcRank0(response.data[1].teams[0].name);
-                isMounted && setNfcRank1(response.data[1].teams[1].name);
-                isMounted && setNfcRank2(response.data[1].teams[2].name);
-                isMounted && setNfcRank3(response.data[1].teams[3].name);
-                isMounted && setNfcRank4(response.data[1].teams[4].name);
-                isMounted && setNfcRank5(response.data[1].teams[5].name);
-                isMounted && setNfcRank6(response.data[1].teams[6].name);
 
                 try {
                     const response = await axiosPrivate.get(

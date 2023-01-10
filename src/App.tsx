@@ -1,5 +1,5 @@
 
-import SignIn from './components/signin/signin';
+import SignIn from './components/signin/SignIn';
 import { Route, Routes } from "react-router-dom";
 import Home from './components/home/index';
 import Layout from './components/layout/Layout';
