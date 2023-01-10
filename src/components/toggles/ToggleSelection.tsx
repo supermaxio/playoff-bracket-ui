@@ -41,13 +41,13 @@ export default function ToggleSelection() {
 
     const [afcTeams, setAfcTeams] = useState<Team[]>([]);
     const [nfcTeams, setNfcTeams] = useState<Team[]>([]);
-    const [afcRank0, setAfcRank0] = useState<string>("AFC");
-    const [afcRank1, setAfcRank1] = useState<string>("AFC");
-    const [afcRank2, setAfcRank2] = useState<string>("AFC");
-    const [afcRank3, setAfcRank3] = useState<string>("AFC");
-    const [afcRank4, setAfcRank4] = useState<string>("AFC");
-    const [afcRank5, setAfcRank5] = useState<string>("AFC");
-    const [afcRank6, setAfcRank6] = useState<string>("AFC");
+    const [afcRank0, setAfcRank0] = useState<string>("Chiefs");
+    const [afcRank1, setAfcRank1] = useState<string>("Bills");
+    const [afcRank2, setAfcRank2] = useState<string>("Bengals");
+    const [afcRank3, setAfcRank3] = useState<string>("Jaguars");
+    const [afcRank4, setAfcRank4] = useState<string>("Chargers");
+    const [afcRank5, setAfcRank5] = useState<string>("Ravens");
+    const [afcRank6, setAfcRank6] = useState<string>("Dolphins");
     const [afcDRLast, setAfcDRLast] = useState<string>("AFC");
     const [afcDRAway, setAfcDRAway] = useState<string>("AFC");
     const [afcDRHome, setAfcDRHome] = useState<string>("AFC");
@@ -57,13 +57,13 @@ export default function ToggleSelection() {
     const [afcSB, setAfcSB] = useState<string>("AFC");
     const [nfcSB, setNfcSB] = useState<string>("NFC");
 
-    const [nfcRank0, setNfcRank0] = useState<string>("NFC");
-    const [nfcRank1, setNfcRank1] = useState<string>("NFC");
-    const [nfcRank2, setNfcRank2] = useState<string>("NFC");
-    const [nfcRank3, setNfcRank3] = useState<string>("NFC");
-    const [nfcRank4, setNfcRank4] = useState<string>("NFC");
-    const [nfcRank5, setNfcRank5] = useState<string>("NFC");
-    const [nfcRank6, setNfcRank6] = useState<string>("NFC");
+    const [nfcRank0, setNfcRank0] = useState<string>("Eagles");
+    const [nfcRank1, setNfcRank1] = useState<string>("49ers");
+    const [nfcRank2, setNfcRank2] = useState<string>("Vikings");
+    const [nfcRank3, setNfcRank3] = useState<string>("Buccaneers");
+    const [nfcRank4, setNfcRank4] = useState<string>("Cowboys");
+    const [nfcRank5, setNfcRank5] = useState<string>("Giants");
+    const [nfcRank6, setNfcRank6] = useState<string>("Seahawks");
     const [nfcDRLast, setNfcDRLast] = useState<string>("NFC");
     const [nfcDRAway, setNfcDRAway] = useState<string>("NFC");
     const [nfcDRHome, setNfcDRHome] = useState<string>("NFC");
@@ -448,137 +448,68 @@ export default function ToggleSelection() {
                 <Grid container justifyContent="center" wrap='nowrap' sx={{ marginTop: 0 }}>
                     <Grid>
                         <Item>
-
-                            {afcTeams?.length
-                                ? (
-                                    <ToggleButtonGroup {...afcWC1Control}>
-                                        <ToggleButton sx={{ padding: 0 }} value={afcRank6}>
-                                            <img
-                                                src={icon(afcRank6)}
-                                                height={50}
-                                                alt={emoji(afcRank6)}
-                                                loading="lazy"
-                                            />
-                                        </ToggleButton>
-                                        <ToggleButton sx={{ padding: 0 }} value={afcRank1}>
-                                            <img
-                                                src={icon(afcRank1)}
-                                                height={50}
-                                                alt={emoji(afcRank1)}
-                                                loading="lazy"
-                                            />
-                                        </ToggleButton>
-                                    </ToggleButtonGroup>
-
-                                ) : <ToggleButtonGroup>
-                                    <ToggleButton sx={{ padding: 0 }} value='1'>
-                                        <img
-                                            src={icon("AFC")}
-                                            height={50}
-                                            alt={emoji("AFC")}
-                                            loading="lazy"
-                                        />
-                                    </ToggleButton>
-                                    <ToggleButton sx={{ padding: 0 }} value='1'>
-                                        <img
-                                            src={icon("AFC")}
-                                            height={50}
-                                            alt={emoji("AFC")}
-                                            loading="lazy"
-                                        />
-                                    </ToggleButton>
-                                </ToggleButtonGroup>
-                            }
+                            <ToggleButtonGroup {...afcWC1Control}>
+                                <ToggleButton sx={{ padding: 0 }} value={afcRank6}>
+                                    <img
+                                        src={icon(afcRank6)}
+                                        height={50}
+                                        alt={emoji(afcRank6)}
+                                        loading="lazy"
+                                    />
+                                </ToggleButton>
+                                <ToggleButton sx={{ padding: 0 }} value={afcRank1}>
+                                    <img
+                                        src={icon(afcRank1)}
+                                        height={50}
+                                        alt={emoji(afcRank1)}
+                                        loading="lazy"
+                                    />
+                                </ToggleButton>
+                            </ToggleButtonGroup>
                         </Item>
                     </Grid>
                     <Grid>
                         <Item>
-
-                            {afcTeams?.length
-                                ? (
-                                    <ToggleButtonGroup {...afcWC2Control}>
-                                        <ToggleButton sx={{ padding: 0 }} value={afcRank5}>
-                                            <img
-                                                src={icon(afcRank5)}
-                                                height={50}
-                                                alt={emoji(afcRank5)}
-                                                loading="lazy"
-                                            />
-                                        </ToggleButton>
-                                        <ToggleButton sx={{ padding: 0 }} value={afcRank2}>
-                                            <img
-                                                src={icon(afcRank2)}
-                                                height={50}
-                                                alt={emoji(afcRank2)}
-                                                loading="lazy"
-                                            />
-                                        </ToggleButton>
-                                    </ToggleButtonGroup>
-
-                                ) : <ToggleButtonGroup>
-                                    <ToggleButton sx={{ padding: 0 }} value='1'>
-                                        <img
-                                            src={icon("AFC")}
-                                            height={50}
-                                            alt={emoji("AFC")}
-                                            loading="lazy"
-                                        />
-                                    </ToggleButton>
-                                    <ToggleButton sx={{ padding: 0 }} value='1'>
-                                        <img
-                                            src={icon("AFC")}
-                                            height={50}
-                                            alt={emoji("AFC")}
-                                            loading="lazy"
-                                        />
-                                    </ToggleButton>
-                                </ToggleButtonGroup>
-                            }
+                            <ToggleButtonGroup {...afcWC2Control}>
+                                <ToggleButton sx={{ padding: 0 }} value={afcRank5}>
+                                    <img
+                                        src={icon(afcRank5)}
+                                        height={50}
+                                        alt={emoji(afcRank5)}
+                                        loading="lazy"
+                                    />
+                                </ToggleButton>
+                                <ToggleButton sx={{ padding: 0 }} value={afcRank2}>
+                                    <img
+                                        src={icon(afcRank2)}
+                                        height={50}
+                                        alt={emoji(afcRank2)}
+                                        loading="lazy"
+                                    />
+                                </ToggleButton>
+                            </ToggleButtonGroup>
                         </Item>
                     </Grid>
                     <Grid>
                         <Item>
-
-                            {afcTeams?.length
-                                ? (
-                                    <ToggleButtonGroup {...afcWC3Control}>
-                                        <ToggleButton sx={{ padding: 0 }} value={afcRank4}>
-                                            <img
-                                                src={icon(afcRank4)}
-                                                height={50}
-                                                alt={emoji(afcRank4)}
-                                                loading="lazy"
-                                            />
-                                        </ToggleButton>
-                                        <ToggleButton sx={{ padding: 0 }} value={afcRank3}>
-                                            <img
-                                                src={icon(afcRank3)}
-                                                height={50}
-                                                alt={emoji(afcRank3)}
-                                                loading="lazy"
-                                            />
-                                        </ToggleButton>
-                                    </ToggleButtonGroup>
-
-                                ) : <ToggleButtonGroup>
-                                    <ToggleButton sx={{ padding: 0 }} value='1'>
-                                        <img
-                                            src={icon("AFC")}
-                                            height={50}
-                                            alt={emoji("AFC")}
-                                            loading="lazy"
-                                        />
-                                    </ToggleButton>
-                                    <ToggleButton sx={{ padding: 0 }} value='1'>
-                                        <img
-                                            src={icon("AFC")}
-                                            height={50}
-                                            alt={emoji("AFC")}
-                                            loading="lazy"
-                                        />
-                                    </ToggleButton>
-                                </ToggleButtonGroup>
-                            }
+                            <ToggleButtonGroup {...afcWC3Control}>
+                                <ToggleButton sx={{ padding: 0 }} value={afcRank4}>
+                                    <img
+                                        src={icon(afcRank4)}
+                                        height={50}
+                                        alt={emoji(afcRank4)}
+                                        loading="lazy"
+                                    />
+                                </ToggleButton>
+                                <ToggleButton sx={{ padding: 0 }} value={afcRank3}>
+                                    <img
+                                        src={icon(afcRank3)}
+                                        height={50}
+                                        alt={emoji(afcRank3)}
+                                        loading="lazy"
+                                    />
+                                </ToggleButton>
+                            </ToggleButtonGroup>
                         </Item>
                     </Grid>
                 </Grid>
@@ -590,46 +521,23 @@ export default function ToggleSelection() {
                 <Grid container justifyContent="center" wrap='nowrap' sx={{ marginTop: 0 }}>
                     <Grid>
                         <Item>
-
-                            {afcTeams?.length
-                                ? (
-                                    <ToggleButtonGroup {...afcDR1Control}>
-                                        <ToggleButton sx={{ padding: 0 }} value={afcDRLast}>
-                                            <img
-                                                {...afcDRLastControl}
-                                                height={50}
-                                                loading="lazy"
-                                            />
-                                        </ToggleButton>
-                                        <ToggleButton sx={{ padding: 0 }} value={afcRank0}>
-                                            <img
-                                                src={icon(afcRank0)}
-                                                height={50}
-                                                alt={emoji(afcRank0)}
-                                                loading="lazy"
-                                            />
-                                        </ToggleButton>
-                                    </ToggleButtonGroup>
-
-                                ) : <ToggleButtonGroup>
-                                    <ToggleButton sx={{ padding: 0 }} value='1'>
-                                        <img
-                                            src={icon("AFC")}
-                                            height={50}
-                                            alt={emoji("AFC")}
-                                            loading="lazy"
-                                        />
-                                    </ToggleButton>
-                                    <ToggleButton sx={{ padding: 0 }} value='1'>
-                                        <img
-                                            src={icon("AFC")}
-                                            height={50}
-                                            alt={emoji("AFC")}
-                                            loading="lazy"
-                                        />
-                                    </ToggleButton>
-                                </ToggleButtonGroup>
-                            }
+                            <ToggleButtonGroup {...afcDR1Control}>
+                                <ToggleButton sx={{ padding: 0 }} value={afcDRLast}>
+                                    <img
+                                        {...afcDRLastControl}
+                                        height={50}
+                                        loading="lazy"
+                                    />
+                                </ToggleButton>
+                                <ToggleButton sx={{ padding: 0 }} value={afcRank0}>
+                                    <img
+                                        src={icon(afcRank0)}
+                                        height={50}
+                                        alt={emoji(afcRank0)}
+                                        loading="lazy"
+                                    />
+                                </ToggleButton>
+                            </ToggleButtonGroup>
                         </Item>
                     </Grid>
                     <Grid>
@@ -721,7 +629,7 @@ export default function ToggleSelection() {
                             margin="normal"
                             required
                             id="finalscore"
-                            label="Final score"
+                            label="Total score"
                             name="finalscore"
                             type="number"
                             size="small"
@@ -766,46 +674,23 @@ export default function ToggleSelection() {
                 <Grid container justifyContent="center" wrap='nowrap' sx={{ marginTop: 0 }}>
                     <Grid>
                         <Item>
-
-                            {nfcTeams?.length
-                                ? (
-                                    <ToggleButtonGroup {...nfcDR1Control}>
-                                        <ToggleButton sx={{ padding: 0 }} value={nfcDRLast}>
-                                            <img
-                                                {...nfcDRLastControl}
-                                                height={50}
-                                                loading="lazy"
-                                            />
-                                        </ToggleButton>
-                                        <ToggleButton sx={{ padding: 0 }} value={nfcRank0}>
-                                            <img
-                                                src={icon(nfcRank0)}
-                                                height={50}
-                                                alt={emoji(nfcRank0)}
-                                                loading="lazy"
-                                            />
-                                        </ToggleButton>
-                                    </ToggleButtonGroup>
-
-                                ) : <ToggleButtonGroup>
-                                    <ToggleButton sx={{ padding: 0 }} value='1'>
-                                        <img
-                                            src={icon("NFC")}
-                                            height={50}
-                                            alt={emoji("NFC")}
-                                            loading="lazy"
-                                        />
-                                    </ToggleButton>
-                                    <ToggleButton sx={{ padding: 0 }} value='1'>
-                                        <img
-                                            src={icon("NFC")}
-                                            height={50}
-                                            alt={emoji("NFC")}
-                                            loading="lazy"
-                                        />
-                                    </ToggleButton>
-                                </ToggleButtonGroup>
-                            }
+                            <ToggleButtonGroup {...nfcDR1Control}>
+                                <ToggleButton sx={{ padding: 0 }} value={nfcDRLast}>
+                                    <img
+                                        {...nfcDRLastControl}
+                                        height={50}
+                                        loading="lazy"
+                                    />
+                                </ToggleButton>
+                                <ToggleButton sx={{ padding: 0 }} value={nfcRank0}>
+                                    <img
+                                        src={icon(nfcRank0)}
+                                        height={50}
+                                        alt={emoji(nfcRank0)}
+                                        loading="lazy"
+                                    />
+                                </ToggleButton>
+                            </ToggleButtonGroup>
                         </Item>
                     </Grid>
                     <Grid>
@@ -838,138 +723,68 @@ export default function ToggleSelection() {
                 <Grid container justifyContent="center" wrap='nowrap' sx={{ marginTop: 0 }}>
                     <Grid>
                         <Item>
-
-                            {nfcTeams?.length
-                                ? (
-                                    <ToggleButtonGroup {...nfcWC1Control}>
-                                        <ToggleButton sx={{ padding: 0 }} value={nfcRank6}>
-                                            <img
-                                                src={icon(nfcRank6)}
-                                                height={50}
-                                                alt={emoji(nfcRank6)}
-                                                loading="lazy"
-                                            />
-                                        </ToggleButton>
-                                        <ToggleButton sx={{ padding: 0 }} value={nfcRank1}>
-                                            <img
-                                                src={icon(nfcRank1)}
-                                                height={50}
-                                                alt={emoji(nfcRank1)}
-                                                loading="lazy"
-                                            />
-                                        </ToggleButton>
-                                    </ToggleButtonGroup>
-
-                                ) :
-                                <ToggleButtonGroup>
-                                    <ToggleButton sx={{ padding: 0 }} value='1'>
-                                        <img
-                                            src={icon("NFC")}
-                                            height={50}
-                                            alt={emoji("NFC")}
-                                            loading="lazy"
-                                        />
-                                    </ToggleButton>
-                                    <ToggleButton sx={{ padding: 0 }} value='1'>
-                                        <img
-                                            src={icon("NFC")}
-                                            height={50}
-                                            alt={emoji("NFC")}
-                                            loading="lazy"
-                                        />
-                                    </ToggleButton>
-                                </ToggleButtonGroup>
-                            }
+                            <ToggleButtonGroup {...nfcWC1Control}>
+                                <ToggleButton sx={{ padding: 0 }} value={nfcRank6}>
+                                    <img
+                                        src={icon(nfcRank6)}
+                                        height={50}
+                                        alt={emoji(nfcRank6)}
+                                        loading="lazy"
+                                    />
+                                </ToggleButton>
+                                <ToggleButton sx={{ padding: 0 }} value={nfcRank1}>
+                                    <img
+                                        src={icon(nfcRank1)}
+                                        height={50}
+                                        alt={emoji(nfcRank1)}
+                                        loading="lazy"
+                                    />
+                                </ToggleButton>
+                            </ToggleButtonGroup>
                         </Item>
                     </Grid>
                     <Grid>
                         <Item>
-
-                            {nfcTeams?.length
-                                ? (
-                                    <ToggleButtonGroup {...nfcWC2Control}>
-                                        <ToggleButton sx={{ padding: 0 }} value={nfcRank5}>
-                                            <img
-                                                src={icon(nfcRank5)}
-                                                height={50}
-                                                alt={emoji(nfcRank5)}
-                                                loading="lazy"
-                                            />
-                                        </ToggleButton>
-                                        <ToggleButton sx={{ padding: 0 }} value={nfcRank2}>
-                                            <img
-                                                src={icon(nfcRank2)}
-                                                height={50}
-                                                alt={emoji(nfcRank2)}
-                                                loading="lazy"
-                                            />
-                                        </ToggleButton>
-                                    </ToggleButtonGroup>
-
-                                ) : <ToggleButtonGroup>
-                                    <ToggleButton sx={{ padding: 0 }} value='1'>
-                                        <img
-                                            src={icon("NFC")}
-                                            height={50}
-                                            alt={emoji("NFC")}
-                                            loading="lazy"
-                                        />
-                                    </ToggleButton>
-                                    <ToggleButton sx={{ padding: 0 }} value='1'>
-                                        <img
-                                            src={icon("NFC")}
-                                            height={50}
-                                            alt={emoji("NFC")}
-                                            loading="lazy"
-                                        />
-                                    </ToggleButton>
-                                </ToggleButtonGroup>
-                            }
+                            <ToggleButtonGroup {...nfcWC2Control}>
+                                <ToggleButton sx={{ padding: 0 }} value={nfcRank5}>
+                                    <img
+                                        src={icon(nfcRank5)}
+                                        height={50}
+                                        alt={emoji(nfcRank5)}
+                                        loading="lazy"
+                                    />
+                                </ToggleButton>
+                                <ToggleButton sx={{ padding: 0 }} value={nfcRank2}>
+                                    <img
+                                        src={icon(nfcRank2)}
+                                        height={50}
+                                        alt={emoji(nfcRank2)}
+                                        loading="lazy"
+                                    />
+                                </ToggleButton>
+                            </ToggleButtonGroup>
                         </Item>
                     </Grid>
                     <Grid>
                         <Item>
-
-                            {nfcTeams?.length
-                                ? (
-                                    <ToggleButtonGroup {...nfcWC3Control}>
-                                        <ToggleButton sx={{ padding: 0 }} value={nfcRank4}>
-                                            <img
-                                                src={icon(nfcRank4)}
-                                                height={50}
-                                                alt={emoji(nfcRank4)}
-                                                loading="lazy"
-                                            />
-                                        </ToggleButton>
-                                        <ToggleButton sx={{ padding: 0 }} value={nfcRank3}>
-                                            <img
-                                                src={icon(nfcRank3)}
-                                                height={50}
-                                                alt={emoji(nfcRank3)}
-                                                loading="lazy"
-                                            />
-                                        </ToggleButton>
-                                    </ToggleButtonGroup>
-
-                                ) : <ToggleButtonGroup>
-                                    <ToggleButton sx={{ padding: 0 }} value='1'>
-                                        <img
-                                            src={icon("NFC")}
-                                            height={50}
-                                            alt={emoji("NFC")}
-                                            loading="lazy"
-                                        />
-                                    </ToggleButton>
-                                    <ToggleButton sx={{ padding: 0 }} value='1'>
-                                        <img
-                                            src={icon("NFC")}
-                                            height={50}
-                                            alt={emoji("NFC")}
-                                            loading="lazy"
-                                        />
-                                    </ToggleButton>
-                                </ToggleButtonGroup>
-                            }
+                            <ToggleButtonGroup {...nfcWC3Control}>
+                                <ToggleButton sx={{ padding: 0 }} value={nfcRank4}>
+                                    <img
+                                        src={icon(nfcRank4)}
+                                        height={50}
+                                        alt={emoji(nfcRank4)}
+                                        loading="lazy"
+                                    />
+                                </ToggleButton>
+                                <ToggleButton sx={{ padding: 0 }} value={nfcRank3}>
+                                    <img
+                                        src={icon(nfcRank3)}
+                                        height={50}
+                                        alt={emoji(nfcRank3)}
+                                        loading="lazy"
+                                    />
+                                </ToggleButton>
+                            </ToggleButtonGroup>
                         </Item>
                     </Grid>
                 </Grid>
