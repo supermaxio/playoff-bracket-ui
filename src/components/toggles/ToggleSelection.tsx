@@ -470,7 +470,24 @@ export default function ToggleSelection() {
                                         </ToggleButton>
                                     </ToggleButtonGroup>
 
-                                ) : <p>No teams to display</p>
+                                ) : <ToggleButtonGroup>
+                                    <ToggleButton sx={{ padding: 0 }} value='1'>
+                                        <img
+                                            src={icon("AFC")}
+                                            height={50}
+                                            alt={emoji("AFC")}
+                                            loading="lazy"
+                                        />
+                                    </ToggleButton>
+                                    <ToggleButton sx={{ padding: 0 }} value='1'>
+                                        <img
+                                            src={icon("AFC")}
+                                            height={50}
+                                            alt={emoji("AFC")}
+                                            loading="lazy"
+                                        />
+                                    </ToggleButton>
+                                </ToggleButtonGroup>
                             }
                         </Item>
                     </Grid>
@@ -498,7 +515,24 @@ export default function ToggleSelection() {
                                         </ToggleButton>
                                     </ToggleButtonGroup>
 
-                                ) : <p>No teams to display</p>
+                                ) : <ToggleButtonGroup>
+                                    <ToggleButton sx={{ padding: 0 }} value='1'>
+                                        <img
+                                            src={icon("AFC")}
+                                            height={50}
+                                            alt={emoji("AFC")}
+                                            loading="lazy"
+                                        />
+                                    </ToggleButton>
+                                    <ToggleButton sx={{ padding: 0 }} value='1'>
+                                        <img
+                                            src={icon("AFC")}
+                                            height={50}
+                                            alt={emoji("AFC")}
+                                            loading="lazy"
+                                        />
+                                    </ToggleButton>
+                                </ToggleButtonGroup>
                             }
                         </Item>
                     </Grid>
@@ -526,7 +560,24 @@ export default function ToggleSelection() {
                                         </ToggleButton>
                                     </ToggleButtonGroup>
 
-                                ) : <p>No teams to display</p>
+                                ) : <ToggleButtonGroup>
+                                    <ToggleButton sx={{ padding: 0 }} value='1'>
+                                        <img
+                                            src={icon("AFC")}
+                                            height={50}
+                                            alt={emoji("AFC")}
+                                            loading="lazy"
+                                        />
+                                    </ToggleButton>
+                                    <ToggleButton sx={{ padding: 0 }} value='1'>
+                                        <img
+                                            src={icon("AFC")}
+                                            height={50}
+                                            alt={emoji("AFC")}
+                                            loading="lazy"
+                                        />
+                                    </ToggleButton>
+                                </ToggleButtonGroup>
                             }
                         </Item>
                     </Grid>
@@ -560,7 +611,24 @@ export default function ToggleSelection() {
                                         </ToggleButton>
                                     </ToggleButtonGroup>
 
-                                ) : <p>No teams to display</p>
+                                ) : <ToggleButtonGroup>
+                                    <ToggleButton sx={{ padding: 0 }} value='1'>
+                                        <img
+                                            src={icon("AFC")}
+                                            height={50}
+                                            alt={emoji("AFC")}
+                                            loading="lazy"
+                                        />
+                                    </ToggleButton>
+                                    <ToggleButton sx={{ padding: 0 }} value='1'>
+                                        <img
+                                            src={icon("AFC")}
+                                            height={50}
+                                            alt={emoji("AFC")}
+                                            loading="lazy"
+                                        />
+                                    </ToggleButton>
+                                </ToggleButtonGroup>
                             }
                         </Item>
                     </Grid>
@@ -719,7 +787,24 @@ export default function ToggleSelection() {
                                         </ToggleButton>
                                     </ToggleButtonGroup>
 
-                                ) : <p>No teams to display</p>
+                                ) : <ToggleButtonGroup>
+                                    <ToggleButton sx={{ padding: 0 }} value='1'>
+                                        <img
+                                            src={icon("NFC")}
+                                            height={50}
+                                            alt={emoji("NFC")}
+                                            loading="lazy"
+                                        />
+                                    </ToggleButton>
+                                    <ToggleButton sx={{ padding: 0 }} value='1'>
+                                        <img
+                                            src={icon("NFC")}
+                                            height={50}
+                                            alt={emoji("NFC")}
+                                            loading="lazy"
+                                        />
+                                    </ToggleButton>
+                                </ToggleButtonGroup>
                             }
                         </Item>
                     </Grid>
@@ -775,7 +860,25 @@ export default function ToggleSelection() {
                                         </ToggleButton>
                                     </ToggleButtonGroup>
 
-                                ) : <p>No teams to display</p>
+                                ) :
+                                <ToggleButtonGroup>
+                                    <ToggleButton sx={{ padding: 0 }} value='1'>
+                                        <img
+                                            src={icon("NFC")}
+                                            height={50}
+                                            alt={emoji("NFC")}
+                                            loading="lazy"
+                                        />
+                                    </ToggleButton>
+                                    <ToggleButton sx={{ padding: 0 }} value='1'>
+                                        <img
+                                            src={icon("NFC")}
+                                            height={50}
+                                            alt={emoji("NFC")}
+                                            loading="lazy"
+                                        />
+                                    </ToggleButton>
+                                </ToggleButtonGroup>
                             }
                         </Item>
                     </Grid>
@@ -803,7 +906,24 @@ export default function ToggleSelection() {
                                         </ToggleButton>
                                     </ToggleButtonGroup>
 
-                                ) : <p>No teams to display</p>
+                                ) : <ToggleButtonGroup>
+                                    <ToggleButton sx={{ padding: 0 }} value='1'>
+                                        <img
+                                            src={icon("NFC")}
+                                            height={50}
+                                            alt={emoji("NFC")}
+                                            loading="lazy"
+                                        />
+                                    </ToggleButton>
+                                    <ToggleButton sx={{ padding: 0 }} value='1'>
+                                        <img
+                                            src={icon("NFC")}
+                                            height={50}
+                                            alt={emoji("NFC")}
+                                            loading="lazy"
+                                        />
+                                    </ToggleButton>
+                                </ToggleButtonGroup>
                             }
                         </Item>
                     </Grid>
@@ -831,7 +951,24 @@ export default function ToggleSelection() {
                                         </ToggleButton>
                                     </ToggleButtonGroup>
 
-                                ) : <p>No teams to display</p>
+                                ) : <ToggleButtonGroup>
+                                    <ToggleButton sx={{ padding: 0 }} value='1'>
+                                        <img
+                                            src={icon("NFC")}
+                                            height={50}
+                                            alt={emoji("NFC")}
+                                            loading="lazy"
+                                        />
+                                    </ToggleButton>
+                                    <ToggleButton sx={{ padding: 0 }} value='1'>
+                                        <img
+                                            src={icon("NFC")}
+                                            height={50}
+                                            alt={emoji("NFC")}
+                                            loading="lazy"
+                                        />
+                                    </ToggleButton>
+                                </ToggleButtonGroup>
                             }
                         </Item>
                     </Grid>
