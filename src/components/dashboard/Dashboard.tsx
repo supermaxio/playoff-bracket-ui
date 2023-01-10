@@ -1,13 +1,10 @@
-import * as React from 'react';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
-import Chart from '../chart/Chart';
-import Deposits from '../miscellaneous/Deposits';
-import Orders from '../miscellaneous/Orders';
-import MainHeader from '../appBar/AppBar';
+import LiveToggle from '../toggles/LiveToggle';
+import Users from '../users/UserTable';
 
 
 
@@ -30,7 +27,7 @@ function DashboardContent() {
             <Toolbar />
             <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
                 <Grid container spacing={3}>
-                    {/* Chart */}
+                    {/* Live games */}
                     <Grid item xs={12} md={6}>
                         <Paper
                             sx={{
@@ -39,19 +36,13 @@ function DashboardContent() {
                                 flexDirection: 'column',
                             }}
                         >
-                            <Chart />
+                            <LiveToggle />
                         </Paper>
                     </Grid>
-                    {/* Recent Deposits */}
+                    {/* User list */}
                     <Grid item xs={12} md={6}>
                         <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
-                            <Orders />
-                        </Paper>
-                    </Grid>
-                    {/* Recent Orders */}
-                    <Grid item xs={12}>
-                        <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
-                            <Orders />
+                            <Users />
                         </Paper>
                     </Grid>
                 </Grid>

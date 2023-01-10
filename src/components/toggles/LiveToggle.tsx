@@ -22,7 +22,7 @@ const Item = styled(Paper)(({ theme }) => ({
     width: 120
 }));
 
-export default function ToggleSelection() {
+export default function LiveToggle() {
     const [errMsg, setErrMsg] = useState('');
     const [afcWC1Winner, setAfcWC1Winner] = useState<string>("");
     const [afcWC2Winner, setAfcWC2Winner] = useState<string>("");
@@ -39,8 +39,6 @@ export default function ToggleSelection() {
     const [sbWinner, setSBWinner] = useState<string>("");
     const [fss, setFss] = useState<number>(0);
 
-    const [afcTeams, setAfcTeams] = useState<Team[]>([]);
-    const [nfcTeams, setNfcTeams] = useState<Team[]>([]);
     const [afcRank0, setAfcRank0] = useState<string>("Chiefs");
     const [afcRank1, setAfcRank1] = useState<string>("Bills");
     const [afcRank2, setAfcRank2] = useState<string>("Bengals");
@@ -70,11 +68,34 @@ export default function ToggleSelection() {
     const [nfcCCAway, setNfcCCAway] = useState<string>("NFC");
     const [nfcCCHome, setNfcCCHome] = useState<string>("NFC");
 
-    const [afcDRDisabled, setAfcDRDisabled] = useState(true);
-    const [nfcDRDisabled, setNfcDRDisabled] = useState(true);
-    const [afcCCDisabled, setAfcCCDisabled] = useState(true);
-    const [nfcCCDisabled, setNfcCCDisabled] = useState(true);
-    const [sbDisabled, setSBDisabled] = useState(true);
+    const [afcRank0Score, setAfcRank0Score] = useState<number>();
+    const [afcRank1Score, setAfcRank1Score] = useState<number>();
+    const [afcRank2Score, setAfcRank2Score] = useState<number>();
+    const [afcRank3Score, setAfcRank3Score] = useState<number>();
+    const [afcRank4Score, setAfcRank4Score] = useState<number>();
+    const [afcRank5Score, setAfcRank5Score] = useState<number>();
+    const [afcRank6Score, setAfcRank6Score] = useState<number>();
+    const [afcDRLastScore, setAfcDRLastScore] = useState<number>();
+    const [afcDRAwayScore, setAfcDRAwayScore] = useState<number>();
+    const [afcDRHomeScore, setAfcDRHomeScore] = useState<number>();
+    const [afcCCAwayScore, setAfcCCAwayScore] = useState<number>();
+    const [afcCCHomeScore, setAfcCCHomeScore] = useState<number>();
+
+    const [afcSBScore, setAfcSBScore] = useState<number>();
+    const [nfcSBScore, setNfcSBScore] = useState<number>();
+
+    const [nfcRank0Score, setNfcRank0Score] = useState<number>();
+    const [nfcRank1Score, setNfcRank1Score] = useState<number>();
+    const [nfcRank2Score, setNfcRank2Score] = useState<number>();
+    const [nfcRank3Score, setNfcRank3Score] = useState<number>();
+    const [nfcRank4Score, setNfcRank4Score] = useState<number>();
+    const [nfcRank5Score, setNfcRank5Score] = useState<number>();
+    const [nfcRank6Score, setNfcRank6Score] = useState<number>();
+    const [nfcDRLastScore, setNfcDRLastScore] = useState<number>();
+    const [nfcDRAwayScore, setNfcDRAwayScore] = useState<number>();
+    const [nfcDRHomeScore, setNfcDRHomeScore] = useState<number>();
+    const [nfcCCAwayScore, setNfcCCAwayScore] = useState<number>();
+    const [nfcCCHomeScore, setNfcCCHomeScore] = useState<number>();
 
     const { setAuth }: any = useAuth();
     const axiosPrivate = useAxiosPrivate();
@@ -97,21 +118,21 @@ export default function ToggleSelection() {
     const handleSBChange = (event: React.MouseEvent<HTMLElement>, newAlignment: string,) => { console.log(`called handleSBChange  and the value is: ${newAlignment}`); setSBWinner(newAlignment); };
     const handleFss = (event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => { setFss(parseInt(event.target.value)); };
 
-    const afcWC1Control = { value: afcWC1Winner, onChange: handleAfcWC1Change, exclusive: true, };
-    const afcWC2Control = { value: afcWC2Winner, onChange: handleAfcWC2Change, exclusive: true, };
-    const afcWC3Control = { value: afcWC3Winner, onChange: handleAfcWC3Change, exclusive: true, };
-    const nfcWC1Control = { value: nfcWC1Winner, onChange: handleNfcWC1Change, exclusive: true, };
-    const nfcWC2Control = { value: nfcWC2Winner, onChange: handleNfcWC2Change, exclusive: true, };
-    const nfcWC3Control = { value: nfcWC3Winner, onChange: handleNfcWC3Change, exclusive: true, };
+    const afcWC1Control = { value: afcWC1Winner, onChange: handleAfcWC1Change, exclusive: true, disabled: true };
+    const afcWC2Control = { value: afcWC2Winner, onChange: handleAfcWC2Change, exclusive: true, disabled: true };
+    const afcWC3Control = { value: afcWC3Winner, onChange: handleAfcWC3Change, exclusive: true, disabled: true };
+    const nfcWC1Control = { value: nfcWC1Winner, onChange: handleNfcWC1Change, exclusive: true, disabled: true };
+    const nfcWC2Control = { value: nfcWC2Winner, onChange: handleNfcWC2Change, exclusive: true, disabled: true };
+    const nfcWC3Control = { value: nfcWC3Winner, onChange: handleNfcWC3Change, exclusive: true, disabled: true };
 
-    const afcDR1Control = { value: afcDR1Winner, onChange: handleAfcDR1Change, exclusive: true, disabled: afcDRDisabled };
-    const afcDR2Control = { value: afcDR2Winner, onChange: handleAfcDR2Change, exclusive: true, disabled: afcDRDisabled };
-    const nfcDR1Control = { value: nfcDR1Winner, onChange: handleNfcDR1Change, exclusive: true, disabled: nfcDRDisabled };
-    const nfcDR2Control = { value: nfcDR2Winner, onChange: handleNfcDR2Change, exclusive: true, disabled: nfcDRDisabled };
-    const afcCCControl = { value: afcCCWinner, onChange: handleAfcCCChange, exclusive: true, disabled: afcCCDisabled };
-    const nfcCCControl = { value: nfcCCWinner, onChange: handleNfcCCChange, exclusive: true, disabled: nfcCCDisabled };
-    const sbControl = { value: sbWinner, onChange: handleSBChange, exclusive: true, disabled: sbDisabled };
-    const fssControl = { disabled: sbDisabled, onChange: handleFss };
+    const afcDR1Control = { value: afcDR1Winner, onChange: handleAfcDR1Change, exclusive: true, disabled: true };
+    const afcDR2Control = { value: afcDR2Winner, onChange: handleAfcDR2Change, exclusive: true, disabled: true };
+    const nfcDR1Control = { value: nfcDR1Winner, onChange: handleNfcDR1Change, exclusive: true, disabled: true };
+    const nfcDR2Control = { value: nfcDR2Winner, onChange: handleNfcDR2Change, exclusive: true, disabled: true };
+    const afcCCControl = { value: afcCCWinner, onChange: handleAfcCCChange, exclusive: true, disabled: true };
+    const nfcCCControl = { value: nfcCCWinner, onChange: handleNfcCCChange, exclusive: true, disabled: true };
+    const sbControl = { value: sbWinner, onChange: handleSBChange, exclusive: true, disabled: true };
+    const fssControl = { disabled: true, onChange: handleFss };
 
     const afcDRLastControl = { src: icon(afcDRLast), alt: emoji(afcDRLast) };
     const afcDRAwayControl = { src: icon(afcDRAway), alt: emoji(afcDRAway) };
@@ -152,7 +173,6 @@ export default function ToggleSelection() {
             setAfcDRHome(rankArray[winningOrder[0]]);
             setAfcDRAway(rankArray[winningOrder[1]]);
             setAfcDRLast(rankArray[winningOrder[2]]);
-            setAfcDRDisabled(false);
         }
     }
 
@@ -168,7 +188,6 @@ export default function ToggleSelection() {
             setNfcDRHome(rankArray[winningOrder[0]]);
             setNfcDRAway(rankArray[winningOrder[1]]);
             setNfcDRLast(rankArray[winningOrder[2]]);
-            setNfcDRDisabled(false);
         }
     }
 
@@ -179,11 +198,10 @@ export default function ToggleSelection() {
         const legalValues = ["[0,1]", "[0,2]", "[1,3]", "[2,3]"];
 
         if (legalValues.indexOf(JSON.stringify(winningOrder)) == -1) {
-            setAfcCCAway("AFC"); setAfcCCHome("AFC"); setAfcSB("AFC"); setAfcCCDisabled(true); setSBDisabled(true); setAfcCCWinner(""); setSBWinner("");
+            setAfcCCAway("AFC"); setAfcCCHome("AFC"); setAfcSB("AFC"); setAfcCCWinner(""); setSBWinner("");
         } else {
             setAfcCCHome(rankArray[winningOrder[0]]);
             setAfcCCAway(rankArray[winningOrder[1]]);
-            setAfcCCDisabled(false);
         }
     }
 
@@ -194,27 +212,26 @@ export default function ToggleSelection() {
         const legalValues = ["[0,1]", "[0,2]", "[1,3]", "[2,3]"];
 
         if (legalValues.indexOf(JSON.stringify(winningOrder)) == -1) {
-            setNfcCCAway("NFC"); setNfcCCHome("NFC"); setNfcSB("NFC"); setNfcCCDisabled(true); setSBDisabled(true); setNfcCCWinner(""); setSBWinner("");
+            setNfcCCAway("NFC"); setNfcCCHome("NFC"); setNfcSB("NFC"); setNfcCCWinner(""); setSBWinner("");
         } else {
             setNfcCCHome(rankArray[winningOrder[0]]);
             setNfcCCAway(rankArray[winningOrder[1]]);
-            setNfcCCDisabled(false);
         }
     }
 
     function SetupAFCSuperBowl() {
         switch (afcCCWinner) {
-            case afcCCAway: setAfcSB(afcCCAway); if (nfcCCWinner) { setSBDisabled(false); } break;
-            case afcCCHome: setAfcSB(afcCCHome); if (nfcCCWinner) { setSBDisabled(false); } break;
-            default: setAfcSB("AFC"); setSBDisabled(true); setSBWinner(""); break;
+            case afcCCAway: setAfcSB(afcCCAway); break;
+            case afcCCHome: setAfcSB(afcCCHome); break;
+            default: setAfcSB("AFC"); setSBWinner(""); break;
         }
     }
 
     function SetupNFCSuperBowl() {
         switch (nfcCCWinner) {
-            case nfcCCAway: setNfcSB(nfcCCAway); if (afcCCWinner) { setSBDisabled(false); } break;
-            case nfcCCHome: setNfcSB(nfcCCHome); if (afcCCWinner) { setSBDisabled(false); } break;
-            default: setNfcSB("NFC"); setSBDisabled(true); setSBWinner(""); break;
+            case nfcCCAway: setNfcSB(nfcCCAway); break;
+            case nfcCCHome: setNfcSB(nfcCCHome); break;
+            default: setNfcSB("NFC"); setSBWinner(""); break;
         }
     }
 
@@ -261,16 +278,9 @@ export default function ToggleSelection() {
                     }
                 );
 
-                if (!response) {
-                    setErrMsg("Request failed")
-                    return
-                }
-
                 const afcTeams = response.data[0].teams;
                 const nfcTeams = response.data[1].teams;
 
-                isMounted && setAfcTeams(response.data[0].teams);
-                isMounted && setNfcTeams(response.data[1].teams);
                 isMounted && setAfcRank0(response.data[0].teams[0].name);
                 isMounted && setAfcRank1(response.data[0].teams[1].name);
                 isMounted && setAfcRank2(response.data[0].teams[2].name);
@@ -288,7 +298,7 @@ export default function ToggleSelection() {
 
                 try {
                     const response = await axiosPrivate.get(
-                        "/brackets/",
+                        "/scores/",
                         {
                             signal: controller.signal,
                             headers: { 'Content-Type': 'application/json' },
@@ -317,7 +327,6 @@ export default function ToggleSelection() {
                     isMounted && setAfcDRHome(namedAfcWCWinningOrder[0]);
                     isMounted && setAfcDRAway(namedAfcWCWinningOrder[1]);
                     isMounted && setAfcDRLast(namedAfcWCWinningOrder[2]);
-                    isMounted && setAfcDRDisabled(false);
 
                     const nfcWinningOrder = SetupRank(
                         [nfcTeams[0].name, nfcTeams[1].name, nfcTeams[2].name, nfcTeams[3].name, nfcTeams[4].name, nfcTeams[5].name, nfcTeams[6].name],
@@ -328,7 +337,6 @@ export default function ToggleSelection() {
                     isMounted && setNfcDRHome(namedNfcWCWinningOrder[0]);
                     isMounted && setNfcDRAway(namedNfcWCWinningOrder[1]);
                     isMounted && setNfcDRLast(namedNfcWCWinningOrder[2]);
-                    isMounted && setNfcDRDisabled(false);
 
                     isMounted && setAfcDR1Winner(response?.data.afc_divisional_round_1_winner);
                     isMounted && setAfcDR2Winner(response?.data.afc_divisional_round_2_winner);
@@ -341,14 +349,12 @@ export default function ToggleSelection() {
 
                     isMounted && setNfcCCHome(nfcDRTeams[nfcDRWinningOrder[0]]);
                     isMounted && setNfcCCAway(nfcDRTeams[nfcDRWinningOrder[1]]);
-                    isMounted && setNfcCCDisabled(false);
 
                     const afcDRTeams = [afcTeams[0].name, namedAfcWCWinningOrder[0], namedAfcWCWinningOrder[1], namedAfcWCWinningOrder[2]];
                     const afcDRWinningOrder = SetupRank(afcDRTeams, [response.data.afc_divisional_1_winner, response.data.afc_divisional_2_winner]);
 
                     isMounted && setAfcCCHome(afcDRTeams[afcDRWinningOrder[0]]);
                     isMounted && setAfcCCAway(afcDRTeams[afcDRWinningOrder[1]]);
-                    isMounted && setAfcCCDisabled(false);
 
                     isMounted && setAfcCCWinner(response?.data.afc_conference_champion);
                     isMounted && setNfcCCWinner(response?.data.nfc_conference_champion);
@@ -356,7 +362,6 @@ export default function ToggleSelection() {
                     // set sb
                     isMounted && setAfcSB(response?.data.afc_conference_champion);
                     isMounted && setNfcSB(response?.data.nfc_conference_champion);
-                    isMounted && setSBDisabled(false);
 
                     isMounted && setFss(response?.data.final_score_sum);
 
@@ -364,9 +369,9 @@ export default function ToggleSelection() {
                     isMounted && setSBWinner(response?.data.super_bowl_champion);
                 } catch (err: any) {
                     console.log("error in get brackets");
-                    console.log(err);
-                    setAuth({});
-                    navigate("/login");
+                    // console.log(err);
+                    // setAuth({});
+                    // navigate("/login");
                 }
 
             } catch (err: any) {
@@ -471,6 +476,25 @@ export default function ToggleSelection() {
                                     />
                                 </ToggleButton>
                             </ToggleButtonGroup>
+                            {afcRank6Score && afcRank1Score
+                                ? (
+                                    <Grid container justifyContent="center" wrap='nowrap'>
+
+                                        <Grid>
+                                            <Typography color="text.primary" variant="h4">{afcRank6Score}</Typography>
+
+                                        </Grid>
+                                        <Grid>
+                                            <Typography color="text.primary" variant="h4">-</Typography>
+
+                                        </Grid>
+                                        <Grid>
+                                            <Typography color="text.primary" variant="h4">{afcRank1Score}</Typography>
+
+                                        </Grid>
+                                    </Grid>
+                                ) : <></>
+                            }
                         </Item>
                     </Grid>
                     <Grid>
@@ -493,6 +517,25 @@ export default function ToggleSelection() {
                                     />
                                 </ToggleButton>
                             </ToggleButtonGroup>
+                            {afcRank5Score && afcRank2Score
+                                ? (
+                                    <Grid container justifyContent="center" wrap='nowrap'>
+
+                                        <Grid>
+                                            <Typography color="text.primary" variant="h4">{afcRank5Score}</Typography>
+
+                                        </Grid>
+                                        <Grid>
+                                            <Typography color="text.primary" variant="h4">-</Typography>
+
+                                        </Grid>
+                                        <Grid>
+                                            <Typography color="text.primary" variant="h4">{afcRank2Score}</Typography>
+
+                                        </Grid>
+                                    </Grid>
+                                ) : <></>
+                            }
                         </Item>
                     </Grid>
                     <Grid>
@@ -515,11 +558,27 @@ export default function ToggleSelection() {
                                     />
                                 </ToggleButton>
                             </ToggleButtonGroup>
+                            {afcRank4Score && afcRank3Score
+                                ? (
+                                    <Grid container justifyContent="center" wrap='nowrap'>
+
+                                        <Grid>
+                                            <Typography color="text.primary" variant="h4">{afcRank4Score}</Typography>
+
+                                        </Grid>
+                                        <Grid>
+                                            <Typography color="text.primary" variant="h4">-</Typography>
+
+                                        </Grid>
+                                        <Grid>
+                                            <Typography color="text.primary" variant="h4">{afcRank3Score}</Typography>
+
+                                        </Grid>
+                                    </Grid>
+                                ) : <></>
+                            }
                         </Item>
                     </Grid>
-                </Grid>
-                <Grid>
-                    <Typography variant="caption">AFC Wild Card Round - 3 points</Typography>
                 </Grid>
 
                 {/* AFC Divisional Round */}
@@ -543,6 +602,25 @@ export default function ToggleSelection() {
                                     />
                                 </ToggleButton>
                             </ToggleButtonGroup>
+                            {afcDRLastScore && afcRank0Score
+                                ? (
+                                    <Grid container justifyContent="center" wrap='nowrap'>
+
+                                        <Grid>
+                                            <Typography color="text.primary" variant="h4">{afcDRLastScore}</Typography>
+
+                                        </Grid>
+                                        <Grid>
+                                            <Typography color="text.primary" variant="h4">-</Typography>
+
+                                        </Grid>
+                                        <Grid>
+                                            <Typography color="text.primary" variant="h4">{afcRank0Score}</Typography>
+
+                                        </Grid>
+                                    </Grid>
+                                ) : <></>
+                            }
                         </Item>
                     </Grid>
                     <Grid>
@@ -563,13 +641,28 @@ export default function ToggleSelection() {
                                     />
                                 </ToggleButton>
                             </ToggleButtonGroup>
+                            {afcDRAwayScore && afcDRHomeScore
+                                ? (
+                                    <Grid container justifyContent="center" wrap='nowrap'>
+
+                                        <Grid>
+                                            <Typography color="text.primary" variant="h4">{afcDRAwayScore}</Typography>
+
+                                        </Grid>
+                                        <Grid>
+                                            <Typography color="text.primary" variant="h4">-</Typography>
+
+                                        </Grid>
+                                        <Grid>
+                                            <Typography color="text.primary" variant="h4">{afcDRHomeScore}</Typography>
+
+                                        </Grid>
+                                    </Grid>
+                                ) : <></>
+                            }
                         </Item>
                     </Grid>
                 </Grid>
-                <Grid>
-                    <Typography variant="caption">AFC Divisional Round - 6 points</Typography>
-                </Grid>
-
                 {/* AFC Championship */}
                 <Grid container justifyContent="center" wrap='nowrap' sx={{ marginTop: 0 }}>
                     <Item>
@@ -589,10 +682,26 @@ export default function ToggleSelection() {
                                 />
                             </ToggleButton>
                         </ToggleButtonGroup>
+                            {afcCCAwayScore && afcCCHomeScore
+                                ? (
+                                    <Grid container justifyContent="center" wrap='nowrap'>
+
+                                        <Grid>
+                                            <Typography color="text.primary" variant="h4">{afcCCAwayScore}</Typography>
+
+                                        </Grid>
+                                        <Grid>
+                                            <Typography color="text.primary" variant="h4">-</Typography>
+
+                                        </Grid>
+                                        <Grid>
+                                            <Typography color="text.primary" variant="h4">{afcCCHomeScore}</Typography>
+
+                                        </Grid>
+                                    </Grid>
+                                ) : <></>
+                            }
                     </Item>
-                </Grid>
-                <Grid sx={{ marginTop: 0 }}>
-                    <Typography variant="caption">AFC Championship - 12 points</Typography>
                 </Grid>
 
                 {/* SuperBowl */}
@@ -622,6 +731,25 @@ export default function ToggleSelection() {
                                     />
                                 </ToggleButton>
                             </ToggleButtonGroup>
+                            {afcSBScore && nfcSBScore
+                                ? (
+                                    <Grid container justifyContent="center" wrap='nowrap'>
+
+                                        <Grid>
+                                            <Typography color="text.primary" variant="h4">{afcSBScore}</Typography>
+
+                                        </Grid>
+                                        <Grid>
+                                            <Typography color="text.primary" variant="h4">-</Typography>
+
+                                        </Grid>
+                                        <Grid>
+                                            <Typography color="text.primary" variant="h4">{nfcSBScore}</Typography>
+
+                                        </Grid>
+                                    </Grid>
+                                ) : <></>
+                            }
                         </Item>
 
                     </Grid>
@@ -643,9 +771,6 @@ export default function ToggleSelection() {
                         />
                     </Grid>
 
-                </Grid>
-                <Grid>
-                    <Typography variant="caption">Super Bowl - 24 points</Typography>
                 </Grid>
 
                 {/* NFC Championship */}
@@ -669,10 +794,26 @@ export default function ToggleSelection() {
                                 />
                             </ToggleButton>
                         </ToggleButtonGroup>
+                            {nfcCCAwayScore && nfcCCHomeScore
+                                ? (
+                                    <Grid container justifyContent="center" wrap='nowrap'>
+
+                                        <Grid>
+                                            <Typography color="text.primary" variant="h4">{nfcCCAwayScore}</Typography>
+
+                                        </Grid>
+                                        <Grid>
+                                            <Typography color="text.primary" variant="h4">-</Typography>
+
+                                        </Grid>
+                                        <Grid>
+                                            <Typography color="text.primary" variant="h4">{nfcCCHomeScore}</Typography>
+
+                                        </Grid>
+                                    </Grid>
+                                ) : <></>
+                            }
                     </Item>
-                </Grid>
-                <Grid>
-                    <Typography variant="caption">NFC Championship 12 points</Typography>
                 </Grid>
 
                 {/* NFC Divisional Round */}
@@ -696,6 +837,25 @@ export default function ToggleSelection() {
                                     />
                                 </ToggleButton>
                             </ToggleButtonGroup>
+                            {nfcDRLastScore && nfcRank0Score
+                                ? (
+                                    <Grid container justifyContent="center" wrap='nowrap'>
+
+                                        <Grid>
+                                            <Typography color="text.primary" variant="h4">{nfcDRLastScore}</Typography>
+
+                                        </Grid>
+                                        <Grid>
+                                            <Typography color="text.primary" variant="h4">-</Typography>
+
+                                        </Grid>
+                                        <Grid>
+                                            <Typography color="text.primary" variant="h4">{nfcRank0Score}</Typography>
+
+                                        </Grid>
+                                    </Grid>
+                                ) : <></>
+                            }
                         </Item>
                     </Grid>
                     <Grid>
@@ -716,12 +876,27 @@ export default function ToggleSelection() {
                                     />
                                 </ToggleButton>
                             </ToggleButtonGroup>
+                            {nfcDRAwayScore && nfcDRHomeScore
+                                ? (
+                                    <Grid container justifyContent="center" wrap='nowrap'>
 
+                                        <Grid>
+                                            <Typography color="text.primary" variant="h4">{nfcDRAwayScore}</Typography>
+
+                                        </Grid>
+                                        <Grid>
+                                            <Typography color="text.primary" variant="h4">-</Typography>
+
+                                        </Grid>
+                                        <Grid>
+                                            <Typography color="text.primary" variant="h4">{nfcDRHomeScore}</Typography>
+
+                                        </Grid>
+                                    </Grid>
+                                ) : <></>
+                            }
                         </Item>
                     </Grid>
-                </Grid>
-                <Grid>
-                    <Typography variant="caption">NFC Divisional Round - 6 points</Typography>
                 </Grid>
 
                 {/* NFC Wild Card */}
@@ -746,6 +921,25 @@ export default function ToggleSelection() {
                                     />
                                 </ToggleButton>
                             </ToggleButtonGroup>
+                            {nfcRank6Score && nfcRank1Score
+                                ? (
+                                    <Grid container justifyContent="center" wrap='nowrap'>
+
+                                        <Grid>
+                                            <Typography color="text.primary" variant="h4">{nfcRank6Score}</Typography>
+
+                                        </Grid>
+                                        <Grid>
+                                            <Typography color="text.primary" variant="h4">-</Typography>
+
+                                        </Grid>
+                                        <Grid>
+                                            <Typography color="text.primary" variant="h4">{nfcRank1Score}</Typography>
+
+                                        </Grid>
+                                    </Grid>
+                                ) : <></>
+                            }
                         </Item>
                     </Grid>
                     <Grid>
@@ -768,6 +962,25 @@ export default function ToggleSelection() {
                                     />
                                 </ToggleButton>
                             </ToggleButtonGroup>
+                            {nfcRank5Score && nfcRank2Score
+                                ? (
+                                    <Grid container justifyContent="center" wrap='nowrap'>
+
+                                        <Grid>
+                                            <Typography color="text.primary" variant="h4">{nfcRank5Score}</Typography>
+
+                                        </Grid>
+                                        <Grid>
+                                            <Typography color="text.primary" variant="h4">-</Typography>
+
+                                        </Grid>
+                                        <Grid>
+                                            <Typography color="text.primary" variant="h4">{nfcRank2Score}</Typography>
+
+                                        </Grid>
+                                    </Grid>
+                                ) : <></>
+                            }
                         </Item>
                     </Grid>
                     <Grid>
@@ -790,23 +1003,28 @@ export default function ToggleSelection() {
                                     />
                                 </ToggleButton>
                             </ToggleButtonGroup>
+                            {nfcRank4Score && nfcRank3Score
+                                ? (
+                                    <Grid container justifyContent="center" wrap='nowrap'>
+
+                                        <Grid>
+                                            <Typography color="text.primary" variant="h4">{nfcRank4Score}</Typography>
+
+                                        </Grid>
+                                        <Grid>
+                                            <Typography color="text.primary" variant="h4">-</Typography>
+
+                                        </Grid>
+                                        <Grid>
+                                            <Typography color="text.primary" variant="h4">{nfcRank3Score}</Typography>
+
+                                        </Grid>
+                                    </Grid>
+                                ) : <></>
+                            }
                         </Item>
                     </Grid>
                 </Grid>
-                <Grid>
-                    <Typography variant="caption">NFC Wild Card Round - 3 points</Typography>
-                </Grid>
-            </Grid>
-            <Grid display="flex" justifyContent="center">
-
-                <Button
-                    type="submit"
-                    variant="contained"
-                    sx={{ mt: 3, mb: 2 }}
-                    onClick={onSubmit}
-                >
-                    Save
-                </Button>
             </Grid>
 
             <Grid display="flex" justifyContent="center">

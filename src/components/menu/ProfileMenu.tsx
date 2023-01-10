@@ -21,12 +21,12 @@ export default function ProfileMenu() {
 
   const handleMyBracket = () => {
     setAnchorEl(null);
-    navigate("/");
+    navigate("/bracket");
   };
 
   const handleDashboard = () => {
     setAnchorEl(null);
-    navigate("/dashboard");
+    navigate("/");
   };
 
   const handleSignout = async () => {
@@ -56,7 +56,7 @@ export default function ProfileMenu() {
           'aria-labelledby': 'basic-button',
         }}
       >
-        {/* <MenuItem onClick={handleDashboard}>Dashboard</MenuItem> */}
+        <MenuItem onClick={handleDashboard}>Dashboard</MenuItem>
         <MenuItem onClick={handleMyBracket}>My bracket</MenuItem>
         <MenuItem onClick={handleSignout}>Logout</MenuItem>
       </Menu>

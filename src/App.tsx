@@ -18,8 +18,8 @@ export default function App() {
 
         <Route element={<PersistLogin />}>
           <Route element={<RequireAuth />}>
-            <Route path="/" element={<CreateBracket />} />
-            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/bracket" element={<CreateBracket />} />
+            <Route path="/" element={<Dashboard />} />
           </Route>
         </Route>
 
