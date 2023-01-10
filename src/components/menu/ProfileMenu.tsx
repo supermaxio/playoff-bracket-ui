@@ -2,13 +2,14 @@ import * as React from 'react';
 import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
-import useAuth from '../../hooks/useAuth';
 import { useNavigate } from 'react-router-dom';
+import useLogout from '../../hooks/useLogout';
+import useAuth from '../../hooks/useAuth';
 
 export default function ProfileMenu() {
-  const { auth, setAuth }: any = useAuth();
+  const { auth }: any = useAuth();
   const navigate = useNavigate();
-
+  const logout = useLogout();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -19,14 +20,17 @@ export default function ProfileMenu() {
   };
 
   const handleMyBracket = () => {
-    // signOut();
     setAnchorEl(null);
-    navigate("/login");
+    navigate("/");
   };
 
-  const handleSignout = () => {
-    // signOut();
-    setAuth({});
+  const handleDashboard = () => {
+    setAnchorEl(null);
+    navigate("/dashboard");
+  };
+
+  const handleSignout = async () => {
+    await logout();
     setAnchorEl(null);
     navigate("/login");
   };
@@ -52,8 +56,8 @@ export default function ProfileMenu() {
           'aria-labelledby': 'basic-button',
         }}
       >
-        {/* <MenuItem onClick={handleClose}>Profile</MenuItem> */}
-        {/* <MenuItem onClick={handleMyBracket}>My bracket</MenuItem> */}
+        {/* <MenuItem onClick={handleDashboard}>Dashboard</MenuItem> */}
+        <MenuItem onClick={handleMyBracket}>My bracket</MenuItem>
         <MenuItem onClick={handleSignout}>Logout</MenuItem>
       </Menu>
     </div>
