@@ -11,6 +11,7 @@ import GetIcon, { GetEmoji } from '../icons/icons';
 import { Grid, Paper, styled, TextField } from '@mui/material';
 import useAuth from '../../hooks/useAuth';
 import { Team } from '../../objects/Team';
+import useLogout from '../../hooks/useLogout';
 
 const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -24,6 +25,7 @@ const Item = styled(Paper)(({ theme }) => ({
 
 export default function ToggleSelection() {
     const [errMsg, setErrMsg] = useState('');
+    const logout = useLogout();
     const [afcWC1Winner, setAfcWC1Winner] = useState<string>("");
     const [afcWC2Winner, setAfcWC2Winner] = useState<string>("");
     const [afcWC3Winner, setAfcWC3Winner] = useState<string>("");
@@ -262,8 +264,8 @@ export default function ToggleSelection() {
                 );
 
                 if (!response) {
-                    setErrMsg("Request failed")
-                    return
+                    setErrMsg("Request failed");
+                    return;
                 }
 
                 const afcTeams = response.data[0].teams;
@@ -351,15 +353,13 @@ export default function ToggleSelection() {
                 } catch (err: any) {
                     console.log("error in get brackets");
                     console.log(err);
-                    setAuth({});
-                    navigate("/login");
+                    logout();
                 }
 
             } catch (err: any) {
                 console.log("error in get rankings");
                 console.log(err);
-                setAuth({});
-                navigate("/login");
+                logout();
             }
         };
 
