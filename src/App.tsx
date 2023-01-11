@@ -1,9 +1,8 @@
 
 import SignIn from './components/signin/SignIn';
 import { Route, Routes } from "react-router-dom";
-import Home from './components/home/index';
 import Layout from './components/layout/Layout';
-import RequireAuth from './components/signin/RequireAuth';
+import LocalRequireAuth from './components/signin/LocalRequireAuth';
 import PersistLogin from './components/signin/PersistLogin';
 import Missing from './components/miscellaneous/Missing';
 import CreateBracket from './components/brackets/CreateBracket';
@@ -17,7 +16,7 @@ export default function App() {
         <Route path="/login" element={<SignIn />} />
 
         <Route element={<PersistLogin />}>
-          <Route element={<RequireAuth />}>
+          <Route element={<LocalRequireAuth />}>
             <Route path="/" element={<CreateBracket />} />
             <Route path="/dashboard" element={<Dashboard />} />
           </Route>
