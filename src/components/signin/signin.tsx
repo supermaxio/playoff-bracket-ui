@@ -12,12 +12,14 @@ import axios from '../../api/axios';
 import { useFormik } from 'formik';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import useAuth from '../../hooks/useAuth';
+import { useSignIn } from 'react-auth-kit';
 
 export default function SignIn(props: any) {
   const [user, setUser] = useState('');
   const [pwd, setPwd] = useState('');
   const [errMsg, setErrMsg] = useState('');
 
+  const signIn = useSignIn();
   const { setAuth }: any = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
@@ -47,6 +49,13 @@ export default function SignIn(props: any) {
       // const roles = response?.data?.roles;
 
       setAuth({ username, accessToken });
+
+      signIn({
+        token: response?.data?.token,
+        tokenType: 'Bearer',
+        expiresIn: 43200,
+        authState: { username: values.username }
+      })
 
       setUser('');
       setPwd('');
