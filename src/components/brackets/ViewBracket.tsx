@@ -242,7 +242,6 @@ export default function ViewBracket() {
         const controller = new AbortController();
         const getTeams = async () => {
             try {
-                console.log("running Get");
                 const response = await axiosPrivate.get(
                     "/brackets/" + userId,
                     {
@@ -251,10 +250,6 @@ export default function ViewBracket() {
                         withCredentials: true
                     }
                 );
-                // verify new or saved bracket
-                if (response?.data.super_bowl_champion == "") {
-                    return;
-                }
 
                 isMounted && setAfcWC1Winner(response?.data.afc_wild_card_1_winner);
                 isMounted && setAfcWC2Winner(response?.data.afc_wild_card_2_winner);
@@ -263,7 +258,6 @@ export default function ViewBracket() {
                 isMounted && setNfcWC2Winner(response?.data.nfc_wild_card_2_winner);
                 isMounted && setNfcWC3Winner(response?.data.nfc_wild_card_3_winner);
 
-                const afcTeams = ["Chiefs", "Bills",];
                 //set dr
                 const afcWinningOrder = SetupRank(
                     afcTeams,
@@ -271,9 +265,9 @@ export default function ViewBracket() {
                 );
                 const namedAfcWCWinningOrder = [afcTeams[afcWinningOrder[0]], afcTeams[afcWinningOrder[1]], afcTeams[afcWinningOrder[2]]];
 
-                isMounted && setAfcDRHome(namedAfcWCWinningOrder[0]);
-                isMounted && setAfcDRAway(namedAfcWCWinningOrder[1]);
-                isMounted && setAfcDRLast(namedAfcWCWinningOrder[2]);
+                isMounted && setAfcDRHome(namedAfcWCWinningOrder[0] ? namedAfcWCWinningOrder[0] : "AFC");
+                isMounted && setAfcDRAway(namedAfcWCWinningOrder[1] ? namedAfcWCWinningOrder[1] : "AFC");
+                isMounted && setAfcDRLast(namedAfcWCWinningOrder[2] ? namedAfcWCWinningOrder[2] : "AFC");
 
                 const nfcWinningOrder = SetupRank(
                     nfcTeams,
@@ -281,9 +275,10 @@ export default function ViewBracket() {
                 );
 
                 const namedNfcWCWinningOrder = [nfcTeams[nfcWinningOrder[0]], nfcTeams[nfcWinningOrder[1]], nfcTeams[nfcWinningOrder[2]]];
-                isMounted && setNfcDRHome(namedNfcWCWinningOrder[0]);
-                isMounted && setNfcDRAway(namedNfcWCWinningOrder[1]);
-                isMounted && setNfcDRLast(namedNfcWCWinningOrder[2]);
+
+                isMounted && setNfcDRHome(namedNfcWCWinningOrder[0] ? namedNfcWCWinningOrder[0] : "NFC");
+                isMounted && setNfcDRAway(namedNfcWCWinningOrder[1] ? namedNfcWCWinningOrder[1] : "NFC");
+                isMounted && setNfcDRLast(namedNfcWCWinningOrder[2] ? namedNfcWCWinningOrder[2] : "NFC");
 
                 isMounted && setAfcDR1Winner(response?.data.afc_divisional_round_1_winner);
                 isMounted && setAfcDR2Winner(response?.data.afc_divisional_round_2_winner);
@@ -294,22 +289,22 @@ export default function ViewBracket() {
                 const nfcDRTeams = [nfcTeams[0], namedNfcWCWinningOrder[0], namedNfcWCWinningOrder[1], namedNfcWCWinningOrder[2]];
                 const nfcDRWinningOrder = SetupRank(nfcDRTeams, [response.data.nfc_divisional_1_winner, response.data.nfc_divisional_2_winner]);
 
-                isMounted && setNfcCCHome(nfcDRTeams[nfcDRWinningOrder[0]]);
-                isMounted && setNfcCCAway(nfcDRTeams[nfcDRWinningOrder[1]]);
+                isMounted && setNfcCCHome(nfcDRTeams[nfcDRWinningOrder[0]] ? nfcDRTeams[nfcDRWinningOrder[0]] : "NFC");
+                isMounted && setNfcCCAway(nfcDRTeams[nfcDRWinningOrder[1]] ? nfcDRTeams[nfcDRWinningOrder[1]] : "NFC");
 
                 const afcDRTeams = [afcTeams[0], namedAfcWCWinningOrder[0], namedAfcWCWinningOrder[1], namedAfcWCWinningOrder[2]];
                 const afcDRWinningOrder = SetupRank(afcDRTeams, [response.data.afc_divisional_1_winner, response.data.afc_divisional_2_winner]);
 
-                isMounted && setAfcCCHome(afcDRTeams[afcDRWinningOrder[0]]);
-                isMounted && setAfcCCAway(afcDRTeams[afcDRWinningOrder[1]]);
+                isMounted && setAfcCCHome(afcDRTeams[afcDRWinningOrder[0]] ? afcDRTeams[afcDRWinningOrder[0]] : "AFC");
+                isMounted && setAfcCCAway(afcDRTeams[afcDRWinningOrder[1]] ? afcDRTeams[afcDRWinningOrder[1]] : "AFC");
                 await new Promise(f => setTimeout(f, 50));
 
                 isMounted && setAfcCCWinner(response?.data.afc_conference_champion);
                 isMounted && setNfcCCWinner(response?.data.nfc_conference_champion);
 
                 // set sb
-                isMounted && setAfcSB(response?.data.afc_conference_champion);
-                isMounted && setNfcSB(response?.data.nfc_conference_champion);
+                isMounted && setAfcSB(response?.data.afc_conference_champion ? response?.data.afc_conference_champion : "AFC");
+                isMounted && setNfcSB(response?.data.nfc_conference_champion ? response?.data.nfc_conference_champion : "NFC");
 
                 isMounted && setFss(response?.data.final_score_sum);
 
