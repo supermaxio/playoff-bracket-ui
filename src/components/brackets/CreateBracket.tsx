@@ -1,7 +1,6 @@
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
-import Copyright from '../miscellaneous/copyright';
-import ToggleSelection from '../toggles/ToggleSelection';
+import Bracket from './Bracket';
 
 export default function CreateBracket() {
 
@@ -17,10 +16,9 @@ export default function CreateBracket() {
                 }}
             >
                 <Box>
-                    <ToggleSelection />
+                    <Bracket />
                 </Box>
             </Box>
-            <Copyright sx={{ mt: 8, mb: 4 }} />
         </Container >
     );
 }

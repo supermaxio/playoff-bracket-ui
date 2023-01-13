@@ -1,16 +1,13 @@
-import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import { useEffect, useRef, useState } from 'react';
-import { Link, useNavigate, useLocation } from 'react-router-dom';
+import Title from '../title/Title';
+import { useEffect, useState } from 'react';
 import useAxiosPrivate from '../../hooks/useAxiosPrivate';
 import React from 'react';
 import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import GetIcon, { GetEmoji } from '../icons/icons';
 import { Grid, Paper, styled, TextField } from '@mui/material';
-import useAuth from '../../hooks/useAuth';
-import { Team } from '../../objects/Team';
 
 const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -22,8 +19,27 @@ const Item = styled(Paper)(({ theme }) => ({
     width: 120
 }));
 
-export default function LiveToggle() {
-    const [errMsg, setErrMsg] = useState('');
+export default function LiveBracket() {
+    const afcTeams = [
+        "Chiefs",
+        "Bills",
+        "Bengals",
+        "Jaguars",
+        "Chargers",
+        "Ravens",
+        "Dolphins"
+    ];
+
+    const nfcTeams = [
+        "Eagles",
+        "49ers",
+        "Vikings",
+        "Buccaneers",
+        "Cowboys",
+        "Giants",
+        "Seahawks"
+    ];
+
     const [afcWC1Winner, setAfcWC1Winner] = useState<string>("");
     const [afcWC2Winner, setAfcWC2Winner] = useState<string>("");
     const [afcWC3Winner, setAfcWC3Winner] = useState<string>("");
@@ -39,13 +55,6 @@ export default function LiveToggle() {
     const [sbWinner, setSBWinner] = useState<string>("");
     const [fss, setFss] = useState<number>(0);
 
-    const [afcRank0, setAfcRank0] = useState<string>("Chiefs");
-    const [afcRank1, setAfcRank1] = useState<string>("Bills");
-    const [afcRank2, setAfcRank2] = useState<string>("Bengals");
-    const [afcRank3, setAfcRank3] = useState<string>("Jaguars");
-    const [afcRank4, setAfcRank4] = useState<string>("Chargers");
-    const [afcRank5, setAfcRank5] = useState<string>("Ravens");
-    const [afcRank6, setAfcRank6] = useState<string>("Dolphins");
     const [afcDRLast, setAfcDRLast] = useState<string>("AFC");
     const [afcDRAway, setAfcDRAway] = useState<string>("AFC");
     const [afcDRHome, setAfcDRHome] = useState<string>("AFC");
@@ -55,13 +64,6 @@ export default function LiveToggle() {
     const [afcSB, setAfcSB] = useState<string>("AFC");
     const [nfcSB, setNfcSB] = useState<string>("NFC");
 
-    const [nfcRank0, setNfcRank0] = useState<string>("Eagles");
-    const [nfcRank1, setNfcRank1] = useState<string>("49ers");
-    const [nfcRank2, setNfcRank2] = useState<string>("Vikings");
-    const [nfcRank3, setNfcRank3] = useState<string>("Buccaneers");
-    const [nfcRank4, setNfcRank4] = useState<string>("Cowboys");
-    const [nfcRank5, setNfcRank5] = useState<string>("Giants");
-    const [nfcRank6, setNfcRank6] = useState<string>("Seahawks");
     const [nfcDRLast, setNfcDRLast] = useState<string>("NFC");
     const [nfcDRAway, setNfcDRAway] = useState<string>("NFC");
     const [nfcDRHome, setNfcDRHome] = useState<string>("NFC");
@@ -97,9 +99,7 @@ export default function LiveToggle() {
     const [nfcCCAwayScore, setNfcCCAwayScore] = useState<number>();
     const [nfcCCHomeScore, setNfcCCHomeScore] = useState<number>();
 
-    const { setAuth }: any = useAuth();
     const axiosPrivate = useAxiosPrivate();
-    const navigate = useNavigate();
     const icon = GetIcon;
     const emoji = GetEmoji;
 
@@ -163,37 +163,35 @@ export default function LiveToggle() {
 
     function SetupAFCDivisionalRound() {
         console.log("updated afc dr");
-        const rankArray = [afcRank0, afcRank1, afcRank2, afcRank3, afcRank4, afcRank5, afcRank6];
-        const winningOrder = SetupRank(rankArray, [afcWC1Winner, afcWC2Winner, afcWC3Winner]);
+        const winningOrder = SetupRank(afcTeams, [afcWC1Winner, afcWC2Winner, afcWC3Winner]);
         const legalValues = ["[4,5,6]", "[3,5,6]", "[2,4,6]", "[2,3,6]", "[1,4,5]", "[1,3,5]", "[1,2,4]", "[1,2,3]"];
 
         if (legalValues.indexOf(JSON.stringify(winningOrder)) == -1) {
             setAfcDRLast("AFC"); setAfcDRAway("AFC"); setAfcDRHome("AFC");
         } else {
-            setAfcDRHome(rankArray[winningOrder[0]]);
-            setAfcDRAway(rankArray[winningOrder[1]]);
-            setAfcDRLast(rankArray[winningOrder[2]]);
+            setAfcDRHome(afcTeams[winningOrder[0]]);
+            setAfcDRAway(afcTeams[winningOrder[1]]);
+            setAfcDRLast(afcTeams[winningOrder[2]]);
         }
     }
 
     function SetupNFCDivisionalRound() {
         console.log("updated nfc dr");
-        const rankArray = [nfcRank0, nfcRank1, nfcRank2, nfcRank3, nfcRank4, nfcRank5, nfcRank6];
-        const winningOrder = SetupRank(rankArray, [nfcWC1Winner, nfcWC2Winner, nfcWC3Winner]);
+        const winningOrder = SetupRank(nfcTeams, [nfcWC1Winner, nfcWC2Winner, nfcWC3Winner]);
         const legalValues = ["[4,5,6]", "[3,5,6]", "[2,4,6]", "[2,3,6]", "[1,4,5]", "[1,3,5]", "[1,2,4]", "[1,2,3]"];
 
         if (legalValues.indexOf(JSON.stringify(winningOrder)) == -1) {
             setNfcDRLast("NFC"); setNfcDRAway("NFC"); setNfcDRHome("NFC");
         } else {
-            setNfcDRHome(rankArray[winningOrder[0]]);
-            setNfcDRAway(rankArray[winningOrder[1]]);
-            setNfcDRLast(rankArray[winningOrder[2]]);
+            setNfcDRHome(nfcTeams[winningOrder[0]]);
+            setNfcDRAway(nfcTeams[winningOrder[1]]);
+            setNfcDRLast(nfcTeams[winningOrder[2]]);
         }
     }
 
     function SetupAFCChampionship() {
         console.log("updated afc cc");
-        const rankArray = [afcRank0, afcDRHome, afcDRAway, afcDRLast];
+        const rankArray = [afcTeams[0], afcDRHome, afcDRAway, afcDRLast];
         const winningOrder = SetupRank(rankArray, [afcDR1Winner, afcDR2Winner]);
         const legalValues = ["[0,1]", "[0,2]", "[1,3]", "[2,3]"];
 
@@ -207,7 +205,7 @@ export default function LiveToggle() {
 
     function SetupNFCChampionship() {
         console.log("updated nfc cc");
-        const rankArray = [nfcRank0, nfcDRHome, nfcDRAway, nfcDRLast];
+        const rankArray = [nfcTeams[0], nfcDRHome, nfcDRAway, nfcDRLast];
         const winningOrder = SetupRank(rankArray, [nfcDR1Winner, nfcDR2Winner]);
         const legalValues = ["[0,1]", "[0,2]", "[1,3]", "[2,3]"];
 
@@ -234,10 +232,6 @@ export default function LiveToggle() {
             default: setNfcSB("NFC"); setSBWinner(""); break;
         }
     }
-
-    useEffect(() => {
-        setErrMsg('');
-    }, []);
 
     useEffect(() => {
         if (afcWC1Winner && afcWC2Winner && afcWC3Winner) {
@@ -270,115 +264,79 @@ export default function LiveToggle() {
         const getTeams = async () => {
             try {
                 const response = await axiosPrivate.get(
-                    "/brackets/playoff_standings",
+                    "/scores/",
                     {
                         signal: controller.signal,
                         headers: { 'Content-Type': 'application/json' },
                         withCredentials: true
                     }
                 );
-
-                const afcTeams = response.data[0].teams;
-                const nfcTeams = response.data[1].teams;
-
-                isMounted && setAfcRank0(response.data[0].teams[0].name);
-                isMounted && setAfcRank1(response.data[0].teams[1].name);
-                isMounted && setAfcRank2(response.data[0].teams[2].name);
-                isMounted && setAfcRank3(response.data[0].teams[3].name);
-                isMounted && setAfcRank4(response.data[0].teams[4].name);
-                isMounted && setAfcRank5(response.data[0].teams[5].name);
-                isMounted && setAfcRank6(response.data[0].teams[6].name);
-                isMounted && setNfcRank0(response.data[1].teams[0].name);
-                isMounted && setNfcRank1(response.data[1].teams[1].name);
-                isMounted && setNfcRank2(response.data[1].teams[2].name);
-                isMounted && setNfcRank3(response.data[1].teams[3].name);
-                isMounted && setNfcRank4(response.data[1].teams[4].name);
-                isMounted && setNfcRank5(response.data[1].teams[5].name);
-                isMounted && setNfcRank6(response.data[1].teams[6].name);
-
-                try {
-                    const response = await axiosPrivate.get(
-                        "/scores/",
-                        {
-                            signal: controller.signal,
-                            headers: { 'Content-Type': 'application/json' },
-                            withCredentials: true
-                        }
-                    );
-                    // verify new or saved bracket
-                    if (response?.data.super_bowl_champion == "") {
-                        return;
-                    }
-
-                    isMounted && setAfcWC1Winner(response?.data.afc_wild_card_1_winner);
-                    isMounted && setAfcWC2Winner(response?.data.afc_wild_card_2_winner);
-                    isMounted && setAfcWC3Winner(response?.data.afc_wild_card_3_winner);
-                    isMounted && setNfcWC1Winner(response?.data.nfc_wild_card_1_winner);
-                    isMounted && setNfcWC2Winner(response?.data.nfc_wild_card_2_winner);
-                    isMounted && setNfcWC3Winner(response?.data.nfc_wild_card_3_winner);
-
-                    //set dr
-                    const afcWinningOrder = SetupRank(
-                        [afcTeams[0].name, afcTeams[1].name, afcTeams[2].name, afcTeams[3].name, afcTeams[4].name, afcTeams[5].name, afcTeams[6].name],
-                        [response.data.afc_wild_card_1_winner, response.data.afc_wild_card_2_winner, response.data.afc_wild_card_3_winner]
-                    );
-                    const namedAfcWCWinningOrder = [afcTeams[afcWinningOrder[0]].name, afcTeams[afcWinningOrder[1]].name, afcTeams[afcWinningOrder[2]].name];
-
-                    isMounted && setAfcDRHome(namedAfcWCWinningOrder[0]);
-                    isMounted && setAfcDRAway(namedAfcWCWinningOrder[1]);
-                    isMounted && setAfcDRLast(namedAfcWCWinningOrder[2]);
-
-                    const nfcWinningOrder = SetupRank(
-                        [nfcTeams[0].name, nfcTeams[1].name, nfcTeams[2].name, nfcTeams[3].name, nfcTeams[4].name, nfcTeams[5].name, nfcTeams[6].name],
-                        [response.data.nfc_wild_card_1_winner, response.data.nfc_wild_card_2_winner, response.data.nfc_wild_card_3_winner]
-                    );
-
-                    const namedNfcWCWinningOrder = [nfcTeams[nfcWinningOrder[0]].name, nfcTeams[nfcWinningOrder[1]].name, nfcTeams[nfcWinningOrder[2]].name];
-                    isMounted && setNfcDRHome(namedNfcWCWinningOrder[0]);
-                    isMounted && setNfcDRAway(namedNfcWCWinningOrder[1]);
-                    isMounted && setNfcDRLast(namedNfcWCWinningOrder[2]);
-
-                    isMounted && setAfcDR1Winner(response?.data.afc_divisional_round_1_winner);
-                    isMounted && setAfcDR2Winner(response?.data.afc_divisional_round_2_winner);
-                    isMounted && setNfcDR1Winner(response?.data.nfc_divisional_round_1_winner);
-                    isMounted && setNfcDR2Winner(response?.data.nfc_divisional_round_2_winner);
-
-                    //set cc
-                    const nfcDRTeams = [nfcTeams[0].name, namedNfcWCWinningOrder[0], namedNfcWCWinningOrder[1], namedNfcWCWinningOrder[2]];
-                    const nfcDRWinningOrder = SetupRank(nfcDRTeams, [response.data.nfc_divisional_1_winner, response.data.nfc_divisional_2_winner]);
-
-                    isMounted && setNfcCCHome(nfcDRTeams[nfcDRWinningOrder[0]]);
-                    isMounted && setNfcCCAway(nfcDRTeams[nfcDRWinningOrder[1]]);
-
-                    const afcDRTeams = [afcTeams[0].name, namedAfcWCWinningOrder[0], namedAfcWCWinningOrder[1], namedAfcWCWinningOrder[2]];
-                    const afcDRWinningOrder = SetupRank(afcDRTeams, [response.data.afc_divisional_1_winner, response.data.afc_divisional_2_winner]);
-
-                    isMounted && setAfcCCHome(afcDRTeams[afcDRWinningOrder[0]]);
-                    isMounted && setAfcCCAway(afcDRTeams[afcDRWinningOrder[1]]);
-
-                    isMounted && setAfcCCWinner(response?.data.afc_conference_champion);
-                    isMounted && setNfcCCWinner(response?.data.nfc_conference_champion);
-
-                    // set sb
-                    isMounted && setAfcSB(response?.data.afc_conference_champion);
-                    isMounted && setNfcSB(response?.data.nfc_conference_champion);
-
-                    isMounted && setFss(response?.data.final_score_sum);
-
-                    await new Promise(f => setTimeout(f, 100));
-                    isMounted && setSBWinner(response?.data.super_bowl_champion);
-                } catch (err: any) {
-                    console.log("error in get brackets");
-                    // console.log(err);
-                    // setAuth({});
-                    // navigate("/login");
+                // verify new or saved bracket
+                if (response?.data.super_bowl_champion == "") {
+                    return;
                 }
 
+                isMounted && setAfcWC1Winner(response?.data.afc_wild_card_1_winner);
+                isMounted && setAfcWC2Winner(response?.data.afc_wild_card_2_winner);
+                isMounted && setAfcWC3Winner(response?.data.afc_wild_card_3_winner);
+                isMounted && setNfcWC1Winner(response?.data.nfc_wild_card_1_winner);
+                isMounted && setNfcWC2Winner(response?.data.nfc_wild_card_2_winner);
+                isMounted && setNfcWC3Winner(response?.data.nfc_wild_card_3_winner);
+
+                const afcTeams = ["Chiefs", "Bills",];
+                //set dr
+                const afcWinningOrder = SetupRank(
+                    afcTeams,
+                    [response.data.afc_wild_card_1_winner, response.data.afc_wild_card_2_winner, response.data.afc_wild_card_3_winner]
+                );
+                const namedAfcWCWinningOrder = [afcTeams[afcWinningOrder[0]], afcTeams[afcWinningOrder[1]], afcTeams[afcWinningOrder[2]]];
+
+                isMounted && setAfcDRHome(namedAfcWCWinningOrder[0]);
+                isMounted && setAfcDRAway(namedAfcWCWinningOrder[1]);
+                isMounted && setAfcDRLast(namedAfcWCWinningOrder[2]);
+
+                const nfcWinningOrder = SetupRank(
+                    nfcTeams,
+                    [response.data.nfc_wild_card_1_winner, response.data.nfc_wild_card_2_winner, response.data.nfc_wild_card_3_winner]
+                );
+
+                const namedNfcWCWinningOrder = [nfcTeams[nfcWinningOrder[0]], nfcTeams[nfcWinningOrder[1]], nfcTeams[nfcWinningOrder[2]]];
+                isMounted && setNfcDRHome(namedNfcWCWinningOrder[0]);
+                isMounted && setNfcDRAway(namedNfcWCWinningOrder[1]);
+                isMounted && setNfcDRLast(namedNfcWCWinningOrder[2]);
+
+                isMounted && setAfcDR1Winner(response?.data.afc_divisional_round_1_winner);
+                isMounted && setAfcDR2Winner(response?.data.afc_divisional_round_2_winner);
+                isMounted && setNfcDR1Winner(response?.data.nfc_divisional_round_1_winner);
+                isMounted && setNfcDR2Winner(response?.data.nfc_divisional_round_2_winner);
+
+                //set cc
+                const nfcDRTeams = [nfcTeams[0], namedNfcWCWinningOrder[0], namedNfcWCWinningOrder[1], namedNfcWCWinningOrder[2]];
+                const nfcDRWinningOrder = SetupRank(nfcDRTeams, [response.data.nfc_divisional_1_winner, response.data.nfc_divisional_2_winner]);
+
+                isMounted && setNfcCCHome(nfcDRTeams[nfcDRWinningOrder[0]]);
+                isMounted && setNfcCCAway(nfcDRTeams[nfcDRWinningOrder[1]]);
+
+                const afcDRTeams = [afcTeams[0], namedAfcWCWinningOrder[0], namedAfcWCWinningOrder[1], namedAfcWCWinningOrder[2]];
+                const afcDRWinningOrder = SetupRank(afcDRTeams, [response.data.afc_divisional_1_winner, response.data.afc_divisional_2_winner]);
+
+                isMounted && setAfcCCHome(afcDRTeams[afcDRWinningOrder[0]]);
+                isMounted && setAfcCCAway(afcDRTeams[afcDRWinningOrder[1]]);
+
+                isMounted && setAfcCCWinner(response?.data.afc_conference_champion);
+                isMounted && setNfcCCWinner(response?.data.nfc_conference_champion);
+
+                // set sb
+                isMounted && setAfcSB(response?.data.afc_conference_champion);
+                isMounted && setNfcSB(response?.data.nfc_conference_champion);
+
+                isMounted && setFss(response?.data.final_score_sum);
+
+                await new Promise(f => setTimeout(f, 100));
+                isMounted && setSBWinner(response?.data.super_bowl_champion);
             } catch (err: any) {
-                console.log("error in get rankings");
+                console.log("error in get brackets");
                 console.log(err);
-                setAuth({});
-                navigate("/login");
             }
         };
 
@@ -390,88 +348,32 @@ export default function LiveToggle() {
         };
     }, []);
 
-    useEffect(() => {
-        setErrMsg('');
-    }, [nfcWC1Winner, nfcWC2Winner, nfcWC3Winner, nfcDR1Winner, nfcDR2Winner, nfcCCWinner, nfcDRLast, nfcDRAway, nfcDRHome, nfcCCAway, nfcCCHome, afcWC1Winner, afcWC2Winner, afcWC3Winner, afcDR1Winner, afcDR2Winner, afcCCWinner, afcDRLast, afcDRAway, afcDRHome, afcCCAway, afcCCHome, sbWinner, fss]);
-
-    const onSubmit = async (values: any) => {
-        values.preventDefault();
-        console.log("Values: ", values);
-        setErrMsg("");
-
-        console.log(nfcWC1Winner, nfcWC2Winner, nfcWC3Winner, nfcDR1Winner, nfcDR2Winner, nfcCCWinner, afcWC1Winner, afcWC2Winner, afcWC3Winner, afcDR1Winner, afcDR2Winner, afcCCWinner, sbWinner, fss);
-        if (!nfcWC1Winner || !nfcWC2Winner || !nfcWC3Winner || !nfcDR1Winner || !nfcDR2Winner || !nfcCCWinner || !afcWC1Winner || !afcWC2Winner || !afcWC3Winner || !afcDR1Winner || !afcDR2Winner || !afcCCWinner || !sbWinner || !fss) {
-            setErrMsg("ERROR: Missing selections");
-            return;
-        }
-
-        const toSubmit = {
-            "afc_wild_card_1_winner": afcWC1Winner,
-            "afc_wild_card_2_winner": afcWC2Winner,
-            "afc_wild_card_3_winner": afcWC3Winner,
-            "nfc_wild_card_1_winner": nfcWC1Winner,
-            "nfc_wild_card_2_winner": nfcWC2Winner,
-            "nfc_wild_card_3_winner": nfcWC3Winner,
-            "afc_divisional_round_1_winner": afcDR1Winner,
-            "afc_divisional_round_2_winner": afcDR2Winner,
-            "nfc_divisional_round_1_winner": nfcDR1Winner,
-            "nfc_divisional_round_2_winner": nfcDR2Winner,
-            "afc_conference_champion": afcCCWinner,
-            "nfc_conference_champion": nfcCCWinner,
-            "super_bowl_champion": sbWinner,
-            "final_score_sum": fss
-        };
-
-        console.log("tosubmit: ", toSubmit);
-
-        try {
-            const response = await axiosPrivate.put(
-                "/brackets/",
-                toSubmit,
-                {
-                    headers: { 'Content-Type': 'application/json' },
-                    withCredentials: true
-                }
-            );
-            console.log(JSON.stringify(response?.data));
-
-            setErrMsg("Saved successfully!");
-        } catch (err: any) {
-            if (!err?.response) {
-                console.log("Error: ", err);
-                setErrMsg('ERROR: No server response');
-            } else if (err && err instanceof Error) {
-                setErrMsg(err.message);
-                console.log("Error: ", err);
-            } else {
-                console.log("Error: ", err);
-                setErrMsg('ERROR: Submit failed');
-            }
-        }
-    };
-
     return (
 
         <Box component="form" noValidate justifyContent="center">
             <Grid container justifyContent="center">
+
+                <Grid>
+                    <Title>Live Bracket</Title>
+                </Grid>
                 {/* AFC Wild Card */}
                 <Grid container justifyContent="center" wrap='nowrap' sx={{ marginTop: 0 }}>
                     <Grid>
                         <Item>
                             <ToggleButtonGroup {...afcWC1Control}>
-                                <ToggleButton sx={{ padding: 0 }} value={afcRank6}>
+                                <ToggleButton sx={{ padding: 0 }} value={afcTeams[6]}>
                                     <img
-                                        src={icon(afcRank6)}
+                                        src={icon(afcTeams[6])}
                                         height={50}
-                                        alt={emoji(afcRank6)}
+                                        alt={emoji(afcTeams[6])}
                                         loading="lazy"
                                     />
                                 </ToggleButton>
-                                <ToggleButton sx={{ padding: 0 }} value={afcRank1}>
+                                <ToggleButton sx={{ padding: 0 }} value={afcTeams[1]}>
                                     <img
-                                        src={icon(afcRank1)}
+                                        src={icon(afcTeams[1])}
                                         height={50}
-                                        alt={emoji(afcRank1)}
+                                        alt={emoji(afcTeams[1])}
                                         loading="lazy"
                                     />
                                 </ToggleButton>
@@ -500,19 +402,19 @@ export default function LiveToggle() {
                     <Grid>
                         <Item>
                             <ToggleButtonGroup {...afcWC2Control}>
-                                <ToggleButton sx={{ padding: 0 }} value={afcRank5}>
+                                <ToggleButton sx={{ padding: 0 }} value={afcTeams[5]}>
                                     <img
-                                        src={icon(afcRank5)}
+                                        src={icon(afcTeams[5])}
                                         height={50}
-                                        alt={emoji(afcRank5)}
+                                        alt={emoji(afcTeams[5])}
                                         loading="lazy"
                                     />
                                 </ToggleButton>
-                                <ToggleButton sx={{ padding: 0 }} value={afcRank2}>
+                                <ToggleButton sx={{ padding: 0 }} value={afcTeams[2]}>
                                     <img
-                                        src={icon(afcRank2)}
+                                        src={icon(afcTeams[2])}
                                         height={50}
-                                        alt={emoji(afcRank2)}
+                                        alt={emoji(afcTeams[2])}
                                         loading="lazy"
                                     />
                                 </ToggleButton>
@@ -541,19 +443,19 @@ export default function LiveToggle() {
                     <Grid>
                         <Item>
                             <ToggleButtonGroup {...afcWC3Control}>
-                                <ToggleButton sx={{ padding: 0 }} value={afcRank4}>
+                                <ToggleButton sx={{ padding: 0 }} value={afcTeams[4]}>
                                     <img
-                                        src={icon(afcRank4)}
+                                        src={icon(afcTeams[4])}
                                         height={50}
-                                        alt={emoji(afcRank4)}
+                                        alt={emoji(afcTeams[4])}
                                         loading="lazy"
                                     />
                                 </ToggleButton>
-                                <ToggleButton sx={{ padding: 0 }} value={afcRank3}>
+                                <ToggleButton sx={{ padding: 0 }} value={afcTeams[3]}>
                                     <img
-                                        src={icon(afcRank3)}
+                                        src={icon(afcTeams[3])}
                                         height={50}
-                                        alt={emoji(afcRank3)}
+                                        alt={emoji(afcTeams[3])}
                                         loading="lazy"
                                     />
                                 </ToggleButton>
@@ -593,11 +495,11 @@ export default function LiveToggle() {
                                         loading="lazy"
                                     />
                                 </ToggleButton>
-                                <ToggleButton sx={{ padding: 0 }} value={afcRank0}>
+                                <ToggleButton sx={{ padding: 0 }} value={afcTeams[0]}>
                                     <img
-                                        src={icon(afcRank0)}
+                                        src={icon(afcTeams[0])}
                                         height={50}
-                                        alt={emoji(afcRank0)}
+                                        alt={emoji(afcTeams[0])}
                                         loading="lazy"
                                     />
                                 </ToggleButton>
@@ -682,25 +584,25 @@ export default function LiveToggle() {
                                 />
                             </ToggleButton>
                         </ToggleButtonGroup>
-                            {afcCCAwayScore && afcCCHomeScore
-                                ? (
-                                    <Grid container justifyContent="center" wrap='nowrap'>
+                        {afcCCAwayScore && afcCCHomeScore
+                            ? (
+                                <Grid container justifyContent="center" wrap='nowrap'>
 
-                                        <Grid>
-                                            <Typography color="text.primary" variant="h4">{afcCCAwayScore}</Typography>
+                                    <Grid>
+                                        <Typography color="text.primary" variant="h4">{afcCCAwayScore}</Typography>
 
-                                        </Grid>
-                                        <Grid>
-                                            <Typography color="text.primary" variant="h4">-</Typography>
-
-                                        </Grid>
-                                        <Grid>
-                                            <Typography color="text.primary" variant="h4">{afcCCHomeScore}</Typography>
-
-                                        </Grid>
                                     </Grid>
-                                ) : <></>
-                            }
+                                    <Grid>
+                                        <Typography color="text.primary" variant="h4">-</Typography>
+
+                                    </Grid>
+                                    <Grid>
+                                        <Typography color="text.primary" variant="h4">{afcCCHomeScore}</Typography>
+
+                                    </Grid>
+                                </Grid>
+                            ) : <></>
+                        }
                     </Item>
                 </Grid>
 
@@ -794,25 +696,25 @@ export default function LiveToggle() {
                                 />
                             </ToggleButton>
                         </ToggleButtonGroup>
-                            {nfcCCAwayScore && nfcCCHomeScore
-                                ? (
-                                    <Grid container justifyContent="center" wrap='nowrap'>
+                        {nfcCCAwayScore && nfcCCHomeScore
+                            ? (
+                                <Grid container justifyContent="center" wrap='nowrap'>
 
-                                        <Grid>
-                                            <Typography color="text.primary" variant="h4">{nfcCCAwayScore}</Typography>
+                                    <Grid>
+                                        <Typography color="text.primary" variant="h4">{nfcCCAwayScore}</Typography>
 
-                                        </Grid>
-                                        <Grid>
-                                            <Typography color="text.primary" variant="h4">-</Typography>
-
-                                        </Grid>
-                                        <Grid>
-                                            <Typography color="text.primary" variant="h4">{nfcCCHomeScore}</Typography>
-
-                                        </Grid>
                                     </Grid>
-                                ) : <></>
-                            }
+                                    <Grid>
+                                        <Typography color="text.primary" variant="h4">-</Typography>
+
+                                    </Grid>
+                                    <Grid>
+                                        <Typography color="text.primary" variant="h4">{nfcCCHomeScore}</Typography>
+
+                                    </Grid>
+                                </Grid>
+                            ) : <></>
+                        }
                     </Item>
                 </Grid>
 
@@ -828,11 +730,11 @@ export default function LiveToggle() {
                                         loading="lazy"
                                     />
                                 </ToggleButton>
-                                <ToggleButton sx={{ padding: 0 }} value={nfcRank0}>
+                                <ToggleButton sx={{ padding: 0 }} value={nfcTeams[0]}>
                                     <img
-                                        src={icon(nfcRank0)}
+                                        src={icon(nfcTeams[0])}
                                         height={50}
-                                        alt={emoji(nfcRank0)}
+                                        alt={emoji(nfcTeams[0])}
                                         loading="lazy"
                                     />
                                 </ToggleButton>
@@ -904,19 +806,19 @@ export default function LiveToggle() {
                     <Grid>
                         <Item>
                             <ToggleButtonGroup {...nfcWC1Control}>
-                                <ToggleButton sx={{ padding: 0 }} value={nfcRank6}>
+                                <ToggleButton sx={{ padding: 0 }} value={nfcTeams[6]}>
                                     <img
-                                        src={icon(nfcRank6)}
+                                        src={icon(nfcTeams[6])}
                                         height={50}
-                                        alt={emoji(nfcRank6)}
+                                        alt={emoji(nfcTeams[6])}
                                         loading="lazy"
                                     />
                                 </ToggleButton>
-                                <ToggleButton sx={{ padding: 0 }} value={nfcRank1}>
+                                <ToggleButton sx={{ padding: 0 }} value={nfcTeams[1]}>
                                     <img
-                                        src={icon(nfcRank1)}
+                                        src={icon(nfcTeams[1])}
                                         height={50}
-                                        alt={emoji(nfcRank1)}
+                                        alt={emoji(nfcTeams[1])}
                                         loading="lazy"
                                     />
                                 </ToggleButton>
@@ -945,19 +847,19 @@ export default function LiveToggle() {
                     <Grid>
                         <Item>
                             <ToggleButtonGroup {...nfcWC2Control}>
-                                <ToggleButton sx={{ padding: 0 }} value={nfcRank5}>
+                                <ToggleButton sx={{ padding: 0 }} value={nfcTeams[5]}>
                                     <img
-                                        src={icon(nfcRank5)}
+                                        src={icon(nfcTeams[5])}
                                         height={50}
-                                        alt={emoji(nfcRank5)}
+                                        alt={emoji(nfcTeams[5])}
                                         loading="lazy"
                                     />
                                 </ToggleButton>
-                                <ToggleButton sx={{ padding: 0 }} value={nfcRank2}>
+                                <ToggleButton sx={{ padding: 0 }} value={nfcTeams[2]}>
                                     <img
-                                        src={icon(nfcRank2)}
+                                        src={icon(nfcTeams[2])}
                                         height={50}
-                                        alt={emoji(nfcRank2)}
+                                        alt={emoji(nfcTeams[2])}
                                         loading="lazy"
                                     />
                                 </ToggleButton>
@@ -986,19 +888,19 @@ export default function LiveToggle() {
                     <Grid>
                         <Item>
                             <ToggleButtonGroup {...nfcWC3Control}>
-                                <ToggleButton sx={{ padding: 0 }} value={nfcRank4}>
+                                <ToggleButton sx={{ padding: 0 }} value={nfcTeams[4]}>
                                     <img
-                                        src={icon(nfcRank4)}
+                                        src={icon(nfcTeams[4])}
                                         height={50}
-                                        alt={emoji(nfcRank4)}
+                                        alt={emoji(nfcTeams[4])}
                                         loading="lazy"
                                     />
                                 </ToggleButton>
-                                <ToggleButton sx={{ padding: 0 }} value={nfcRank3}>
+                                <ToggleButton sx={{ padding: 0 }} value={nfcTeams[3]}>
                                     <img
-                                        src={icon(nfcRank3)}
+                                        src={icon(nfcTeams[3])}
                                         height={50}
-                                        alt={emoji(nfcRank3)}
+                                        alt={emoji(nfcTeams[3])}
                                         loading="lazy"
                                     />
                                 </ToggleButton>
@@ -1025,10 +927,6 @@ export default function LiveToggle() {
                         </Item>
                     </Grid>
                 </Grid>
-            </Grid>
-
-            <Grid display="flex" justifyContent="center">
-                <Typography variant="caption">{errMsg}</Typography>
             </Grid>
         </Box>
 

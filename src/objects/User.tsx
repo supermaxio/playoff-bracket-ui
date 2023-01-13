@@ -1,8 +1,7 @@
 
 export interface User {
-
-    username: string;
-    score: number;
-    tiebreaker: number;
-    rank: number;
+    Username: string;
+    Score: number;
+    TieBreaker: number;
+    Rank: number;
 }

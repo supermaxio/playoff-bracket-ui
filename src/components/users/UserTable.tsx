@@ -10,43 +10,7 @@ import TableRow from '@mui/material/TableRow';
 import Title from '../title/Title';
 import { axiosPrivate } from '../../api/axios';
 import { User } from '../../objects/User';
-
-// Generate Order Data
-function createData(
-    username: string,
-    score: number,
-    tiebreaker: number,
-    rank: number,
-) {
-    return { username, score, tiebreaker, rank };
-}
-
-const rows = [
-    createData(
-        "MAX",
-        26,
-        75,
-        3,
-    ),
-    createData(
-        "MAX",
-        26,
-        75,
-        3,
-    ),
-    createData(
-        "MAX",
-        26,
-        75,
-        3,
-    ),
-    createData(
-        "MAX",
-        26,
-        75,
-        3,
-    ),
-];
+import { useNavigate } from 'react-router-dom';
 
 function preventDefault(event: React.MouseEvent) {
     event.preventDefault();
@@ -54,6 +18,7 @@ function preventDefault(event: React.MouseEvent) {
 
 export default function Users() {
     const [userList, setUserList] = useState<User[]>([]);
+    const navigate = useNavigate();
 
     useEffect(() => {
         let isMounted = true;
@@ -65,6 +30,11 @@ export default function Users() {
                     "/users/"
                 );
 
+                for (let i = 0; i < response.data.length; i++) {
+                    response.data[i].Username = response.data[i].Username.toUpperCase();
+                }
+
+                console.log(response.data);
                 setUserList(response.data);
             } catch (err: any) {
                 console.log("error in get users");
@@ -96,14 +66,21 @@ export default function Users() {
 
                         <TableBody>
                             {userList.map((row) => (
-                                <TableRow key={row.username}>
+                                <TableRow key={row.Username}>
                                     <TableCell>
-                                        <Link color="primary" href={'/brackets/' + row.username} onClick={preventDefault} sx={{ mt: 3 }}>
-                                            {row.username}
-                                        </Link></TableCell>
-                                    <TableCell>{row.score}</TableCell>
-                                    <TableCell>{row.rank}</TableCell>
-                                    <TableCell align="right">{row.tiebreaker}</TableCell>
+                                        <Link color="primary"
+                                            onClick={(e) => {
+                                                e.preventDefault();
+                                                navigate('/users/' + row.Username);
+                                            }}
+                                            href={'/users/' + row.Username}
+                                            sx={{ mt: 3 }}>
+                                            {row.Username}
+                                        </Link>
+                                    </TableCell>
+                                    <TableCell>{row.Score}</TableCell>
+                                    <TableCell>{row.Rank}</TableCell>
+                                    <TableCell align="right">{row.TieBreaker}</TableCell>
                                 </TableRow>
                             ))}
                         </TableBody>
