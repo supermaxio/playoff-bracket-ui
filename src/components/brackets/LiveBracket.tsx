@@ -8,6 +8,7 @@ import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import GetIcon, { GetEmoji } from '../icons/icons';
 import { Grid, Paper, styled, TextField } from '@mui/material';
+import { Game } from '../../objects/Game';
 
 const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -39,6 +40,20 @@ export default function LiveBracket() {
         "Giants",
         "Seahawks"
     ];
+
+    const gameAfcWC1 = "afc_wild_card_1";
+    const gameAfcWC2 = "afc_wild_card_2";
+    const gameAfcWC3 = "afc_wild_card_3";
+    const gameNfcWC1 = "nfc_wild_card_1";
+    const gameNfcWC2 = "nfc_wild_card_2";
+    const gameNfcWC3 = "nfc_wild_card_3";
+    const gameAfcDR1 = "afc_divisional_round_1";
+    const gameAfcDR2 = "afc_divisional_round_2";
+    const gameNfcDR1 = "nfc_divisional_round_1";
+    const gameNfcDR2 = "nfc_divisional_round_2";
+    const gameAfcCC = "afc_conference_championship";
+    const gameNfcCC = "nfc_conference_championship";
+    const gameSB = "super_bowl";
 
     const [afcWC1Winner, setAfcWC1Winner] = useState<string>("");
     const [afcWC2Winner, setAfcWC2Winner] = useState<string>("");
@@ -264,85 +279,49 @@ export default function LiveBracket() {
         const getTeams = async () => {
             try {
                 const response = await axiosPrivate.get(
-                    "/scores/",
+                    "/games/",
                     {
                         signal: controller.signal,
                         headers: { 'Content-Type': 'application/json' },
                         withCredentials: true
                     }
                 );
-                // verify new or saved bracket
-                if (response?.data.super_bowl_champion == "") {
-                    return;
+                console.log(response);
+
+                for (let i = 0; i < response.data.length; i++) {
+                    const game: Game = response.data[i];
+                    switch (response.data[i].bracket_name) {
+                        case gameAfcWC1: isMounted && setAfcRank6Score(game.away_team_score); console.log(game.away_team_score); isMounted && setAfcRank1Score(game.home_team_score); if (response.data[i].winner != "") { isMounted && setAfcWC1Winner(game.winner); } break;
+                        case gameAfcWC2: isMounted && setAfcRank5Score(game.away_team_score); isMounted && setAfcRank2Score(game.home_team_score); if (response.data[i].winner != "") { isMounted && setAfcWC2Winner(game.winner); } break;
+                        case gameAfcWC3: isMounted && setAfcRank4Score(game.away_team_score); isMounted && setAfcRank3Score(game.home_team_score); if (response.data[i].winner != "") { isMounted && setAfcWC3Winner(game.winner); } break;
+                        case gameNfcWC1: isMounted && setNfcRank6Score(game.away_team_score); isMounted && setNfcRank1Score(game.home_team_score); if (response.data[i].winner != "") { isMounted && setNfcWC1Winner(game.winner); } break;
+                        case gameNfcWC2: isMounted && setNfcRank5Score(game.away_team_score); isMounted && setNfcRank2Score(game.home_team_score); if (response.data[i].winner != "") { isMounted && setNfcWC2Winner(game.winner); } break;
+                        case gameNfcWC3: isMounted && setNfcRank4Score(game.away_team_score); isMounted && setNfcRank3Score(game.home_team_score); if (response.data[i].winner != "") { isMounted && setNfcWC3Winner(game.winner); } break;
+                        case gameAfcDR1: isMounted && setAfcDRLastScore(game.away_team_score); isMounted && setAfcRank0Score(game.home_team_score); isMounted && setAfcDRLast(game.away_team); if (response.data[i].winner != "") { isMounted && setAfcDR1Winner(game.winner); } break;
+                        case gameAfcDR2: isMounted && setAfcDRAwayScore(game.away_team_score); isMounted && setAfcDRHomeScore(game.home_team_score); isMounted && setAfcDRAway(game.away_team); isMounted && setAfcDRHome(game.home_team); if (response.data[i].winner != "") { isMounted && setAfcDR2Winner(game.winner); } break;
+                        case gameNfcDR1: isMounted && setNfcDRLastScore(game.away_team_score); isMounted && setNfcRank0Score(game.home_team_score); isMounted && setNfcDRLast(game.away_team); if (response.data[i].winner != "") { isMounted && setNfcDR1Winner(game.winner); } break;
+                        case gameNfcDR2: isMounted && setNfcDRAwayScore(game.away_team_score); isMounted && setNfcDRHomeScore(game.home_team_score); isMounted && setNfcDRAway(game.away_team); isMounted && setNfcDRHome(game.home_team); if (response.data[i].winner != "") { isMounted && setNfcDR2Winner(game.winner); } break;
+                        case gameAfcCC: isMounted && setAfcCCAwayScore(game.away_team_score); isMounted && setAfcCCHomeScore(game.home_team_score); isMounted && setAfcCCAway(game.away_team); isMounted && setAfcCCHome(game.home_team); if (response.data[i].winner != "") { isMounted && setAfcCCWinner(game.winner); } break;
+                        case gameNfcCC: isMounted && setNfcCCAwayScore(game.away_team_score); isMounted && setNfcCCHomeScore(game.home_team_score); isMounted && setNfcCCAway(game.away_team); isMounted && setNfcCCHome(game.home_team); if (response.data[i].winner != "") { isMounted && setNfcCCWinner(game.winner); } break;
+                        case gameSB: isMounted && setAfcSBScore(game.away_team_score); isMounted && setNfcSBScore(game.home_team_score); isMounted && setAfcSB(game.away_team); isMounted && setNfcSB(game.home_team); isMounted && setFss(game.away_team_score + game.home_team_score); if (response.data[i].winner != "") { isMounted && setSBWinner(game.winner); } break;
+                    }
                 }
 
-                isMounted && setAfcWC1Winner(response?.data.afc_wild_card_1_winner);
-                isMounted && setAfcWC2Winner(response?.data.afc_wild_card_2_winner);
-                isMounted && setAfcWC3Winner(response?.data.afc_wild_card_3_winner);
-                isMounted && setNfcWC1Winner(response?.data.nfc_wild_card_1_winner);
-                isMounted && setNfcWC2Winner(response?.data.nfc_wild_card_2_winner);
-                isMounted && setNfcWC3Winner(response?.data.nfc_wild_card_3_winner);
-
-                const afcTeams = ["Chiefs", "Bills",];
-                //set dr
-                const afcWinningOrder = SetupRank(
-                    afcTeams,
-                    [response.data.afc_wild_card_1_winner, response.data.afc_wild_card_2_winner, response.data.afc_wild_card_3_winner]
-                );
-                const namedAfcWCWinningOrder = [afcTeams[afcWinningOrder[0]], afcTeams[afcWinningOrder[1]], afcTeams[afcWinningOrder[2]]];
-
-                isMounted && setAfcDRHome(namedAfcWCWinningOrder[0]);
-                isMounted && setAfcDRAway(namedAfcWCWinningOrder[1]);
-                isMounted && setAfcDRLast(namedAfcWCWinningOrder[2]);
-
-                const nfcWinningOrder = SetupRank(
-                    nfcTeams,
-                    [response.data.nfc_wild_card_1_winner, response.data.nfc_wild_card_2_winner, response.data.nfc_wild_card_3_winner]
-                );
-
-                const namedNfcWCWinningOrder = [nfcTeams[nfcWinningOrder[0]], nfcTeams[nfcWinningOrder[1]], nfcTeams[nfcWinningOrder[2]]];
-                isMounted && setNfcDRHome(namedNfcWCWinningOrder[0]);
-                isMounted && setNfcDRAway(namedNfcWCWinningOrder[1]);
-                isMounted && setNfcDRLast(namedNfcWCWinningOrder[2]);
-
-                isMounted && setAfcDR1Winner(response?.data.afc_divisional_round_1_winner);
-                isMounted && setAfcDR2Winner(response?.data.afc_divisional_round_2_winner);
-                isMounted && setNfcDR1Winner(response?.data.nfc_divisional_round_1_winner);
-                isMounted && setNfcDR2Winner(response?.data.nfc_divisional_round_2_winner);
-
-                //set cc
-                const nfcDRTeams = [nfcTeams[0], namedNfcWCWinningOrder[0], namedNfcWCWinningOrder[1], namedNfcWCWinningOrder[2]];
-                const nfcDRWinningOrder = SetupRank(nfcDRTeams, [response.data.nfc_divisional_1_winner, response.data.nfc_divisional_2_winner]);
-
-                isMounted && setNfcCCHome(nfcDRTeams[nfcDRWinningOrder[0]]);
-                isMounted && setNfcCCAway(nfcDRTeams[nfcDRWinningOrder[1]]);
-
-                const afcDRTeams = [afcTeams[0], namedAfcWCWinningOrder[0], namedAfcWCWinningOrder[1], namedAfcWCWinningOrder[2]];
-                const afcDRWinningOrder = SetupRank(afcDRTeams, [response.data.afc_divisional_1_winner, response.data.afc_divisional_2_winner]);
-
-                isMounted && setAfcCCHome(afcDRTeams[afcDRWinningOrder[0]]);
-                isMounted && setAfcCCAway(afcDRTeams[afcDRWinningOrder[1]]);
-
-                isMounted && setAfcCCWinner(response?.data.afc_conference_champion);
-                isMounted && setNfcCCWinner(response?.data.nfc_conference_champion);
-
-                // set sb
-                isMounted && setAfcSB(response?.data.afc_conference_champion);
-                isMounted && setNfcSB(response?.data.nfc_conference_champion);
-
-                isMounted && setFss(response?.data.final_score_sum);
-
-                await new Promise(f => setTimeout(f, 100));
-                isMounted && setSBWinner(response?.data.super_bowl_champion);
             } catch (err: any) {
                 console.log("error in get brackets");
                 console.log(err);
             }
         };
 
+        const intervalId = setInterval(() => {
+            // code to be executed every 30 seconds
+            getTeams();
+        }, 10000);
+
         getTeams();
 
         return () => {
+            clearInterval(intervalId);
             isMounted = false;
             controller.abort();
         };
@@ -378,7 +357,7 @@ export default function LiveBracket() {
                                     />
                                 </ToggleButton>
                             </ToggleButtonGroup>
-                            {afcRank6Score && afcRank1Score
+                            {(typeof afcRank6Score !== "undefined") && (typeof afcRank1Score !== "undefined")
                                 ? (
                                     <Grid container justifyContent="center" wrap='nowrap'>
 
@@ -419,7 +398,7 @@ export default function LiveBracket() {
                                     />
                                 </ToggleButton>
                             </ToggleButtonGroup>
-                            {afcRank5Score && afcRank2Score
+                            {(typeof afcRank5Score !== "undefined") && (typeof afcRank2Score !== "undefined")
                                 ? (
                                     <Grid container justifyContent="center" wrap='nowrap'>
 
@@ -460,7 +439,7 @@ export default function LiveBracket() {
                                     />
                                 </ToggleButton>
                             </ToggleButtonGroup>
-                            {afcRank4Score && afcRank3Score
+                            {(typeof afcRank4Score !== "undefined") && (typeof afcRank3Score !== "undefined")
                                 ? (
                                     <Grid container justifyContent="center" wrap='nowrap'>
 
@@ -504,7 +483,7 @@ export default function LiveBracket() {
                                     />
                                 </ToggleButton>
                             </ToggleButtonGroup>
-                            {afcDRLastScore && afcRank0Score
+                            {(typeof afcDRLastScore !== "undefined") && (typeof afcRank0Score !== "undefined")
                                 ? (
                                     <Grid container justifyContent="center" wrap='nowrap'>
 
@@ -543,7 +522,7 @@ export default function LiveBracket() {
                                     />
                                 </ToggleButton>
                             </ToggleButtonGroup>
-                            {afcDRAwayScore && afcDRHomeScore
+                            {(typeof afcDRAwayScore !== "undefined") && (typeof afcDRHomeScore !== "undefined")
                                 ? (
                                     <Grid container justifyContent="center" wrap='nowrap'>
 
@@ -584,7 +563,7 @@ export default function LiveBracket() {
                                 />
                             </ToggleButton>
                         </ToggleButtonGroup>
-                        {afcCCAwayScore && afcCCHomeScore
+                        {(typeof afcCCAwayScore !== "undefined") && (typeof afcCCHomeScore !== "undefined")
                             ? (
                                 <Grid container justifyContent="center" wrap='nowrap'>
 
@@ -633,7 +612,7 @@ export default function LiveBracket() {
                                     />
                                 </ToggleButton>
                             </ToggleButtonGroup>
-                            {afcSBScore && nfcSBScore
+                            {(typeof afcSBScore !== "undefined") && (typeof nfcSBScore !== "undefined")
                                 ? (
                                     <Grid container justifyContent="center" wrap='nowrap'>
 
@@ -696,7 +675,7 @@ export default function LiveBracket() {
                                 />
                             </ToggleButton>
                         </ToggleButtonGroup>
-                        {nfcCCAwayScore && nfcCCHomeScore
+                        {(typeof nfcCCAwayScore !== "undefined") && (typeof nfcCCHomeScore !== "undefined")
                             ? (
                                 <Grid container justifyContent="center" wrap='nowrap'>
 
@@ -739,7 +718,7 @@ export default function LiveBracket() {
                                     />
                                 </ToggleButton>
                             </ToggleButtonGroup>
-                            {nfcDRLastScore && nfcRank0Score
+                            {(typeof nfcDRLastScore !== "undefined") && (typeof nfcRank0Score !== "undefined")
                                 ? (
                                     <Grid container justifyContent="center" wrap='nowrap'>
 
@@ -778,7 +757,7 @@ export default function LiveBracket() {
                                     />
                                 </ToggleButton>
                             </ToggleButtonGroup>
-                            {nfcDRAwayScore && nfcDRHomeScore
+                            {(typeof nfcDRAwayScore !== "undefined") && (typeof nfcDRHomeScore !== "undefined")
                                 ? (
                                     <Grid container justifyContent="center" wrap='nowrap'>
 
@@ -823,7 +802,7 @@ export default function LiveBracket() {
                                     />
                                 </ToggleButton>
                             </ToggleButtonGroup>
-                            {nfcRank6Score && nfcRank1Score
+                            {(typeof nfcRank6Score !== "undefined") && (typeof nfcRank1Score !== "undefined")
                                 ? (
                                     <Grid container justifyContent="center" wrap='nowrap'>
 
@@ -864,7 +843,7 @@ export default function LiveBracket() {
                                     />
                                 </ToggleButton>
                             </ToggleButtonGroup>
-                            {nfcRank5Score && nfcRank2Score
+                            {(typeof nfcRank5Score !== "undefined") && (typeof nfcRank2Score !== "undefined")
                                 ? (
                                     <Grid container justifyContent="center" wrap='nowrap'>
 
@@ -905,7 +884,7 @@ export default function LiveBracket() {
                                     />
                                 </ToggleButton>
                             </ToggleButtonGroup>
-                            {nfcRank4Score && nfcRank3Score
+                            {(typeof nfcRank4Score !== "undefined") && (typeof nfcRank3Score !== "undefined")
                                 ? (
                                     <Grid container justifyContent="center" wrap='nowrap'>
 
