@@ -34,16 +34,22 @@ export default function Users() {
                     response.data[i].Username = response.data[i].Username.toUpperCase();
                 }
 
-                console.log(response.data);
                 setUserList(response.data);
             } catch (err: any) {
                 console.log("error in get users");
                 console.log(err);
             }
         };
+
+        const intervalId = setInterval(() => {
+            // code to be executed every 10 seconds
+            getUsers();
+        }, 10000);
+
         getUsers();
 
         return () => {
+            clearInterval(intervalId);
             isMounted = false;
             controller.abort();
         };
@@ -58,7 +64,7 @@ export default function Users() {
                         <TableCell>Username</TableCell>
                         <TableCell>Score</TableCell>
                         <TableCell>Rank</TableCell>
-                        <TableCell align="right">Tie Breaker Value</TableCell>
+                        <TableCell align="right">Tie Value</TableCell>
                     </TableRow>
                 </TableHead>
                 {userList?.length
