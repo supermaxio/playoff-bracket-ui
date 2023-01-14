@@ -7,5 +7,4 @@ export interface Game {
     away_team: string;
     home_team: string;
     winner: string;
-    finished: boolean;
 }

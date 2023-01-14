@@ -72,11 +72,11 @@ export default function Bracket() {
     const [nfcCCAway, setNfcCCAway] = useState<string>("NFC");
     const [nfcCCHome, setNfcCCHome] = useState<string>("NFC");
 
-    const [afcDRDisabled, setAfcDRDisabled] = useState(true);
-    const [nfcDRDisabled, setNfcDRDisabled] = useState(true);
-    const [afcCCDisabled, setAfcCCDisabled] = useState(true);
-    const [nfcCCDisabled, setNfcCCDisabled] = useState(true);
-    const [sbDisabled, setSBDisabled] = useState(true);
+    // const [afcDRDisabled, setAfcDRDisabled] = useState(true);
+    // const [nfcDRDisabled, setNfcDRDisabled] = useState(true);
+    // const [afcCCDisabled, setAfcCCDisabled] = useState(true);
+    // const [nfcCCDisabled, setNfcCCDisabled] = useState(true);
+    // const [sbDisabled, setSBDisabled] = useState(true);
 
     const axiosPrivate = useAxiosPrivate();
     const icon = GetIcon;
@@ -97,21 +97,21 @@ export default function Bracket() {
     const handleSBChange = (event: React.MouseEvent<HTMLElement>, newAlignment: string,) => { console.log(`called handleSBChange  and the value is: ${newAlignment}`); setSBWinner(newAlignment); };
     const handleFss = (event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => { setFss(parseInt(event.target.value)); };
 
-    const afcWC1Control = { value: afcWC1Winner, onChange: handleAfcWC1Change, exclusive: true, };
-    const afcWC2Control = { value: afcWC2Winner, onChange: handleAfcWC2Change, exclusive: true, };
-    const afcWC3Control = { value: afcWC3Winner, onChange: handleAfcWC3Change, exclusive: true, };
-    const nfcWC1Control = { value: nfcWC1Winner, onChange: handleNfcWC1Change, exclusive: true, };
-    const nfcWC2Control = { value: nfcWC2Winner, onChange: handleNfcWC2Change, exclusive: true, };
-    const nfcWC3Control = { value: nfcWC3Winner, onChange: handleNfcWC3Change, exclusive: true, };
+    const afcWC1Control = { value: afcWC1Winner, onChange: handleAfcWC1Change, exclusive: true,disabled: true  };
+    const afcWC2Control = { value: afcWC2Winner, onChange: handleAfcWC2Change, exclusive: true,disabled: true  };
+    const afcWC3Control = { value: afcWC3Winner, onChange: handleAfcWC3Change, exclusive: true,disabled: true  };
+    const nfcWC1Control = { value: nfcWC1Winner, onChange: handleNfcWC1Change, exclusive: true,disabled: true  };
+    const nfcWC2Control = { value: nfcWC2Winner, onChange: handleNfcWC2Change, exclusive: true,disabled: true  };
+    const nfcWC3Control = { value: nfcWC3Winner, onChange: handleNfcWC3Change, exclusive: true,disabled: true  };
 
-    const afcDR1Control = { value: afcDR1Winner, onChange: handleAfcDR1Change, exclusive: true, disabled: afcDRDisabled };
-    const afcDR2Control = { value: afcDR2Winner, onChange: handleAfcDR2Change, exclusive: true, disabled: afcDRDisabled };
-    const nfcDR1Control = { value: nfcDR1Winner, onChange: handleNfcDR1Change, exclusive: true, disabled: nfcDRDisabled };
-    const nfcDR2Control = { value: nfcDR2Winner, onChange: handleNfcDR2Change, exclusive: true, disabled: nfcDRDisabled };
-    const afcCCControl = { value: afcCCWinner, onChange: handleAfcCCChange, exclusive: true, disabled: afcCCDisabled };
-    const nfcCCControl = { value: nfcCCWinner, onChange: handleNfcCCChange, exclusive: true, disabled: nfcCCDisabled };
-    const sbControl = { value: sbWinner, onChange: handleSBChange, exclusive: true, disabled: sbDisabled };
-    const fssControl = { disabled: sbDisabled, onChange: handleFss };
+    const afcDR1Control = { value: afcDR1Winner, onChange: handleAfcDR1Change, exclusive: true, disabled: true };
+    const afcDR2Control = { value: afcDR2Winner, onChange: handleAfcDR2Change, exclusive: true, disabled: true };
+    const nfcDR1Control = { value: nfcDR1Winner, onChange: handleNfcDR1Change, exclusive: true, disabled: true };
+    const nfcDR2Control = { value: nfcDR2Winner, onChange: handleNfcDR2Change, exclusive: true, disabled: true };
+    const afcCCControl = { value: afcCCWinner, onChange: handleAfcCCChange, exclusive: true, disabled: true };
+    const nfcCCControl = { value: nfcCCWinner, onChange: handleNfcCCChange, exclusive: true, disabled: true };
+    const sbControl = { value: sbWinner, onChange: handleSBChange, exclusive: true, disabled: true };
+    const fssControl = { disabled: true, onChange: handleFss };
 
     const afcDRLastControl = { src: icon(afcDRLast), alt: emoji(afcDRLast) };
     const afcDRAwayControl = { src: icon(afcDRAway), alt: emoji(afcDRAway) };
@@ -151,7 +151,7 @@ export default function Bracket() {
             setAfcDRHome(afcTeams[winningOrder[0]]);
             setAfcDRAway(afcTeams[winningOrder[1]]);
             setAfcDRLast(afcTeams[winningOrder[2]]);
-            setAfcDRDisabled(false);
+            // setAfcDRDisabled(false);
         }
     }
 
@@ -166,7 +166,7 @@ export default function Bracket() {
             setNfcDRHome(nfcTeams[winningOrder[0]]);
             setNfcDRAway(nfcTeams[winningOrder[1]]);
             setNfcDRLast(nfcTeams[winningOrder[2]]);
-            setNfcDRDisabled(false);
+            // setNfcDRDisabled(false);
         }
     }
 
@@ -177,11 +177,11 @@ export default function Bracket() {
         const legalValues = ["[0,1]", "[0,2]", "[1,3]", "[2,3]"];
 
         if (legalValues.indexOf(JSON.stringify(winningOrder)) == -1) {
-            setAfcCCAway("AFC"); setAfcCCHome("AFC"); setAfcSB("AFC"); setAfcCCDisabled(true); setSBDisabled(true); setAfcCCWinner(""); setSBWinner("");
+            setAfcCCAway("AFC"); setAfcCCHome("AFC"); setAfcSB("AFC"); setAfcCCWinner(""); setSBWinner("");
         } else {
             setAfcCCHome(rankArray[winningOrder[0]]);
             setAfcCCAway(rankArray[winningOrder[1]]);
-            setAfcCCDisabled(false);
+            // setAfcCCDisabled(false);
         }
     }
 
@@ -192,27 +192,27 @@ export default function Bracket() {
         const legalValues = ["[0,1]", "[0,2]", "[1,3]", "[2,3]"];
 
         if (legalValues.indexOf(JSON.stringify(winningOrder)) == -1) {
-            setNfcCCAway("NFC"); setNfcCCHome("NFC"); setNfcSB("NFC"); setNfcCCDisabled(true); setSBDisabled(true); setNfcCCWinner(""); setSBWinner("");
+            setNfcCCAway("NFC"); setNfcCCHome("NFC"); setNfcSB("NFC"); setNfcCCWinner(""); setSBWinner("");
         } else {
             setNfcCCHome(rankArray[winningOrder[0]]);
             setNfcCCAway(rankArray[winningOrder[1]]);
-            setNfcCCDisabled(false);
+
         }
     }
 
     function SetupAFCSuperBowl() {
         switch (afcCCWinner) {
-            case afcCCAway: setAfcSB(afcCCAway); if (nfcCCWinner) { setSBDisabled(false); } break;
-            case afcCCHome: setAfcSB(afcCCHome); if (nfcCCWinner) { setSBDisabled(false); } break;
-            default: setAfcSB("AFC"); setSBDisabled(true); setSBWinner(""); break;
+            case afcCCAway: setAfcSB(afcCCAway); break;
+            case afcCCHome: setAfcSB(afcCCHome); break;
+            default: setAfcSB("AFC"); setSBWinner(""); break;
         }
     }
 
     function SetupNFCSuperBowl() {
         switch (nfcCCWinner) {
-            case nfcCCAway: setNfcSB(nfcCCAway); if (afcCCWinner) { setSBDisabled(false); } break;
-            case nfcCCHome: setNfcSB(nfcCCHome); if (afcCCWinner) { setSBDisabled(false); } break;
-            default: setNfcSB("NFC"); setSBDisabled(true); setSBWinner(""); break;
+            case nfcCCAway: setNfcSB(nfcCCAway); break;
+            case nfcCCHome: setNfcSB(nfcCCHome); break;
+            default: setNfcSB("NFC"); setSBWinner(""); break;
         }
     }
 
@@ -280,7 +280,7 @@ export default function Bracket() {
                 isMounted && setAfcDRHome(namedAfcWCWinningOrder[0]);
                 isMounted && setAfcDRAway(namedAfcWCWinningOrder[1]);
                 isMounted && setAfcDRLast(namedAfcWCWinningOrder[2]);
-                isMounted && setAfcDRDisabled(false);
+
 
                 const nfcWinningOrder = SetupRank(
                     nfcTeams,
@@ -291,7 +291,7 @@ export default function Bracket() {
                 isMounted && setNfcDRHome(namedNfcWCWinningOrder[0]);
                 isMounted && setNfcDRAway(namedNfcWCWinningOrder[1]);
                 isMounted && setNfcDRLast(namedNfcWCWinningOrder[2]);
-                isMounted && setNfcDRDisabled(false);
+
 
                 isMounted && setAfcDR1Winner(response?.data.afc_divisional_round_1_winner);
                 isMounted && setAfcDR2Winner(response?.data.afc_divisional_round_2_winner);
@@ -304,14 +304,14 @@ export default function Bracket() {
 
                 isMounted && setNfcCCHome(nfcDRTeams[nfcDRWinningOrder[0]]);
                 isMounted && setNfcCCAway(nfcDRTeams[nfcDRWinningOrder[1]]);
-                isMounted && setNfcCCDisabled(false);
+
 
                 const afcDRTeams = [afcTeams[0], namedAfcWCWinningOrder[0], namedAfcWCWinningOrder[1], namedAfcWCWinningOrder[2]];
                 const afcDRWinningOrder = SetupRank(afcDRTeams, [response.data.afc_divisional_1_winner, response.data.afc_divisional_2_winner]);
 
                 isMounted && setAfcCCHome(afcDRTeams[afcDRWinningOrder[0]]);
                 isMounted && setAfcCCAway(afcDRTeams[afcDRWinningOrder[1]]);
-                isMounted && setAfcCCDisabled(false);
+
 
                 isMounted && setAfcCCWinner(response?.data.afc_conference_champion);
                 isMounted && setNfcCCWinner(response?.data.nfc_conference_champion);
@@ -319,7 +319,7 @@ export default function Bracket() {
                 // set sb
                 isMounted && setAfcSB(response?.data.afc_conference_champion);
                 isMounted && setNfcSB(response?.data.nfc_conference_champion);
-                isMounted && setSBDisabled(false);
+
 
                 isMounted && setFss(response?.data.final_score_sum);
 
@@ -752,7 +752,7 @@ export default function Bracket() {
                     <Typography variant="caption">NFC Wild Card Round - 3 points</Typography>
                 </Grid>
             </Grid>
-            <Grid display="flex" justifyContent="center">
+            {/* <Grid display="flex" justifyContent="center">
                 <Button
                     type="submit"
                     variant="contained"
@@ -761,7 +761,7 @@ export default function Bracket() {
                 >
                     Save
                 </Button>
-            </Grid>
+            </Grid> */}
             <Grid display="flex" justifyContent="center">
                 <Typography variant="caption">{errMsg}</Typography>
             </Grid>
