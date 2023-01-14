@@ -3,7 +3,7 @@ import Toolbar from '@mui/material/Toolbar';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
-import LiveBracket from '../brackets/LiveBracket';
+import ViewBracket from '../brackets/ViewBracket';
 import Users from '../users/UserTable';
 
 
@@ -18,7 +18,7 @@ function DashboardContent() {
                 <Grid container spacing={3}>
                     {/* Live games */}
                     <Grid item xs={12} md={6}>
-                        <LiveBracket />
+                        <ViewBracket />
                     </Grid>
                     {/* User list */}
                     <Grid item xs={12} md={6}>
