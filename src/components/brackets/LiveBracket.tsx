@@ -286,12 +286,11 @@ export default function LiveBracket() {
                         withCredentials: true
                     }
                 );
-                console.log(response);
 
                 for (let i = 0; i < response.data.length; i++) {
                     const game: Game = response.data[i];
                     switch (response.data[i].bracket_name) {
-                        case gameAfcWC1: isMounted && setAfcRank6Score(game.away_team_score); console.log(game.away_team_score); isMounted && setAfcRank1Score(game.home_team_score); if (response.data[i].winner != "") { isMounted && setAfcWC1Winner(game.winner); } break;
+                        case gameAfcWC1: isMounted && setAfcRank6Score(game.away_team_score); isMounted && setAfcRank1Score(game.home_team_score); if (response.data[i].winner != "") { isMounted && setAfcWC1Winner(game.winner); } break;
                         case gameAfcWC2: isMounted && setAfcRank5Score(game.away_team_score); isMounted && setAfcRank2Score(game.home_team_score); if (response.data[i].winner != "") { isMounted && setAfcWC2Winner(game.winner); } break;
                         case gameAfcWC3: isMounted && setAfcRank4Score(game.away_team_score); isMounted && setAfcRank3Score(game.home_team_score); if (response.data[i].winner != "") { isMounted && setAfcWC3Winner(game.winner); } break;
                         case gameNfcWC1: isMounted && setNfcRank6Score(game.away_team_score); isMounted && setNfcRank1Score(game.home_team_score); if (response.data[i].winner != "") { isMounted && setNfcWC1Winner(game.winner); } break;
@@ -360,18 +359,14 @@ export default function LiveBracket() {
                             {(typeof afcRank6Score !== "undefined") && (typeof afcRank1Score !== "undefined")
                                 ? (
                                     <Grid container justifyContent="center" wrap='nowrap'>
-
                                         <Grid>
                                             <Typography color="text.primary" variant="h4">{afcRank6Score}</Typography>
-
                                         </Grid>
                                         <Grid>
                                             <Typography color="text.primary" variant="h4">-</Typography>
-
                                         </Grid>
                                         <Grid>
                                             <Typography color="text.primary" variant="h4">{afcRank1Score}</Typography>
-
                                         </Grid>
                                     </Grid>
                                 ) : <></>
@@ -401,18 +396,14 @@ export default function LiveBracket() {
                             {(typeof afcRank5Score !== "undefined") && (typeof afcRank2Score !== "undefined")
                                 ? (
                                     <Grid container justifyContent="center" wrap='nowrap'>
-
                                         <Grid>
                                             <Typography color="text.primary" variant="h4">{afcRank5Score}</Typography>
-
                                         </Grid>
                                         <Grid>
                                             <Typography color="text.primary" variant="h4">-</Typography>
-
                                         </Grid>
                                         <Grid>
                                             <Typography color="text.primary" variant="h4">{afcRank2Score}</Typography>
-
                                         </Grid>
                                     </Grid>
                                 ) : <></>
@@ -442,18 +433,14 @@ export default function LiveBracket() {
                             {(typeof afcRank4Score !== "undefined") && (typeof afcRank3Score !== "undefined")
                                 ? (
                                     <Grid container justifyContent="center" wrap='nowrap'>
-
                                         <Grid>
                                             <Typography color="text.primary" variant="h4">{afcRank4Score}</Typography>
-
                                         </Grid>
                                         <Grid>
                                             <Typography color="text.primary" variant="h4">-</Typography>
-
                                         </Grid>
                                         <Grid>
                                             <Typography color="text.primary" variant="h4">{afcRank3Score}</Typography>
-
                                         </Grid>
                                     </Grid>
                                 ) : <></>
@@ -486,18 +473,14 @@ export default function LiveBracket() {
                             {(typeof afcDRLastScore !== "undefined") && (typeof afcRank0Score !== "undefined")
                                 ? (
                                     <Grid container justifyContent="center" wrap='nowrap'>
-
                                         <Grid>
                                             <Typography color="text.primary" variant="h4">{afcDRLastScore}</Typography>
-
                                         </Grid>
                                         <Grid>
                                             <Typography color="text.primary" variant="h4">-</Typography>
-
                                         </Grid>
                                         <Grid>
                                             <Typography color="text.primary" variant="h4">{afcRank0Score}</Typography>
-
                                         </Grid>
                                     </Grid>
                                 ) : <></>
@@ -525,18 +508,14 @@ export default function LiveBracket() {
                             {(typeof afcDRAwayScore !== "undefined") && (typeof afcDRHomeScore !== "undefined")
                                 ? (
                                     <Grid container justifyContent="center" wrap='nowrap'>
-
                                         <Grid>
                                             <Typography color="text.primary" variant="h4">{afcDRAwayScore}</Typography>
-
                                         </Grid>
                                         <Grid>
                                             <Typography color="text.primary" variant="h4">-</Typography>
-
                                         </Grid>
                                         <Grid>
                                             <Typography color="text.primary" variant="h4">{afcDRHomeScore}</Typography>
-
                                         </Grid>
                                     </Grid>
                                 ) : <></>
@@ -566,18 +545,14 @@ export default function LiveBracket() {
                         {(typeof afcCCAwayScore !== "undefined") && (typeof afcCCHomeScore !== "undefined")
                             ? (
                                 <Grid container justifyContent="center" wrap='nowrap'>
-
                                     <Grid>
                                         <Typography color="text.primary" variant="h4">{afcCCAwayScore}</Typography>
-
                                     </Grid>
                                     <Grid>
                                         <Typography color="text.primary" variant="h4">-</Typography>
-
                                     </Grid>
                                     <Grid>
                                         <Typography color="text.primary" variant="h4">{afcCCHomeScore}</Typography>
-
                                     </Grid>
                                 </Grid>
                             ) : <></>
@@ -591,10 +566,8 @@ export default function LiveBracket() {
                         <Box>
                             <img src={icon("SB")} alt="logo" style={{ maxWidth: 100 }} />
                         </Box>
-
                     </Grid>
                     <Grid>
-
                         <Item>
                             <ToggleButtonGroup {...sbControl}>
                                 <ToggleButton sx={{ padding: 0 }} value={afcSB}>
@@ -615,18 +588,14 @@ export default function LiveBracket() {
                             {(typeof afcSBScore !== "undefined") && (typeof nfcSBScore !== "undefined")
                                 ? (
                                     <Grid container justifyContent="center" wrap='nowrap'>
-
                                         <Grid>
                                             <Typography color="text.primary" variant="h4">{afcSBScore}</Typography>
-
                                         </Grid>
                                         <Grid>
                                             <Typography color="text.primary" variant="h4">-</Typography>
-
                                         </Grid>
                                         <Grid>
                                             <Typography color="text.primary" variant="h4">{nfcSBScore}</Typography>
-
                                         </Grid>
                                     </Grid>
                                 ) : <></>
@@ -678,18 +647,14 @@ export default function LiveBracket() {
                         {(typeof nfcCCAwayScore !== "undefined") && (typeof nfcCCHomeScore !== "undefined")
                             ? (
                                 <Grid container justifyContent="center" wrap='nowrap'>
-
                                     <Grid>
                                         <Typography color="text.primary" variant="h4">{nfcCCAwayScore}</Typography>
-
                                     </Grid>
                                     <Grid>
                                         <Typography color="text.primary" variant="h4">-</Typography>
-
                                     </Grid>
                                     <Grid>
                                         <Typography color="text.primary" variant="h4">{nfcCCHomeScore}</Typography>
-
                                     </Grid>
                                 </Grid>
                             ) : <></>
@@ -721,18 +686,14 @@ export default function LiveBracket() {
                             {(typeof nfcDRLastScore !== "undefined") && (typeof nfcRank0Score !== "undefined")
                                 ? (
                                     <Grid container justifyContent="center" wrap='nowrap'>
-
                                         <Grid>
                                             <Typography color="text.primary" variant="h4">{nfcDRLastScore}</Typography>
-
                                         </Grid>
                                         <Grid>
                                             <Typography color="text.primary" variant="h4">-</Typography>
-
                                         </Grid>
                                         <Grid>
                                             <Typography color="text.primary" variant="h4">{nfcRank0Score}</Typography>
-
                                         </Grid>
                                     </Grid>
                                 ) : <></>
@@ -760,18 +721,14 @@ export default function LiveBracket() {
                             {(typeof nfcDRAwayScore !== "undefined") && (typeof nfcDRHomeScore !== "undefined")
                                 ? (
                                     <Grid container justifyContent="center" wrap='nowrap'>
-
                                         <Grid>
                                             <Typography color="text.primary" variant="h4">{nfcDRAwayScore}</Typography>
-
                                         </Grid>
                                         <Grid>
                                             <Typography color="text.primary" variant="h4">-</Typography>
-
                                         </Grid>
                                         <Grid>
                                             <Typography color="text.primary" variant="h4">{nfcDRHomeScore}</Typography>
-
                                         </Grid>
                                     </Grid>
                                 ) : <></>
@@ -805,18 +762,14 @@ export default function LiveBracket() {
                             {(typeof nfcRank6Score !== "undefined") && (typeof nfcRank1Score !== "undefined")
                                 ? (
                                     <Grid container justifyContent="center" wrap='nowrap'>
-
                                         <Grid>
                                             <Typography color="text.primary" variant="h4">{nfcRank6Score}</Typography>
-
                                         </Grid>
                                         <Grid>
                                             <Typography color="text.primary" variant="h4">-</Typography>
-
                                         </Grid>
                                         <Grid>
                                             <Typography color="text.primary" variant="h4">{nfcRank1Score}</Typography>
-
                                         </Grid>
                                     </Grid>
                                 ) : <></>
@@ -846,18 +799,14 @@ export default function LiveBracket() {
                             {(typeof nfcRank5Score !== "undefined") && (typeof nfcRank2Score !== "undefined")
                                 ? (
                                     <Grid container justifyContent="center" wrap='nowrap'>
-
                                         <Grid>
                                             <Typography color="text.primary" variant="h4">{nfcRank5Score}</Typography>
-
                                         </Grid>
                                         <Grid>
                                             <Typography color="text.primary" variant="h4">-</Typography>
-
                                         </Grid>
                                         <Grid>
                                             <Typography color="text.primary" variant="h4">{nfcRank2Score}</Typography>
-
                                         </Grid>
                                     </Grid>
                                 ) : <></>
@@ -887,18 +836,14 @@ export default function LiveBracket() {
                             {(typeof nfcRank4Score !== "undefined") && (typeof nfcRank3Score !== "undefined")
                                 ? (
                                     <Grid container justifyContent="center" wrap='nowrap'>
-
                                         <Grid>
                                             <Typography color="text.primary" variant="h4">{nfcRank4Score}</Typography>
-
                                         </Grid>
                                         <Grid>
                                             <Typography color="text.primary" variant="h4">-</Typography>
-
                                         </Grid>
                                         <Grid>
                                             <Typography color="text.primary" variant="h4">{nfcRank3Score}</Typography>
-
                                         </Grid>
                                     </Grid>
                                 ) : <></>

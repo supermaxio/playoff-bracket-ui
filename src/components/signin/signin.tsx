@@ -29,7 +29,7 @@ export default function SignIn(props: any) {
   }, [user, pwd]);
 
   const onSubmit = async (values: any) => {
-    console.log("Values: ", values);
+    // console.log("Values: ", values);
     setErrMsg("");
 
     try {

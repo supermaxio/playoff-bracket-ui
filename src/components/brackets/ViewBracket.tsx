@@ -9,7 +9,6 @@ import GetIcon, { GetEmoji } from '../icons/icons';
 import { Breadcrumbs, Container, Grid, Link, Paper, styled, TextField } from '@mui/material';
 import useAuth from '../../hooks/useAuth';
 import { useNavigate, useParams } from 'react-router-dom';
-import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 
 const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -26,7 +25,6 @@ export default function ViewBracket() {
 
     let { userId } = useParams();
 
-    console.log(userId);
     const afcTeams = [
         "Chiefs",
         "Bills",
@@ -83,18 +81,18 @@ export default function ViewBracket() {
     const icon = GetIcon;
     const emoji = GetEmoji;
 
-    const handleAfcWC1Change = (event: React.MouseEvent<HTMLElement>, newAlignment: string,) => { console.log(`called handleAfcWC1Change and the value is: ${newAlignment}`); setAfcWC1Winner(newAlignment); };
-    const handleAfcWC2Change = (event: React.MouseEvent<HTMLElement>, newAlignment: string,) => { console.log(`called handleAfcWC2Change and the value is: ${newAlignment}`); setAfcWC2Winner(newAlignment); };
-    const handleAfcWC3Change = (event: React.MouseEvent<HTMLElement>, newAlignment: string,) => { console.log(`called handleAfcWC3Change and the value is: ${newAlignment}`); setAfcWC3Winner(newAlignment); };
-    const handleAfcDR1Change = (event: React.MouseEvent<HTMLElement>, newAlignment: string,) => { console.log(`called handleAfcDR1Change and the value is: ${newAlignment}`); setAfcDR1Winner(newAlignment); };
-    const handleAfcDR2Change = (event: React.MouseEvent<HTMLElement>, newAlignment: string,) => { console.log(`called handleAfcDR2Change and the value is: ${newAlignment}`); setAfcDR2Winner(newAlignment); };
-    const handleNfcWC1Change = (event: React.MouseEvent<HTMLElement>, newAlignment: string,) => { console.log(`called handleNfcWC1Change and the value is: ${newAlignment}`); setNfcWC1Winner(newAlignment); };
-    const handleNfcWC2Change = (event: React.MouseEvent<HTMLElement>, newAlignment: string,) => { console.log(`called handleNfcWC2Change and the value is: ${newAlignment}`); setNfcWC2Winner(newAlignment); };
-    const handleNfcWC3Change = (event: React.MouseEvent<HTMLElement>, newAlignment: string,) => { console.log(`called handleNfcWC3Change and the value is: ${newAlignment}`); setNfcWC3Winner(newAlignment); };
-    const handleNfcDR1Change = (event: React.MouseEvent<HTMLElement>, newAlignment: string,) => { console.log(`called handleNfcDR1Change and the value is: ${newAlignment}`); setNfcDR1Winner(newAlignment); };
-    const handleNfcDR2Change = (event: React.MouseEvent<HTMLElement>, newAlignment: string,) => { console.log(`called handleNfcDR2Change and the value is: ${newAlignment}`); setNfcDR2Winner(newAlignment); };
-    const handleAfcCCChange = (event: React.MouseEvent<HTMLElement>, newAlignment: string,) => { console.log(`called handleAfcCCChange  and the value is: ${newAlignment}`); setAfcCCWinner(newAlignment); };
-    const handleNfcCCChange = (event: React.MouseEvent<HTMLElement>, newAlignment: string,) => { console.log(`called handleNfcCCChange  and the value is: ${newAlignment}`); setNfcCCWinner(newAlignment); };
+    const handleAfcWC1Change = (event: React.MouseEvent<HTMLElement>, newAlignment: string,) => { setAfcWC1Winner(newAlignment); };
+    const handleAfcWC2Change = (event: React.MouseEvent<HTMLElement>, newAlignment: string,) => { setAfcWC2Winner(newAlignment); };
+    const handleAfcWC3Change = (event: React.MouseEvent<HTMLElement>, newAlignment: string,) => { setAfcWC3Winner(newAlignment); };
+    const handleAfcDR1Change = (event: React.MouseEvent<HTMLElement>, newAlignment: string,) => { setAfcDR1Winner(newAlignment); };
+    const handleAfcDR2Change = (event: React.MouseEvent<HTMLElement>, newAlignment: string,) => { setAfcDR2Winner(newAlignment); };
+    const handleNfcWC1Change = (event: React.MouseEvent<HTMLElement>, newAlignment: string,) => { setNfcWC1Winner(newAlignment); };
+    const handleNfcWC2Change = (event: React.MouseEvent<HTMLElement>, newAlignment: string,) => { setNfcWC2Winner(newAlignment); };
+    const handleNfcWC3Change = (event: React.MouseEvent<HTMLElement>, newAlignment: string,) => { setNfcWC3Winner(newAlignment); };
+    const handleNfcDR1Change = (event: React.MouseEvent<HTMLElement>, newAlignment: string,) => { setNfcDR1Winner(newAlignment); };
+    const handleNfcDR2Change = (event: React.MouseEvent<HTMLElement>, newAlignment: string,) => { setNfcDR2Winner(newAlignment); };
+    const handleAfcCCChange = (event: React.MouseEvent<HTMLElement>, newAlignment: string,) => { setAfcCCWinner(newAlignment); };
+    const handleNfcCCChange = (event: React.MouseEvent<HTMLElement>, newAlignment: string,) => { setNfcCCWinner(newAlignment); };
     const handleSBChange = (event: React.MouseEvent<HTMLElement>, newAlignment: string,) => { console.log(`called handleSBChange  and the value is: ${newAlignment}`); setSBWinner(newAlignment); };
     const handleFss = (event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => { setFss(parseInt(event.target.value)); };
 
@@ -137,12 +135,12 @@ export default function ViewBracket() {
         }
 
         compareArray.sort();
-        console.log(JSON.stringify(compareArray));
+        // console.log(JSON.stringify(compareArray));
         return compareArray;
     }
 
     function SetupAFCDivisionalRound() {
-        console.log("updated afc dr");
+        // console.log("updated afc dr");
         const winningOrder = SetupRank(afcTeams, [afcWC1Winner, afcWC2Winner, afcWC3Winner]);
         const legalValues = ["[4,5,6]", "[3,5,6]", "[2,4,6]", "[2,3,6]", "[1,4,5]", "[1,3,5]", "[1,2,4]", "[1,2,3]"];
 
@@ -156,7 +154,7 @@ export default function ViewBracket() {
     }
 
     function SetupNFCDivisionalRound() {
-        console.log("updated nfc dr");
+        // console.log("updated nfc dr");
         const winningOrder = SetupRank(nfcTeams, [nfcWC1Winner, nfcWC2Winner, nfcWC3Winner]);
         const legalValues = ["[4,5,6]", "[3,5,6]", "[2,4,6]", "[2,3,6]", "[1,4,5]", "[1,3,5]", "[1,2,4]", "[1,2,3]"];
 
@@ -170,7 +168,7 @@ export default function ViewBracket() {
     }
 
     function SetupAFCChampionship() {
-        console.log("updated afc cc");
+        // console.log("updated afc cc");
         const rankArray = [afcTeams[0], afcDRHome, afcDRAway, afcDRLast];
         const winningOrder = SetupRank(rankArray, [afcDR1Winner, afcDR2Winner]);
         const legalValues = ["[0,1]", "[0,2]", "[1,3]", "[2,3]"];
@@ -184,7 +182,7 @@ export default function ViewBracket() {
     }
 
     function SetupNFCChampionship() {
-        console.log("updated nfc cc");
+        // console.log("updated nfc cc");
         const rankArray = [nfcTeams[0], nfcDRHome, nfcDRAway, nfcDRLast];
         const winningOrder = SetupRank(rankArray, [nfcDR1Winner, nfcDR2Winner]);
         const legalValues = ["[0,1]", "[0,2]", "[1,3]", "[2,3]"];
