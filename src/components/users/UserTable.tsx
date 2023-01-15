@@ -10,31 +10,44 @@ import TableRow from '@mui/material/TableRow';
 import Title from '../title/Title';
 import { axiosPrivate } from '../../api/axios';
 import { User } from '../../objects/User';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 function preventDefault(event: React.MouseEvent) {
     event.preventDefault();
+}
+
+function unselectAll(users: User[]) {
+    for (let i = 0; i < users.length; i++) {
+        users[i].Selected = false;
+    }
 }
 
 export default function Users() {
     const [userList, setUserList] = useState<User[]>([]);
     const navigate = useNavigate();
 
+    let { userId } = useParams();
     useEffect(() => {
         let isMounted = true;
         const controller = new AbortController();
-
         const getUsers = async () => {
             try {
                 const response = await axiosPrivate.get(
                     "/users/"
                 );
 
+                let users = [];
                 for (let i = 0; i < response.data.length; i++) {
-                    response.data[i].Username = response.data[i].Username.toUpperCase();
+                    let user: User = response.data[i];
+                    user.Username = response.data[i].Username.toUpperCase();
+                    if (response.data[i].Username == userId) {
+                        user.Selected = true;
+                    }
+
+                    length = users.push(user);
                 }
 
-                setUserList(response.data);
+                setUserList(users);
             } catch (err: any) {
                 console.log("error in get users");
                 console.log(err);
@@ -53,7 +66,7 @@ export default function Users() {
             isMounted = false;
             controller.abort();
         };
-    }, []);
+    }, [userId]);
 
     return (
         <React.Fragment>
@@ -72,13 +85,17 @@ export default function Users() {
 
                         <TableBody>
                             {userList.map((row) => (
-                                <TableRow key={row.Username}>
+
+                                <TableRow key={row.Username} selected={row.Selected} onClick=
+                                    {(e) => {
+                                        e.preventDefault();
+                                        unselectAll(userList);
+                                        userId = row.Username;
+                                        row.Selected = true;
+                                        navigate('/users/' + row.Username);
+                                    }}>
                                     <TableCell>
                                         <Link color="primary"
-                                            onClick={(e) => {
-                                                e.preventDefault();
-                                                navigate('/users/' + row.Username);
-                                            }}
                                             href={'/users/' + row.Username}
                                             sx={{ mt: 3 }}>
                                             {row.Username}
