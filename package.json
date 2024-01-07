@@ -2,6 +2,9 @@
   "name": "create-react-app-with-styled-components-typescript",
   "version": "5.0.0",
   "private": true,
+  "engines": {
+    "node": "18.11.0"
+  },
   "dependencies": {
     "@mui/icons-material": "^5.11.0",
     "@mui/lab": "latest",
