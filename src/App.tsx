@@ -1,12 +1,11 @@
 
-import SignIn from './components/signin/SignIn';
 import { Route, Routes } from "react-router-dom";
 import Layout from './components/layout/Layout';
+import SignIn from './components/signin/SignIn';
 import LocalRequireAuth from './components/signin/LocalRequireAuth';
 import PersistLogin from './components/signin/PersistLogin';
 import Missing from './components/miscellaneous/Missing';
 import CreateBracket from './components/brackets/CreateBracket';
-import ViewBracket from './components/brackets/ViewBracket';
 import Dashboard from './components/dashboard/Dashboard';
 import UserDashboard from './components/dashboard/UserDashboard';
 
