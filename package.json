@@ -6,7 +6,6 @@
     "node": "18.11.0"
   },
   "dependencies": {
-    "craco": "latest",
     "@mui/icons-material": "^5.11.0",
     "@mui/lab": "latest",
     "@mui/material": "latest",
@@ -15,7 +14,6 @@
     "@testing-library/react": "latest",
     "@testing-library/user-event": "latest",
     "axios": "^1.2.1",
-    "craco-alias": "^3.0.1",
     "express": "^4.18.2",
     "formik": "^2.2.9",
     "http-proxy-middleware": "^3.0.0-beta.0",
@@ -33,7 +31,8 @@
     "start": "craco start",
     "build": "craco build",
     "test": "craco test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "heroku-postbuild": "npm install && npm run build"
   },
   "browserslist": {
     "production": [
