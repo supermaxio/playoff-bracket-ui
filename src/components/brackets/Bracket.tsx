@@ -22,23 +22,23 @@ const Item = styled(Paper)(({ theme }) => ({
 
 export default function Bracket() {
     const afcTeams = [
-        "Chiefs",
-        "Bills",
-        "Bengals",
-        "Jaguars",
-        "Chargers",
         "Ravens",
-        "Dolphins"
+        "Bills",
+        "Chiefs",
+        "Texans",
+        "Browns",
+        "Dolphins",
+        "Steelers"
     ];
 
     const nfcTeams = [
-        "Eagles",
         "49ers",
-        "Vikings",
-        "Buccaneers",
         "Cowboys",
-        "Giants",
-        "Seahawks"
+        "Lions",
+        "Buccaneers",
+        "Eagles",
+        "Rams",
+        "Packers"
     ];
     const [errMsg, setErrMsg] = useState('');
     const logout = useLogout();

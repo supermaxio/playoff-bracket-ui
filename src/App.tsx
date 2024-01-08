@@ -5,9 +5,10 @@ import SignIn from './components/signin/SignIn';
 import LocalRequireAuth from './components/signin/LocalRequireAuth';
 import PersistLogin from './components/signin/PersistLogin';
 import Missing from './components/miscellaneous/Missing';
-import CreateBracket from './components/brackets/CreateBracket';
+import MyBracket from './components/brackets/MyBracket';
 import Dashboard from './components/dashboard/Dashboard';
 import UserDashboard from './components/dashboard/UserDashboard';
+import CreateBracket from "./components/brackets/CreateBracket";
 
 export default function App() {
 
@@ -18,12 +19,14 @@ export default function App() {
 
         <Route element={<PersistLogin />}>
           <Route element={<LocalRequireAuth />}>
-            <Route path="/bracket" element={<CreateBracket />} />
+            <Route path="/" element={<CreateBracket />} />
+            {/* <Route path="/bracket" element={<MyBracket />} />
             <Route path="/users">
 
             <Route path=":userId" element={<UserDashboard />} />
             </Route>
-            <Route path="/" element={<Dashboard />} />
+            <Route path="/" element={<Dashboard />} /> */}
+
           </Route>
         </Route>
 

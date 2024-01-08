@@ -22,23 +22,23 @@ const Item = styled(Paper)(({ theme }) => ({
 
 export default function LiveBracket() {
     const afcTeams = [
-        "Chiefs",
-        "Bills",
-        "Bengals",
-        "Jaguars",
-        "Chargers",
         "Ravens",
-        "Dolphins"
+        "Bills",
+        "Chiefs",
+        "Texans",
+        "Browns",
+        "Dolphins",
+        "Steelers"
     ];
 
     const nfcTeams = [
-        "Eagles",
         "49ers",
-        "Vikings",
-        "Buccaneers",
         "Cowboys",
-        "Giants",
-        "Seahawks"
+        "Lions",
+        "Buccaneers",
+        "Eagles",
+        "Rams",
+        "Packers"
     ];
 
     const gameAfcWC1 = "afc_wild_card_1";
