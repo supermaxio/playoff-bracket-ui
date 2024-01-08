@@ -1,5 +1,5 @@
 {
-  "name": "create-react-app-with-styled-components-typescript",
+  "name": "vite-install-playoff-brackets-ui",
   "version": "5.0.0",
   "private": true,
   "engines": {
@@ -22,16 +22,13 @@
     "react-auth-kit": "^2.7.1",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.6.1",
-    "react-scripts": "latest",
     "recharts": "^2.2.0",
     "styled-components": "latest"
   },
   "scripts": {
-    "tsc": "./node_modules/.bin/tsc",
-    "start": "craco start",
-    "build": "craco build",
-    "test": "craco test",
-    "eject": "react-scripts eject"
+    "start": "vite",
+    "build": "tsc && vite build",
+    "serve": "vite preview"
   },
   "browserslist": {
     "production": [
@@ -46,12 +43,14 @@
     ]
   },
   "devDependencies": {
-    "@craco/craco": "latest",
     "@types/node": "latest",
     "@types/react": "latest",
     "@types/react-dom": "latest",
     "@types/styled-components": "latest",
-    "craco-alias": "^3.0.1",
-    "typescript": "latest"
+    "@vitejs/plugin-react": "^4.2.1",
+    "typescript": "latest",
+    "vite": "^5.0.11",
+    "vite-plugin-svgr": "^4.2.0",
+    "vite-tsconfig-paths": "^4.2.3"
   }
 }
