@@ -1,1 +1,1 @@
-web: npm run build --host=0.0.0.0 --port=$PORT
+web: npm start
