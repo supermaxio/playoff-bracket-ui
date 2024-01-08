@@ -8,7 +8,7 @@ switch (process.env.NODE_ENV) {
     apiDomain = "https://playoff-brackets-api-f6d44ce7cf4f.herokuapp.com";
     break;
   case "production":
-    apiDomain = "https://playoff-brackets-api-f6d44ce7cf4f.herokuapp.com";
+    apiDomain = "https://playoff-brackets-api-prod-fdd0929ebae6.herokuapp.com";
     break;
   default:
     apiDomain = "localhost:8080";
