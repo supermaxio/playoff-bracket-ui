@@ -19,13 +19,13 @@ export default function App() {
 
         <Route element={<PersistLogin />}>
           <Route element={<LocalRequireAuth />}>
-            <Route path="/" element={<CreateBracket />} />
-            {/* <Route path="/bracket" element={<MyBracket />} />
+            {/* <Route path="/" element={<CreateBracket />} /> */}
+            <Route path="/bracket" element={<MyBracket />} />
             <Route path="/users">
 
             <Route path=":userId" element={<UserDashboard />} />
             </Route>
-            <Route path="/" element={<Dashboard />} /> */}
+            <Route path="/" element={<Dashboard />} />
 
           </Route>
         </Route>
