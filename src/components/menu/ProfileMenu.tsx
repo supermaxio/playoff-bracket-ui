@@ -56,8 +56,8 @@ export default function ProfileMenu() {
           'aria-labelledby': 'basic-button',
         }}
       >
-        <MenuItem onClick={handleDashboard}>Dashboard</MenuItem>
-        <MenuItem onClick={handleMyBracket}>My bracket</MenuItem>
+        {/* <MenuItem onClick={handleDashboard}>Dashboard</MenuItem>
+        <MenuItem onClick={handleMyBracket}>My bracket</MenuItem> */}
         <MenuItem onClick={handleSignout}>Logout</MenuItem>
       </Menu>
     </div>
