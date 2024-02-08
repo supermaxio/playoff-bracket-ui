@@ -489,15 +489,15 @@ export default function ViewBracket() {
 
                                     <Item>
                                         <ToggleButtonGroup {...sbControl}>
-                                            <ToggleButton sx={{ padding: 0 }} value={afcSB}>
-                                                <img
-                                                    {...afcSBControl}
-                                                    height={50}
-                                                />
-                                            </ToggleButton>
                                             <ToggleButton sx={{ padding: 0 }} value={nfcSB}>
                                                 <img
                                                     {...nfcSBControl}
+                                                    height={50}
+                                                />
+                                            </ToggleButton>
+                                            <ToggleButton sx={{ padding: 0 }} value={afcSB}>
+                                                <img
+                                                    {...afcSBControl}
                                                     height={50}
                                                 />
                                             </ToggleButton>
