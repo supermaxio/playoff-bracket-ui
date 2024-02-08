@@ -559,18 +559,19 @@ export default function Bracket() {
 
                     </Grid>
                     <Grid>
+
                         <Item>
                             <ToggleButtonGroup {...sbControl}>
-                                <ToggleButton sx={{ padding: 0 }} value={nfcSB}>
+                                <ToggleButton sx={{ padding: 0 }} value={afcSB}>
                                     <img
-                                        {...nfcSBControl}
+                                        {...afcSBControl}
                                         height={50}
                                         loading="lazy"
                                     />
                                 </ToggleButton>
-                                <ToggleButton sx={{ padding: 0 }} value={afcSB}>
+                                <ToggleButton sx={{ padding: 0 }} value={nfcSB}>
                                     <img
-                                        {...afcSBControl}
+                                        {...nfcSBControl}
                                         height={50}
                                         loading="lazy"
                                     />

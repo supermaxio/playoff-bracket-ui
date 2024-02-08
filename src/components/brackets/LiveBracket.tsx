@@ -570,16 +570,16 @@ export default function LiveBracket() {
                     <Grid>
                         <Item>
                             <ToggleButtonGroup {...sbControl}>
-                                <ToggleButton sx={{ padding: 0 }} value={nfcSB}>
+                                <ToggleButton sx={{ padding: 0 }} value={afcSB}>
                                     <img
-                                        {...nfcSBControl}
+                                        {...afcSBControl}
                                         height={50}
                                         loading="lazy"
                                     />
                                 </ToggleButton>
-                                <ToggleButton sx={{ padding: 0 }} value={afcSB}>
+                                <ToggleButton sx={{ padding: 0 }} value={nfcSB}>
                                     <img
-                                        {...afcSBControl}
+                                        {...nfcSBControl}
                                         height={50}
                                         loading="lazy"
                                     />
@@ -589,13 +589,13 @@ export default function LiveBracket() {
                                 ? (
                                     <Grid container justifyContent="center" wrap='nowrap'>
                                         <Grid>
-                                            <Typography color="text.primary" variant="h4">{nfcSBScore}</Typography>
+                                            <Typography color="text.primary" variant="h4">{afcSBScore}</Typography>
                                         </Grid>
                                         <Grid>
                                             <Typography color="text.primary" variant="h4">-</Typography>
                                         </Grid>
                                         <Grid>
-                                            <Typography color="text.primary" variant="h4">{afcSBScore}</Typography>
+                                            <Typography color="text.primary" variant="h4">{nfcSBScore}</Typography>
                                         </Grid>
                                     </Grid>
                                 ) : <></>
