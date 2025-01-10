@@ -8,7 +8,7 @@ switch (process.env.NODE_ENV) {
     apiDomain = "https://playoff-bracket-api.onrender.com";
     break;
   case "production":
-    apiDomain = "https://playoff-bracket-api-prod.onrender.com";
+    apiDomain = "https://playoff-bracket-api.onrender.com";
     break;
   default:
     apiDomain = "localhost:8080";
