@@ -101,7 +101,7 @@ export default function Users() {
                                             {row.Username}{" "}
                                             {Array.from({ length: row.Champion }).map((_, index) => (
                                                 <React.Fragment key={index}>
-                                                    <FaCrown />{" "}
+                                                    <FaCrown style={{ fontSize: '0.7em' }} />{" "}
                                                 </React.Fragment>
                                             ))}
                                         </Link>
