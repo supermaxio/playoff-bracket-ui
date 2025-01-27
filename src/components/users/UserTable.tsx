@@ -1,4 +1,3 @@
-
 import * as React from 'react';
 import { useState, useEffect } from 'react';
 import Link from '@mui/material/Link';
@@ -11,6 +10,7 @@ import Title from '../title/Title';
 import { axiosPrivate } from '../../api/axios';
 import { User } from '../../objects/User';
 import { useNavigate, useParams } from 'react-router-dom';
+import { FaCrown } from 'react-icons/fa';
 
 function preventDefault(event: React.MouseEvent) {
     event.preventDefault();
@@ -97,8 +97,13 @@ export default function Users() {
                                     <TableCell>
                                         <Link color="primary"
                                             href={'/users/' + row.Username}
-                                            sx={{ mt: 3 }}>
-                                            {row.Username}
+                                            sx={{ mt: 3, textDecoration: 'none' }}>
+                                            {row.Username}{" "}
+                                            {Array.from({ length: row.Champion }).map((_, index) => (
+                                                <React.Fragment key={index}>
+                                                    <FaCrown />{" "}
+                                                </React.Fragment>
+                                            ))}
                                         </Link>
                                     </TableCell>
                                     <TableCell>{row.Score}</TableCell>

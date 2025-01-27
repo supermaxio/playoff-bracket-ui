@@ -5,4 +5,5 @@ export interface User {
     TieBreaker: number;
     Rank: number;
     Selected: boolean;
+    Champion: number;
 }
