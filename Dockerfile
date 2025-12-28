@@ -1,14 +1,12 @@
 # ==== CONFIGURE =====
-FROM node:18.11.0-alpine
+FROM node:18.11.0-alpine as builder
 # Set the working directory to /app inside the container
 WORKDIR /app
 # Copy app files
 COPY . .
 # ==== BUILD =====
 # Install dependencies (npm ci makes sure the exact versions in the lockfile gets installed)
-RUN npm ci 
-# Build the app
-RUN npm run build
+RUN npm ci && npm run build
 
 # ==== RUN =======
 # Bundle static assets with nginx
