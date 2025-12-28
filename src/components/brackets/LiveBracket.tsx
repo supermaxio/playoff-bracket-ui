@@ -22,22 +22,22 @@ const Item = styled(Paper)(({ theme }) => ({
 
 export default function LiveBracket() {
     const afcTeams = [
-        "Chiefs",
-        "Bills",
-        "Ravens",
-        "Texans",
-        "Chargers",
+        "Broncos",
+        "Patriots",
+        "Jaguars",
         "Steelers",
-        "Broncos"
+        "Chargers",
+        "Bills",
+        "Texans"
     ];
 
     const nfcTeams = [
-        "Lions",
+        "Seahawks",
+        "Bears",
         "Eagles",
-        "Buccaneers",
+        "Panthers",
+        "49ers",
         "Rams",
-        "Vikings",
-        "Commanders",
         "Packers"
     ];
 

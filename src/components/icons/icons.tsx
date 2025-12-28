@@ -34,7 +34,7 @@ import CommandersIcon from '../../images/icons/WAS.svg';
 import NflIcon from '../../images/icons/NFL.svg';
 import AfcIcon from '../../images/icons/APR.svg';
 import NfcIcon from '../../images/icons/NPR.svg';
-import SBIcon from '../../images/icons/Super_Bowl_LIX_Logo.svg';
+import SBIcon from '../../images/icons/Super_Bowl_LX.png';
 
 const CARDINALS = "Cardinals";
 const FALCONS = "Falcons";
