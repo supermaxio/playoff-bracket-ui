@@ -9,7 +9,7 @@ switch (buildEnv) {
     apiDomain = "https://playoff-bracket-api-dev-uhuyr.ondigitalocean.app";
     break;
   case "production":
-    apiDomain = "https://playoff-bracket-api-u1qy.onrender.com";
+    apiDomain = "https://playoff-bracket-api-dsjr6.ondigitalocean.app/";
     break;
   default:
     apiDomain = "http://localhost:8080";
