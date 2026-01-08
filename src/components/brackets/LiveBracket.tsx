@@ -26,9 +26,9 @@ export default function LiveBracket() {
         "Patriots",
         "Jaguars",
         "Steelers",
-        "Chargers",
+        "Texans",
         "Bills",
-        "Texans"
+        "Chargers"
     ];
 
     const nfcTeams = [
@@ -36,8 +36,8 @@ export default function LiveBracket() {
         "Bears",
         "Eagles",
         "Panthers",
-        "49ers",
         "Rams",
+        "49ers",
         "Packers"
     ];
 

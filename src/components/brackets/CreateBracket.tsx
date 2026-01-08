@@ -27,9 +27,9 @@ export default function Bracket() {
         "Patriots",
         "Jaguars",
         "Steelers",
-        "Chargers",
+        "Texans",
         "Bills",
-        "Texans"
+        "Chargers"
     ];
 
     const nfcTeams = [
@@ -37,8 +37,8 @@ export default function Bracket() {
         "Bears",
         "Eagles",
         "Panthers",
-        "49ers",
         "Rams",
+        "49ers",
         "Packers"
     ];
     const [errMsg, setErrMsg] = useState('');
@@ -98,12 +98,12 @@ export default function Bracket() {
     const handleSBChange = (event: React.MouseEvent<HTMLElement>, newAlignment: string,) => { console.log(`called handleSBChange  and the value is: ${newAlignment}`); setSBWinner(newAlignment); };
     const handleFss = (event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => { setFss(parseInt(event.target.value)); };
 
-    const afcWC1Control = { value: afcWC1Winner, onChange: handleAfcWC1Change, exclusive: true,disabled: false  };
-    const afcWC2Control = { value: afcWC2Winner, onChange: handleAfcWC2Change, exclusive: true,disabled: false  };
-    const afcWC3Control = { value: afcWC3Winner, onChange: handleAfcWC3Change, exclusive: true,disabled: false  };
-    const nfcWC1Control = { value: nfcWC1Winner, onChange: handleNfcWC1Change, exclusive: true,disabled: false  };
-    const nfcWC2Control = { value: nfcWC2Winner, onChange: handleNfcWC2Change, exclusive: true,disabled: false  };
-    const nfcWC3Control = { value: nfcWC3Winner, onChange: handleNfcWC3Change, exclusive: true,disabled: false  };
+    const afcWC1Control = { value: afcWC1Winner, onChange: handleAfcWC1Change, exclusive: true, disabled: false };
+    const afcWC2Control = { value: afcWC2Winner, onChange: handleAfcWC2Change, exclusive: true, disabled: false };
+    const afcWC3Control = { value: afcWC3Winner, onChange: handleAfcWC3Change, exclusive: true, disabled: false };
+    const nfcWC1Control = { value: nfcWC1Winner, onChange: handleNfcWC1Change, exclusive: true, disabled: false };
+    const nfcWC2Control = { value: nfcWC2Winner, onChange: handleNfcWC2Change, exclusive: true, disabled: false };
+    const nfcWC3Control = { value: nfcWC3Winner, onChange: handleNfcWC3Change, exclusive: true, disabled: false };
 
     const afcDR1Control = { value: afcDR1Winner, onChange: handleAfcDR1Change, exclusive: true, disabled: false };
     const afcDR2Control = { value: afcDR2Winner, onChange: handleAfcDR2Change, exclusive: true, disabled: false };
@@ -402,7 +402,7 @@ export default function Bracket() {
     };
 
     return (
-<Container component="main" maxWidth="lg">
+        <Container component="main" maxWidth="lg">
             <Box
                 sx={{
                     marginTop: 10,
@@ -413,372 +413,372 @@ export default function Bracket() {
                 }}
             >
                 <Box>
-        <Box component="form" noValidate justifyContent="center">
-            <Grid container justifyContent="center">
-                {/* AFC Wild Card */}
-                <Grid container justifyContent="center" wrap='nowrap' sx={{ marginTop: 0 }}>
-                    <Grid>
-                        <Item>
-                            <ToggleButtonGroup {...afcWC1Control}>
-                                <ToggleButton sx={{ padding: 0 }} value={afcTeams[6]}>
-                                    <img
-                                        src={icon(afcTeams[6])}
-                                        height={50}
-                                        alt={emoji(afcTeams[6])}
-                                        loading="lazy"
-                                    />
-                                </ToggleButton>
-                                <ToggleButton sx={{ padding: 0 }} value={afcTeams[1]}>
-                                    <img
-                                        src={icon(afcTeams[1])}
-                                        height={50}
-                                        alt={emoji(afcTeams[1])}
-                                        loading="lazy"
-                                    />
-                                </ToggleButton>
-                            </ToggleButtonGroup>
-                        </Item>
-                    </Grid>
-                    <Grid>
-                        <Item>
-                            <ToggleButtonGroup {...afcWC2Control}>
-                                <ToggleButton sx={{ padding: 0 }} value={afcTeams[5]}>
-                                    <img
-                                        src={icon(afcTeams[5])}
-                                        height={50}
-                                        alt={emoji(afcTeams[5])}
-                                        loading="lazy"
-                                    />
-                                </ToggleButton>
-                                <ToggleButton sx={{ padding: 0 }} value={afcTeams[2]}>
-                                    <img
-                                        src={icon(afcTeams[2])}
-                                        height={50}
-                                        alt={emoji(afcTeams[2])}
-                                        loading="lazy"
-                                    />
-                                </ToggleButton>
-                            </ToggleButtonGroup>
-                        </Item>
-                    </Grid>
-                    <Grid>
-                        <Item>
-                            <ToggleButtonGroup {...afcWC3Control}>
-                                <ToggleButton sx={{ padding: 0 }} value={afcTeams[4]}>
-                                    <img
-                                        src={icon(afcTeams[4])}
-                                        height={50}
-                                        alt={emoji(afcTeams[4])}
-                                        loading="lazy"
-                                    />
-                                </ToggleButton>
-                                <ToggleButton sx={{ padding: 0 }} value={afcTeams[3]}>
-                                    <img
-                                        src={icon(afcTeams[3])}
-                                        height={50}
-                                        alt={emoji(afcTeams[3])}
-                                        loading="lazy"
-                                    />
-                                </ToggleButton>
-                            </ToggleButtonGroup>
-                        </Item>
-                    </Grid>
-                </Grid>
-                <Grid>
-                    <Typography variant="caption">AFC Wild Card Round - 3 points</Typography>
-                </Grid>
+                    <Box component="form" noValidate justifyContent="center">
+                        <Grid container justifyContent="center">
+                            {/* AFC Wild Card */}
+                            <Grid container justifyContent="center" wrap='nowrap' sx={{ marginTop: 0 }}>
+                                <Grid>
+                                    <Item>
+                                        <ToggleButtonGroup {...afcWC1Control}>
+                                            <ToggleButton sx={{ padding: 0 }} value={afcTeams[6]}>
+                                                <img
+                                                    src={icon(afcTeams[6])}
+                                                    height={50}
+                                                    alt={emoji(afcTeams[6])}
+                                                    loading="lazy"
+                                                />
+                                            </ToggleButton>
+                                            <ToggleButton sx={{ padding: 0 }} value={afcTeams[1]}>
+                                                <img
+                                                    src={icon(afcTeams[1])}
+                                                    height={50}
+                                                    alt={emoji(afcTeams[1])}
+                                                    loading="lazy"
+                                                />
+                                            </ToggleButton>
+                                        </ToggleButtonGroup>
+                                    </Item>
+                                </Grid>
+                                <Grid>
+                                    <Item>
+                                        <ToggleButtonGroup {...afcWC2Control}>
+                                            <ToggleButton sx={{ padding: 0 }} value={afcTeams[5]}>
+                                                <img
+                                                    src={icon(afcTeams[5])}
+                                                    height={50}
+                                                    alt={emoji(afcTeams[5])}
+                                                    loading="lazy"
+                                                />
+                                            </ToggleButton>
+                                            <ToggleButton sx={{ padding: 0 }} value={afcTeams[2]}>
+                                                <img
+                                                    src={icon(afcTeams[2])}
+                                                    height={50}
+                                                    alt={emoji(afcTeams[2])}
+                                                    loading="lazy"
+                                                />
+                                            </ToggleButton>
+                                        </ToggleButtonGroup>
+                                    </Item>
+                                </Grid>
+                                <Grid>
+                                    <Item>
+                                        <ToggleButtonGroup {...afcWC3Control}>
+                                            <ToggleButton sx={{ padding: 0 }} value={afcTeams[4]}>
+                                                <img
+                                                    src={icon(afcTeams[4])}
+                                                    height={50}
+                                                    alt={emoji(afcTeams[4])}
+                                                    loading="lazy"
+                                                />
+                                            </ToggleButton>
+                                            <ToggleButton sx={{ padding: 0 }} value={afcTeams[3]}>
+                                                <img
+                                                    src={icon(afcTeams[3])}
+                                                    height={50}
+                                                    alt={emoji(afcTeams[3])}
+                                                    loading="lazy"
+                                                />
+                                            </ToggleButton>
+                                        </ToggleButtonGroup>
+                                    </Item>
+                                </Grid>
+                            </Grid>
+                            <Grid>
+                                <Typography variant="caption">AFC Wild Card Round - 3 points</Typography>
+                            </Grid>
 
-                {/* AFC Divisional Round */}
-                <Grid container justifyContent="center" wrap='nowrap' sx={{ marginTop: 0 }}>
-                    <Grid>
-                        <Item>
-                            <ToggleButtonGroup {...afcDR1Control}>
-                                <ToggleButton sx={{ padding: 0 }} value={afcDRLast}>
-                                    <img
-                                        {...afcDRLastControl}
-                                        height={50}
-                                        loading="lazy"
-                                    />
-                                </ToggleButton>
-                                <ToggleButton sx={{ padding: 0 }} value={afcTeams[0]}>
-                                    <img
-                                        src={icon(afcTeams[0])}
-                                        height={50}
-                                        alt={emoji(afcTeams[0])}
-                                        loading="lazy"
-                                    />
-                                </ToggleButton>
-                            </ToggleButtonGroup>
-                        </Item>
-                    </Grid>
-                    <Grid>
-                        <Item>
-                            <ToggleButtonGroup {...afcDR2Control}>
-                                <ToggleButton sx={{ padding: 0 }} value={afcDRAway}>
-                                    <img
-                                        {...afcDRAwayControl}
-                                        height={50}
-                                        loading="lazy"
-                                    />
-                                </ToggleButton>
-                                <ToggleButton sx={{ padding: 0 }} value={afcDRHome}>
-                                    <img
-                                        {...afcDRHomeControl}
-                                        height={50}
-                                        loading="lazy"
-                                    />
-                                </ToggleButton>
-                            </ToggleButtonGroup>
-                        </Item>
-                    </Grid>
-                </Grid>
-                <Grid>
-                    <Typography variant="caption">AFC Divisional Round - 6 points</Typography>
-                </Grid>
+                            {/* AFC Divisional Round */}
+                            <Grid container justifyContent="center" wrap='nowrap' sx={{ marginTop: 0 }}>
+                                <Grid>
+                                    <Item>
+                                        <ToggleButtonGroup {...afcDR1Control}>
+                                            <ToggleButton sx={{ padding: 0 }} value={afcDRLast}>
+                                                <img
+                                                    {...afcDRLastControl}
+                                                    height={50}
+                                                    loading="lazy"
+                                                />
+                                            </ToggleButton>
+                                            <ToggleButton sx={{ padding: 0 }} value={afcTeams[0]}>
+                                                <img
+                                                    src={icon(afcTeams[0])}
+                                                    height={50}
+                                                    alt={emoji(afcTeams[0])}
+                                                    loading="lazy"
+                                                />
+                                            </ToggleButton>
+                                        </ToggleButtonGroup>
+                                    </Item>
+                                </Grid>
+                                <Grid>
+                                    <Item>
+                                        <ToggleButtonGroup {...afcDR2Control}>
+                                            <ToggleButton sx={{ padding: 0 }} value={afcDRAway}>
+                                                <img
+                                                    {...afcDRAwayControl}
+                                                    height={50}
+                                                    loading="lazy"
+                                                />
+                                            </ToggleButton>
+                                            <ToggleButton sx={{ padding: 0 }} value={afcDRHome}>
+                                                <img
+                                                    {...afcDRHomeControl}
+                                                    height={50}
+                                                    loading="lazy"
+                                                />
+                                            </ToggleButton>
+                                        </ToggleButtonGroup>
+                                    </Item>
+                                </Grid>
+                            </Grid>
+                            <Grid>
+                                <Typography variant="caption">AFC Divisional Round - 6 points</Typography>
+                            </Grid>
 
-                {/* AFC Championship */}
-                <Grid container justifyContent="center" wrap='nowrap' sx={{ marginTop: 0 }}>
-                    <Item>
-                        <ToggleButtonGroup {...afcCCControl}>
-                            <ToggleButton sx={{ padding: 0 }} value={afcCCAway}>
-                                <img
-                                    {...afcCCAwayControl}
-                                    height={50}
-                                    loading="lazy"
-                                />
-                            </ToggleButton>
-                            <ToggleButton sx={{ padding: 0 }} value={afcCCHome}>
-                                <img
-                                    {...afcCCHomeControl}
-                                    height={50}
-                                    loading="lazy"
-                                />
-                            </ToggleButton>
-                        </ToggleButtonGroup>
-                    </Item>
-                </Grid>
-                <Grid sx={{ marginTop: 0 }}>
-                    <Typography variant="caption">AFC Championship - 12 points</Typography>
-                </Grid>
+                            {/* AFC Championship */}
+                            <Grid container justifyContent="center" wrap='nowrap' sx={{ marginTop: 0 }}>
+                                <Item>
+                                    <ToggleButtonGroup {...afcCCControl}>
+                                        <ToggleButton sx={{ padding: 0 }} value={afcCCAway}>
+                                            <img
+                                                {...afcCCAwayControl}
+                                                height={50}
+                                                loading="lazy"
+                                            />
+                                        </ToggleButton>
+                                        <ToggleButton sx={{ padding: 0 }} value={afcCCHome}>
+                                            <img
+                                                {...afcCCHomeControl}
+                                                height={50}
+                                                loading="lazy"
+                                            />
+                                        </ToggleButton>
+                                    </ToggleButtonGroup>
+                                </Item>
+                            </Grid>
+                            <Grid sx={{ marginTop: 0 }}>
+                                <Typography variant="caption">AFC Championship - 12 points</Typography>
+                            </Grid>
 
-                {/* SuperBowl */}
-                <Grid container justifyContent="center" wrap='nowrap' sx={{ margin: 0 }}>
-                    <Grid>
-                        <Box>
-                            <img src={icon("SB")} alt="logo" style={{ maxWidth: 100 }} />
-                        </Box>
+                            {/* SuperBowl */}
+                            <Grid container justifyContent="center" wrap='nowrap' sx={{ margin: 0 }}>
+                                <Grid>
+                                    <Box>
+                                        <img src={icon("SB")} alt="logo" style={{ maxWidth: 100 }} />
+                                    </Box>
 
-                    </Grid>
-                    <Grid>
+                                </Grid>
+                                <Grid>
 
-                        <Item>
-                            <ToggleButtonGroup {...sbControl}>
-                                <ToggleButton sx={{ padding: 0 }} value={afcSB}>
-                                    <img
-                                        {...afcSBControl}
-                                        height={50}
-                                        loading="lazy"
-                                    />
-                                </ToggleButton>
-                                <ToggleButton sx={{ padding: 0 }} value={nfcSB}>
-                                    <img
-                                        {...nfcSBControl}
-                                        height={50}
-                                        loading="lazy"
-                                    />
-                                </ToggleButton>
-                            </ToggleButtonGroup>
-                        </Item>
+                                    <Item>
+                                        <ToggleButtonGroup {...sbControl}>
+                                            <ToggleButton sx={{ padding: 0 }} value={afcSB}>
+                                                <img
+                                                    {...afcSBControl}
+                                                    height={50}
+                                                    loading="lazy"
+                                                />
+                                            </ToggleButton>
+                                            <ToggleButton sx={{ padding: 0 }} value={nfcSB}>
+                                                <img
+                                                    {...nfcSBControl}
+                                                    height={50}
+                                                    loading="lazy"
+                                                />
+                                            </ToggleButton>
+                                        </ToggleButtonGroup>
+                                    </Item>
 
-                    </Grid>
-                    <Grid>
-                        <TextField
-                            {...fssControl}
-                            sx={{
-                                width: 100
-                            }}
-                            margin="normal"
-                            required
-                            id="finalscore"
-                            label="Total score"
-                            name="finalscore"
-                            type="number"
-                            size="small"
-                            value={fss}
-                            InputProps={{ inputProps: { min: 0, max: 999 } }}
-                        />
-                    </Grid>
+                                </Grid>
+                                <Grid>
+                                    <TextField
+                                        {...fssControl}
+                                        sx={{
+                                            width: 100
+                                        }}
+                                        margin="normal"
+                                        required
+                                        id="finalscore"
+                                        label="Total score"
+                                        name="finalscore"
+                                        type="number"
+                                        size="small"
+                                        value={fss}
+                                        InputProps={{ inputProps: { min: 0, max: 999 } }}
+                                    />
+                                </Grid>
 
-                </Grid>
-                <Grid>
-                    <Typography variant="caption">Super Bowl - 24 points</Typography>
-                </Grid>
+                            </Grid>
+                            <Grid>
+                                <Typography variant="caption">Super Bowl - 24 points</Typography>
+                            </Grid>
 
-                {/* NFC Championship */}
-                <Grid container justifyContent="center" wrap='nowrap' sx={{ marginTop: 0 }}>
-                    <Item>
-                        <ToggleButtonGroup {...nfcCCControl}>
-                            <ToggleButton sx={{ padding: 0 }} value={nfcCCAway}>
-                                <img
-                                    {...nfcCCAwayControl}
-                                    height={50}
-                                    alt={"NFC"}
-                                    loading="lazy"
-                                />
-                            </ToggleButton>
-                            <ToggleButton sx={{ padding: 0 }} value={nfcCCHome}>
-                                <img
-                                    {...nfcCCHomeControl}
-                                    height={50}
-                                    alt={"NFC"}
-                                    loading="lazy"
-                                />
-                            </ToggleButton>
-                        </ToggleButtonGroup>
-                    </Item>
-                </Grid>
-                <Grid>
-                    <Typography variant="caption">NFC Championship 12 points</Typography>
-                </Grid>
+                            {/* NFC Championship */}
+                            <Grid container justifyContent="center" wrap='nowrap' sx={{ marginTop: 0 }}>
+                                <Item>
+                                    <ToggleButtonGroup {...nfcCCControl}>
+                                        <ToggleButton sx={{ padding: 0 }} value={nfcCCAway}>
+                                            <img
+                                                {...nfcCCAwayControl}
+                                                height={50}
+                                                alt={"NFC"}
+                                                loading="lazy"
+                                            />
+                                        </ToggleButton>
+                                        <ToggleButton sx={{ padding: 0 }} value={nfcCCHome}>
+                                            <img
+                                                {...nfcCCHomeControl}
+                                                height={50}
+                                                alt={"NFC"}
+                                                loading="lazy"
+                                            />
+                                        </ToggleButton>
+                                    </ToggleButtonGroup>
+                                </Item>
+                            </Grid>
+                            <Grid>
+                                <Typography variant="caption">NFC Championship 12 points</Typography>
+                            </Grid>
 
-                {/* NFC Divisional Round */}
-                <Grid container justifyContent="center" wrap='nowrap' sx={{ marginTop: 0 }}>
-                    <Grid>
-                        <Item>
-                            <ToggleButtonGroup {...nfcDR1Control}>
-                                <ToggleButton sx={{ padding: 0 }} value={nfcDRLast}>
-                                    <img
-                                        {...nfcDRLastControl}
-                                        height={50}
-                                        loading="lazy"
-                                    />
-                                </ToggleButton>
-                                <ToggleButton sx={{ padding: 0 }} value={nfcTeams[0]}>
-                                    <img
-                                        src={icon(nfcTeams[0])}
-                                        height={50}
-                                        alt={emoji(nfcTeams[0])}
-                                        loading="lazy"
-                                    />
-                                </ToggleButton>
-                            </ToggleButtonGroup>
-                        </Item>
-                    </Grid>
-                    <Grid>
-                        <Item>
-                            <ToggleButtonGroup {...nfcDR2Control}>
-                                <ToggleButton sx={{ padding: 0 }} value={nfcDRAway}>
-                                    <img
-                                        {...nfcDRAwayControl}
-                                        height={50}
-                                        loading="lazy"
-                                    />
-                                </ToggleButton>
-                                <ToggleButton sx={{ padding: 0 }} value={nfcDRHome}>
-                                    <img
-                                        {...nfcDRHomeControl}
-                                        height={50}
-                                        loading="lazy"
-                                    />
-                                </ToggleButton>
-                            </ToggleButtonGroup>
+                            {/* NFC Divisional Round */}
+                            <Grid container justifyContent="center" wrap='nowrap' sx={{ marginTop: 0 }}>
+                                <Grid>
+                                    <Item>
+                                        <ToggleButtonGroup {...nfcDR1Control}>
+                                            <ToggleButton sx={{ padding: 0 }} value={nfcDRLast}>
+                                                <img
+                                                    {...nfcDRLastControl}
+                                                    height={50}
+                                                    loading="lazy"
+                                                />
+                                            </ToggleButton>
+                                            <ToggleButton sx={{ padding: 0 }} value={nfcTeams[0]}>
+                                                <img
+                                                    src={icon(nfcTeams[0])}
+                                                    height={50}
+                                                    alt={emoji(nfcTeams[0])}
+                                                    loading="lazy"
+                                                />
+                                            </ToggleButton>
+                                        </ToggleButtonGroup>
+                                    </Item>
+                                </Grid>
+                                <Grid>
+                                    <Item>
+                                        <ToggleButtonGroup {...nfcDR2Control}>
+                                            <ToggleButton sx={{ padding: 0 }} value={nfcDRAway}>
+                                                <img
+                                                    {...nfcDRAwayControl}
+                                                    height={50}
+                                                    loading="lazy"
+                                                />
+                                            </ToggleButton>
+                                            <ToggleButton sx={{ padding: 0 }} value={nfcDRHome}>
+                                                <img
+                                                    {...nfcDRHomeControl}
+                                                    height={50}
+                                                    loading="lazy"
+                                                />
+                                            </ToggleButton>
+                                        </ToggleButtonGroup>
 
-                        </Item>
-                    </Grid>
-                </Grid>
-                <Grid>
-                    <Typography variant="caption">NFC Divisional Round - 6 points</Typography>
-                </Grid>
+                                    </Item>
+                                </Grid>
+                            </Grid>
+                            <Grid>
+                                <Typography variant="caption">NFC Divisional Round - 6 points</Typography>
+                            </Grid>
 
-                {/* NFC Wild Card */}
-                <Grid container justifyContent="center" wrap='nowrap' sx={{ marginTop: 0 }}>
-                    <Grid>
-                        <Item>
-                            <ToggleButtonGroup {...nfcWC1Control}>
-                                <ToggleButton sx={{ padding: 0 }} value={nfcTeams[6]}>
-                                    <img
-                                        src={icon(nfcTeams[6])}
-                                        height={50}
-                                        alt={emoji(nfcTeams[6])}
-                                        loading="lazy"
-                                    />
-                                </ToggleButton>
-                                <ToggleButton sx={{ padding: 0 }} value={nfcTeams[1]}>
-                                    <img
-                                        src={icon(nfcTeams[1])}
-                                        height={50}
-                                        alt={emoji(nfcTeams[1])}
-                                        loading="lazy"
-                                    />
-                                </ToggleButton>
-                            </ToggleButtonGroup>
-                        </Item>
-                    </Grid>
-                    <Grid>
-                        <Item>
-                            <ToggleButtonGroup {...nfcWC2Control}>
-                                <ToggleButton sx={{ padding: 0 }} value={nfcTeams[5]}>
-                                    <img
-                                        src={icon(nfcTeams[5])}
-                                        height={50}
-                                        alt={emoji(nfcTeams[5])}
-                                        loading="lazy"
-                                    />
-                                </ToggleButton>
-                                <ToggleButton sx={{ padding: 0 }} value={nfcTeams[2]}>
-                                    <img
-                                        src={icon(nfcTeams[2])}
-                                        height={50}
-                                        alt={emoji(nfcTeams[2])}
-                                        loading="lazy"
-                                    />
-                                </ToggleButton>
-                            </ToggleButtonGroup>
-                        </Item>
-                    </Grid>
-                    <Grid>
-                        <Item>
-                            <ToggleButtonGroup {...nfcWC3Control}>
-                                <ToggleButton sx={{ padding: 0 }} value={nfcTeams[4]}>
-                                    <img
-                                        src={icon(nfcTeams[4])}
-                                        height={50}
-                                        alt={emoji(nfcTeams[4])}
-                                        loading="lazy"
-                                    />
-                                </ToggleButton>
-                                <ToggleButton sx={{ padding: 0 }} value={nfcTeams[3]}>
-                                    <img
-                                        src={icon(nfcTeams[3])}
-                                        height={50}
-                                        alt={emoji(nfcTeams[3])}
-                                        loading="lazy"
-                                    />
-                                </ToggleButton>
-                            </ToggleButtonGroup>
-                        </Item>
-                    </Grid>
-                </Grid>
-                <Grid>
-                    <Typography variant="caption">NFC Wild Card Round - 3 points</Typography>
-                </Grid>
-            </Grid>
-            <Grid display="flex" justifyContent="center">
-                <Button
-                    type="submit"
-                    variant="contained"
-                    sx={{ mt: 3, mb: 2 }}
-                    onClick={onSubmit}
-                >
-                    Save
-                </Button>
-            </Grid>
-            <Grid display="flex" justifyContent="center">
-                <Typography variant="caption">{errMsg}</Typography>
-            </Grid>
-        </Box>
+                            {/* NFC Wild Card */}
+                            <Grid container justifyContent="center" wrap='nowrap' sx={{ marginTop: 0 }}>
+                                <Grid>
+                                    <Item>
+                                        <ToggleButtonGroup {...nfcWC1Control}>
+                                            <ToggleButton sx={{ padding: 0 }} value={nfcTeams[6]}>
+                                                <img
+                                                    src={icon(nfcTeams[6])}
+                                                    height={50}
+                                                    alt={emoji(nfcTeams[6])}
+                                                    loading="lazy"
+                                                />
+                                            </ToggleButton>
+                                            <ToggleButton sx={{ padding: 0 }} value={nfcTeams[1]}>
+                                                <img
+                                                    src={icon(nfcTeams[1])}
+                                                    height={50}
+                                                    alt={emoji(nfcTeams[1])}
+                                                    loading="lazy"
+                                                />
+                                            </ToggleButton>
+                                        </ToggleButtonGroup>
+                                    </Item>
+                                </Grid>
+                                <Grid>
+                                    <Item>
+                                        <ToggleButtonGroup {...nfcWC2Control}>
+                                            <ToggleButton sx={{ padding: 0 }} value={nfcTeams[5]}>
+                                                <img
+                                                    src={icon(nfcTeams[5])}
+                                                    height={50}
+                                                    alt={emoji(nfcTeams[5])}
+                                                    loading="lazy"
+                                                />
+                                            </ToggleButton>
+                                            <ToggleButton sx={{ padding: 0 }} value={nfcTeams[2]}>
+                                                <img
+                                                    src={icon(nfcTeams[2])}
+                                                    height={50}
+                                                    alt={emoji(nfcTeams[2])}
+                                                    loading="lazy"
+                                                />
+                                            </ToggleButton>
+                                        </ToggleButtonGroup>
+                                    </Item>
+                                </Grid>
+                                <Grid>
+                                    <Item>
+                                        <ToggleButtonGroup {...nfcWC3Control}>
+                                            <ToggleButton sx={{ padding: 0 }} value={nfcTeams[4]}>
+                                                <img
+                                                    src={icon(nfcTeams[4])}
+                                                    height={50}
+                                                    alt={emoji(nfcTeams[4])}
+                                                    loading="lazy"
+                                                />
+                                            </ToggleButton>
+                                            <ToggleButton sx={{ padding: 0 }} value={nfcTeams[3]}>
+                                                <img
+                                                    src={icon(nfcTeams[3])}
+                                                    height={50}
+                                                    alt={emoji(nfcTeams[3])}
+                                                    loading="lazy"
+                                                />
+                                            </ToggleButton>
+                                        </ToggleButtonGroup>
+                                    </Item>
+                                </Grid>
+                            </Grid>
+                            <Grid>
+                                <Typography variant="caption">NFC Wild Card Round - 3 points</Typography>
+                            </Grid>
+                        </Grid>
+                        <Grid display="flex" justifyContent="center">
+                            <Button
+                                type="submit"
+                                variant="contained"
+                                sx={{ mt: 3, mb: 2 }}
+                                onClick={onSubmit}
+                            >
+                                Save
+                            </Button>
+                        </Grid>
+                        <Grid display="flex" justifyContent="center">
+                            <Typography variant="caption">{errMsg}</Typography>
+                        </Grid>
+                    </Box>
 
-        </Box>
+                </Box>
             </Box>
         </Container >
     );
