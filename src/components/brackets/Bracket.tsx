@@ -26,9 +26,9 @@ export default function Bracket() {
         "Patriots",
         "Jaguars",
         "Steelers",
-        "Chargers",
+        "Texans",
         "Bills",
-        "Texans"
+        "Chargers"
     ];
 
     const nfcTeams = [
@@ -36,8 +36,8 @@ export default function Bracket() {
         "Bears",
         "Eagles",
         "Panthers",
-        "49ers",
         "Rams",
+        "49ers",
         "Packers"
     ];
     const [errMsg, setErrMsg] = useState('');
@@ -97,12 +97,12 @@ export default function Bracket() {
     const handleSBChange = (event: React.MouseEvent<HTMLElement>, newAlignment: string,) => { console.log(`called handleSBChange  and the value is: ${newAlignment}`); setSBWinner(newAlignment); };
     const handleFss = (event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => { setFss(parseInt(event.target.value)); };
 
-    const afcWC1Control = { value: afcWC1Winner, onChange: handleAfcWC1Change, exclusive: true,disabled: true  };
-    const afcWC2Control = { value: afcWC2Winner, onChange: handleAfcWC2Change, exclusive: true,disabled: true  };
-    const afcWC3Control = { value: afcWC3Winner, onChange: handleAfcWC3Change, exclusive: true,disabled: true  };
-    const nfcWC1Control = { value: nfcWC1Winner, onChange: handleNfcWC1Change, exclusive: true,disabled: true  };
-    const nfcWC2Control = { value: nfcWC2Winner, onChange: handleNfcWC2Change, exclusive: true,disabled: true  };
-    const nfcWC3Control = { value: nfcWC3Winner, onChange: handleNfcWC3Change, exclusive: true,disabled: true  };
+    const afcWC1Control = { value: afcWC1Winner, onChange: handleAfcWC1Change, exclusive: true, disabled: true };
+    const afcWC2Control = { value: afcWC2Winner, onChange: handleAfcWC2Change, exclusive: true, disabled: true };
+    const afcWC3Control = { value: afcWC3Winner, onChange: handleAfcWC3Change, exclusive: true, disabled: true };
+    const nfcWC1Control = { value: nfcWC1Winner, onChange: handleNfcWC1Change, exclusive: true, disabled: true };
+    const nfcWC2Control = { value: nfcWC2Winner, onChange: handleNfcWC2Change, exclusive: true, disabled: true };
+    const nfcWC3Control = { value: nfcWC3Winner, onChange: handleNfcWC3Change, exclusive: true, disabled: true };
 
     const afcDR1Control = { value: afcDR1Winner, onChange: handleAfcDR1Change, exclusive: true, disabled: true };
     const afcDR2Control = { value: afcDR2Winner, onChange: handleAfcDR2Change, exclusive: true, disabled: true };

@@ -30,9 +30,9 @@ export default function ViewBracket() {
         "Patriots",
         "Jaguars",
         "Steelers",
-        "Chargers",
+        "Texans",
         "Bills",
-        "Texans"
+        "Chargers"
     ];
 
     const nfcTeams = [
@@ -40,8 +40,8 @@ export default function ViewBracket() {
         "Bears",
         "Eagles",
         "Panthers",
-        "49ers",
         "Rams",
+        "49ers",
         "Packers"
     ];
 
